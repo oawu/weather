@@ -3,7 +3,11 @@
  * @copyright   Copyright (c) 2015 OA Wu Design
  */
 
-@mixin loading ($dimension: 70px,$loadingWeight: 6px) {
+@mixin loading ($background: none, $dimension: 70px,$loadingWeight: 6px) {
+  @if $background == none {
+    $background: $mainBackgroundColor $mainBackgroundImage;
+  }
+
   position: relative;
   display: inline-block;
   width: $dimension;
@@ -37,7 +41,7 @@
     height: calc(100% - #{$loadingWeight} * 2);
     top: $loadingWeight;
     left: $loadingWeight;
-    background: $mainBackgroundColor $mainBackgroundImage;
+    background: $background;
 
     @include border-radius(50%);
     @include box-shadow(0 0 5px rgba(68, 68, 68, 0.7), inset 0 0 5px rgba(255, 255, 255, 0.475));

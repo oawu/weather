@@ -1,0 +1,92 @@
+/**
+ * @author      OA Wu <comdan66@gmail.com>
+ * @copyright   Copyright (c) 2015 OA Wu Design
+ */
+
+@import "_oa";
+
+.login {
+  display: inline-block;
+  max-width: 480px;
+  width: 100%;
+  margin: 50px auto;
+  margin-top: 80px;
+  padding: 30px;
+  background-color: rgba(255, 255, 255, .9);
+  background: image-url('bg/lightgrunge.png', false, false);
+  border: 1px solid rgba(39, 40, 34, .125);
+
+  @include paper();
+  @include border-radius(3px);
+  @include box-shadow(0 4px 8px rgba(0,0,0,.175));
+
+  h2 {
+    margin-top: 0;
+    margin-bottom: 30px;
+    padding-bottom: 15px;
+    border-bottom: 4px solid rgba(39, 40, 34, .1);
+  }
+  .row {
+    &:not(:first-child) {
+      margin-top: 15px;
+    }
+
+    &.split-left {
+      padding: 0 50px;
+      @include split-left(90px);
+
+      .l, .r {
+        padding: 4px;
+      }
+      .l {
+        margin-top: 1px;
+        text-align: left;
+
+        &:after {
+          content: ":";
+        }
+      }
+      .r {
+        text-align: left;
+        @include input();
+        width: calc(100% - 90px);
+      }
+    }
+    &.split-right {
+      border-top: 1px solid rgba(81, 81, 81, .3);
+      margin-top: 35px;
+      padding: 20px 20px 0 20px;
+      @include split-right(50%);
+
+      .l, .r {
+        padding: 4px;
+      }
+      .l {
+        text-align: center;
+        color: rgba(50, 50, 50, 0.8);
+        a {
+          @include a();
+          padding: 0 15px;
+          font-size: 13px;
+          + a {
+            margin-top: 10px;
+          }
+        }
+      }
+      .r {
+        margin-top: 8px;
+        text-align: right;
+
+        button {
+          @include button();
+        }
+      }
+    }
+    &.error {
+      margin-top: 30px;
+      padding: 10px;
+      border: 1px solid rgba(255, 0, 0, .3);
+      @include alert('danger', false);
+    }
+  }
+}

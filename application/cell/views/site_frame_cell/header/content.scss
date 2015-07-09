@@ -1,0 +1,223 @@
+/**
+ * @author      OA Wu <comdan66@gmail.com>
+ * @copyright   Copyright (c) 2015 OA Wu Design
+ */
+
+@import "_oa";
+
+$borderBottomWidth: 3px;
+$navbarHeight: 35px;
+
+body {
+  padding-top: $navbarHeight + 20px;
+}
+
+#header {
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  display: inline-block;
+  width: 100%;
+  height: $navbarHeight;
+
+  text-align: center;
+
+
+  background-color: rgba(251, 120, 83, 1);
+  border-bottom: 1px solid rgba(233, 121, 90, 1);
+  // background: image-url('bg/lightgrunge.png', false, false);
+
+  z-index: 999;
+  @include opacity(.9);
+  @include box-shadow(0 0 5px rgba(245, 150, 122, 1));
+
+  > div {
+    display: inline-block;
+    margin: 0 auto;
+    max-width: $mainWidth;
+    width: 100%;
+    @include split-right(150px);
+
+    .l, .r {
+      height: 100%;
+      text-align: left;
+      @include clearfix();
+
+      a {
+        display: inline-block;
+        float: left;
+        line-height: $navbarHeight - $borderBottomWidth;
+        padding: 0 10px;
+        @include a(rgba(255, 255, 255, .9), rgba(255, 255, 255, 1));
+
+        border-bottom-width: $borderBottomWidth;
+        border-color: transparent;
+
+        &.active, &:hover {
+          border-bottom-width: $borderBottomWidth;
+          border-color: rgba(255, 255, 255, .9);
+        }
+        &.active {
+          color: rgba(255, 255, 255, 1);
+          border-color: rgba(255, 255, 255, 1);
+        }
+      }
+    }
+    .l {
+      a {
+        + a {
+          margin-left: 10px;
+        }
+      }
+    }
+    .r {
+      a {
+        float: right;
+        + a {
+          margin-right: 10px;
+        }
+      }
+    }
+  }
+}
+
+#pop_up {
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: inline-block;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(39, 40, 34, .7);
+  text-align: center;
+  z-index: 9999;
+
+  @media screen and (min-width: 0px) and (max-width: 559px) {
+    padding: 20px;
+  }
+  @media screen and (min-width: 560px) {
+    padding: 100px;
+  }
+
+  &.hide {
+    display: none;
+  }
+
+  .paper {
+    position: relative;
+    display: inline-block;
+    max-width: 560px;
+    width: 100%;
+    max-height: 100%;
+    margin: 0 auto;
+    border: 1px solid rgba(103, 103, 103, 0.5);
+    background-color: rgba(255, 255, 255, 1);
+    padding: 20px;
+    overflow-y: auto;
+
+    text-align: center;
+
+    @include border-radius(3px);
+    @include box-shadow(0 1px 10px 0 rgba(103, 103, 103, 0.6));
+
+    h2 {
+      text-align: center;
+      border-bottom: 5px solid rgba(39, 40, 34, .2);
+      padding-bottom: 10px;
+      @media screen and (min-width: 0px) and (max-width: 559px) {
+        margin-top: 0;
+      }
+    }
+
+    .pop_up {
+      display: inline-block;
+      margin: 0 auto;
+      max-width: 4800px;
+      width: 100%;
+
+      a {
+        @include a();
+      }
+
+      @media screen and (min-width: 0px) and (max-width: 559px) {
+        .i {
+          text-align: left;
+          padding-left: 5px;
+
+          + .i {
+            margin-top: 10px;
+          }
+          .l {
+            font-weight: bold;
+            font-size: 13px;
+          }
+          .r {
+            margin-top: 2px;
+            padding-left: 5px;
+            &, a {
+              font-size: 12px;
+            }
+
+            &:before {
+              content: "→";
+              color: rgba(39, 40, 34, .3);
+              margin-right: 3px;
+            }
+          }
+        }
+      }
+
+      @media screen and (min-width: 560px) {
+        .i {
+          display: block;
+          width: 100%;
+
+          @include split-left(50%);
+          .l, .r {
+            padding: 5px 0;
+          }
+          .l {
+            font-weight: bold;
+            text-align: right;
+
+            &:after {
+              content: ":";
+              color: rgba(39, 40, 34, .3);
+              margin-left: 3px;
+              margin-right: 8px;
+            }
+          }
+          .r {
+            text-align: left;
+
+          }
+        }
+      }
+    }
+
+    .close {
+      position: absolute;
+      top: 0;
+      right: 0;
+      display: inline-block;
+      width: 30px;
+      height: 32px;
+      font-size: 20px;
+      line-height: 30px;
+      text-align: center;
+      background-color: rgba(39, 40, 34, 1);
+      color: rgba(255, 255, 255, .6);
+      overflow: hidden;
+      cursor: pointer;
+
+      @include transition(all .3s);
+      @include box-shadow(0 0 10px rgba(20, 20, 20, .5));
+
+      &:hover {
+        color: rgba(255, 255, 255, .9);
+        @include box-shadow(0 0 15px rgba(20, 20, 20, .85));
+      }
+    }
+  }
+}

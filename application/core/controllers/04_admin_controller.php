@@ -17,7 +17,7 @@ class Admin_controller extends Oa_controller {
          ->set_content_path ('content', 'admin')
          ->set_public_path ('public')
 
-         ->set_title ("OA's CI")
+         ->set_title ("Weather Maps")
 
          ->_add_meta ()
          ->_add_css ()
@@ -35,7 +35,6 @@ class Admin_controller extends Oa_controller {
 
   private function _add_js () {
     return $this->add_js (base_url ('resource', 'javascript', 'jquery_v1.10.2', 'jquery-1.10.2.min.js'))
-                ->add_js (base_url ('resource', 'javascript', 'jquery-rails_d2015_03_09', 'jquery_ujs.js'))
                 ;
   }
 }

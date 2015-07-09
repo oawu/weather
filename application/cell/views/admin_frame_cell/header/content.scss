@@ -1,0 +1,80 @@
+/**
+ * @author      OA Wu <comdan66@gmail.com>
+ * @copyright   Copyright (c) 2015 OA Wu Design
+ */
+
+@import "_oa";
+
+$borderBottomWidth: 3px;
+$navbarHeight: 35px;
+
+body {
+  padding-top: $navbarHeight + 30px;
+}
+
+#header {
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  display: inline-block;
+  width: 100%;
+  height: $navbarHeight;
+
+  text-align: center;
+
+
+  background-color: rgba(255, 255, 255, .9);
+  background: image-url('bg/lightgrunge.png', false, false);
+
+  z-index: 999;
+  @include opacity(.9);
+  @include box-shadow(0 0 5px rgba(0, 0, 0, 0.8));
+
+  > div {
+    display: inline-block;
+    margin: 0 auto;
+    width: $mainWidth;
+    @include split-right(200px);
+
+    .l, .r {
+      height: 100%;
+      text-align: left;
+      @include clearfix();
+
+      a {
+        display: inline-block;
+        float: left;
+        line-height: $navbarHeight - $borderBottomWidth;
+        padding: 0 10px;
+        @include a(rgba(42, 90, 149, 0.7), rgba(12, 65, 109, .85));
+
+        border-bottom-width: $borderBottomWidth;
+        border-color: transparent;
+
+        &.active, &:hover {
+          border-bottom-width: $borderBottomWidth;
+          border-color: rgba(12, 65, 109, .8);
+        }
+        &.active {
+          color: rgba(12, 65, 109, 1);
+        }
+      }
+    }
+    .l {
+      a {
+        + a {
+          margin-left: 10px;
+        }
+      }
+    }
+    .r {
+      a {
+        float: right;
+        + a {
+          margin-right: 10px;
+        }
+      }
+    }
+  }
+}
