@@ -94,7 +94,7 @@ $(function () {
     ]);
 
     var option = {
-        zoom: 14,
+        zoom: 13,
         minZoom: 7,
         scaleControl: true,
         navigationControl: true,
@@ -103,7 +103,7 @@ $(function () {
         zoomControl: true,
         scrollwheel: true,
         streetViewControl: false,
-        center: new google.maps.LatLng (25.18355034893072, 121.40529535710812),
+        center: new google.maps.LatLng (25.022073145389157, 121.54706954956055),
       };
 
     _map = new google.maps.Map ($map.get (0), option);
