@@ -4,6 +4,9 @@
   <div class="map">
     <i></i><i></i><i></i><i></i>
     <div id='map'></div>
+    <div class='hint'>
+      <img src='/resource/image/spotlight-poi-blue.png' /> <span>表示已存在景點</span>
+    </div>
     <div class='error<?php echo isset ($message) && $message ? ' show':''; ?>'>
 <?php if (isset ($message) && $message) { ?>
         <?php echo $message;?>

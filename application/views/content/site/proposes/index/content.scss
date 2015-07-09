@@ -61,10 +61,41 @@
       &:nth-child(3) { bottom: -4px; left: 0; height: 5px; border: 1px solid rgba(255, 255, 255, .9); @include box-shadow(0 0 10px rgba(0, 0, 0, 0.2)); }
       &:nth-child(4) { border: 1px solid rgba(255, 255, 255, .5); top: 0; left: -5px; width: 5px; }
     }
+    .hint {
+      position: absolute;
+      bottom: 55px;
+      @media screen and (min-width: 0px) and (max-width: #{$mediaMobileWidth - 1px}) {
+        bottom: 40px;
+      }
+      right: -10px;
+      display: inline-block;
+      width: 150px;
+      text-align: left;
+      padding: 8px;
+      vertical-align: middle;
+      border: 1px solid rgba(39, 40, 34, .3);
+      background-color: rgba(255, 255, 255, .8);
+      font-size: small;
+      @include border-radius(4px);
+      @include transition(all .5s cubic-bezier(0.560, 1.095, 0.710, 0.980));
+      @include box-shadow(0 0 15px 1px rgba(0, 0, 0, 0.2));
+
+      img {
+        position: absolute;
+        top: -20px;
+        left: 10px;
+      }      
+      span {
+        margin-left: 30px;
+      }
+    }
     .input_bar, .latlng_bar {
       position: absolute;
       display: inline-block;
       width: calc(100% - 80px);
+      @media screen and (min-width: 0px) and (max-width: #{$mediaMobileWidth - 1px}) {
+        width: 100%;
+      }
       height: 50px;
       top: 0;
       right: 0;
@@ -100,6 +131,9 @@
       top: auto;
       bottom: -100%;
       right: 0;
+      @media screen and (min-width: 0px) and (max-width: #{$mediaMobileWidth - 1px}) {
+        height: 35px;
+      }
       @include split-right(50%);
       @include transition(all .3s);
 
@@ -112,6 +146,9 @@
         padding-top: 10px; 
         text-align: center;
         @include overflow-docx3();
+        @media screen and (min-width: 0px) and (max-width: #{$mediaMobileWidth - 1px}) {
+          font-size: small;
+        }
       }
     }
   }
