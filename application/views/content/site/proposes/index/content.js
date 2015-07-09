@@ -5,7 +5,6 @@
 
 $(function () {
   var $map = $('#map');
-  var $loadingData = $('.map .loading_data');
   var $loading = $('<div />').attr ('id', 'loading')
                              .append ($('<div />'))
                              .appendTo ('#container');
@@ -14,8 +13,8 @@ $(function () {
   var $latlng_bar = $('#latlng_bar');
   
   var _map = null;
-  var _markers = [];
   var _marker = null;
+  var _markers = [];
   var _isGetPictures = false;
   var _getPicturesTimer = null;
 
@@ -30,7 +29,6 @@ $(function () {
       if (_isGetPictures)
         return;
       
-      $loadingData.addClass ('show');
       _isGetPictures = true;
 
       var northEast = _map.getBounds().getNorthEast ();
@@ -39,7 +37,8 @@ $(function () {
       $.ajax ({
         url: $('#get_weathers_url').val (),
         data: { NorthEast: {latitude: northEast.lat (), longitude: northEast.lng ()},
-                SouthWest: {latitude: southWest.lat (), longitude: southWest.lng ()},  },
+                SouthWest: {latitude: southWest.lat (), longitude: southWest.lng ()}
+              },
         async: true, cache: false, dataType: 'json', type: 'POST',
         beforeSend: function () {}
       })
@@ -72,7 +71,6 @@ $(function () {
 
           _markers = _markers.filter (function (t) { return $.inArray (t.id, delete_ids) == -1; }).concat (markers.filter (function (t) { return $.inArray (t.id, add_ids) != -1; }));
 
-          $loadingData.removeClass ('show');
           _isGetPictures = false;
         }
       })

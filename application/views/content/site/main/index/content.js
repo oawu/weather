@@ -35,7 +35,8 @@ $(function () {
       $.ajax ({
         url: $('#get_weathers_url').val (),
         data: { NorthEast: {latitude: northEast.lat (), longitude: northEast.lng ()},
-                SouthWest: {latitude: southWest.lat (), longitude: southWest.lng ()},  },
+                SouthWest: {latitude: southWest.lat (), longitude: southWest.lng ()}
+              },
         async: true, cache: false, dataType: 'json', type: 'POST',
         beforeSend: function () {}
       })
