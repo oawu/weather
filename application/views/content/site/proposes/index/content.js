@@ -11,6 +11,7 @@ $(function () {
                              .appendTo ('#container');
   var $lat = $('#lat');
   var $lng = $('#lng');
+  var $latlng_bar = $('#latlng_bar');
   
   var _map = null;
   var _marker = null;
@@ -59,6 +60,9 @@ $(function () {
   };
 
   function updateLatLng (position) {
+    if (!$latlng_bar.hasClass ('show'))
+      $latlng_bar.addClass ('show');
+    
     $lat.text ('緯度：' + position.lat ()).data ('val', position.lat ());
     $lng.text ('經度：' + position.lng ()).data ('val', position.lng ());
     mapGo (position);
@@ -145,7 +149,7 @@ $(function () {
         icon: '/resource/image/spotlight-poi-blue.png'
       });
     });
-
+    
     $loading.fadeOut (function () {
       $(this).hide (function () {
         $(this).remove ();

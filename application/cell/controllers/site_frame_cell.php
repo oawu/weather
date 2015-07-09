@@ -14,6 +14,7 @@ class Site_frame_cell extends Cell_Controller {
   public function header () {
     $left_links = array (
         array ('name' => '首頁', 'href' => base_url (), 'is_login' => false),
+        array ('name' => '推薦', 'href' => base_url ('proposes'), 'is_login' => false),
       );
     $right_links = array (
         array ('name' => '更多', 'id' => 'more', 'href' => '#', 'is_login' => false),

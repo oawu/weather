@@ -117,12 +117,11 @@ $(function () {
     });
 
     if ($lat.data ('val') && $lng.data ('val')) {
-      _map.setCenter (new google.maps.LatLng ($lat.data ('val'), $lng.data ('val')))
+      _map.setCenter (new google.maps.LatLng ($lat.data ('val'), $lng.data ('val')));
       initMarker (_map.center);
     }
     
     $('#fm').submit (function () {
-      console.error (!($lat.data ('val') && $lng.data ('val')));
       if (!($lat.data ('val') && $lng.data ('val'))) {
         $('.error').text ('請點選地圖，選擇地點！').addClass ('show');
         return false;
