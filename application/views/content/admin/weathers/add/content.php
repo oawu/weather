@@ -1,5 +1,8 @@
-<?php echo render_cell ('admin_frame_cell', 'header');?>
-
+<?php echo render_cell ('admin_frame_cell', 'header');
+  foreach (Weather::all () as $weather) { ?>
+    <input type='hidden' class='weathers' value='<?php echo $weather->title;?>' data-lat='<?php echo $weather->latitude;?>' data-lng='<?php echo $weather->longitude;?>' />
+<?php
+  } ?>
 <div id='container'>
   <div class="map">
     <i></i><i></i><i></i><i></i>

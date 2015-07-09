@@ -34,6 +34,7 @@ class Weathers extends Admin_controller {
     $longitude = identity ()->get_session ('longitude', true);
 
     $this->add_js ('https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&language=zh-TW', false)
+         ->add_js (base_url ('resource', 'javascript', 'markerwithlabel_d2015_06_28', 'markerwithlabel.js'))
          ->load_view (array (
         'weather' => $weather,
         'message' => $message,
@@ -84,6 +85,7 @@ class Weathers extends Admin_controller {
     $longitude = identity ()->get_session ('longitude', true);
 
     $this->add_js ('https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&language=zh-TW', false)
+         ->add_js (base_url ('resource', 'javascript', 'markerwithlabel_d2015_06_28', 'markerwithlabel.js'))
          ->load_view (array (
         'message' => $message,
         'title' => $title,

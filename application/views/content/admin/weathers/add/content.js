@@ -18,9 +18,50 @@ $(function () {
   Array.prototype.diff = function (a) {
     return this.filter (function (i) { return a.map (function (t) { return t.id; }).indexOf (i.id) < 0; });
   };
+
+  var getUnit = function (will, now) {
+    var addLat = will.lat () - now.lat ();
+    var addLng = will.lng () - now.lng ();
+    var aveAdd = ((Math.abs (addLat) + Math.abs (addLng)) / 2);
+    var unit = aveAdd < 10 ? aveAdd < 1 ? aveAdd < 0.1 ? aveAdd < 0.01 ? aveAdd < 0.001 ? aveAdd < 0.0001 ? 3 : 6 : 9 : 12 : 15 : 24 : 21;
+    var lat = addLat / unit;
+    var lng = addLng / unit;
+
+    if (!((Math.abs (lat) > 0) || (Math.abs (lng) > 0)))
+      return null;
+
+    return {
+      unit: unit,
+      lat: lat,
+      lng: lng
+    };
+  };
+  var mapMove = function (unitLat, unitLng, unitCount, unit, callback) {
+    if (unit > unitCount) {
+      _map.setCenter (new google.maps.LatLng (_map.getCenter ().lat () + unitLat, _map.getCenter ().lng () + unitLng));
+      setTimeout (function () {
+        mapMove (unitLat, unitLng, unitCount + 1, unit, callback);
+      }, 50);
+    } else {
+      if (callback)
+        callback ();
+    }
+  };
+
+  var mapGo = function (will, callback) {
+    var now = _map.getCenter ();
+
+    var Unit = getUnit (will, now);
+    if (!Unit)
+      return false;
+
+    mapMove (Unit.lat, Unit.lng, 0, Unit.unit, callback);
+  };
+
   function updateLatLng (position) {
     $lat.text ('緯度：' + position.lat ()).data ('val', position.lat ());
     $lng.text ('經度：' + position.lng ()).data ('val', position.lng ());
+    mapGo (position);
   }
   function initMarker (position) {
     updateLatLng (position);
@@ -75,8 +116,10 @@ $(function () {
       initMarker (e.latLng);
     });
 
-    if ($lat.data ('val') && $lng.data ('val'))
-      initMarker (new google.maps.LatLng ($lat.data ('val'), $lng.data ('val')));
+    if ($lat.data ('val') && $lng.data ('val')) {
+      _map.setCenter (new google.maps.LatLng ($lat.data ('val'), $lng.data ('val')))
+      initMarker (_map.center);
+    }
     
     $('#fm').submit (function () {
       console.error (!($lat.data ('val') && $lng.data ('val')));
@@ -90,6 +133,20 @@ $(function () {
       return true;
     });
 
+    $('.weathers').map (function () {
+      new MarkerWithLabel ({
+        position: new google.maps.LatLng ($(this).data ('lat'), $(this).data ('lng')),
+        draggable: false,
+        raiseOnDrag: false,
+        clickable: true,
+        labelContent: $(this).val (),
+        labelAnchor: new google.maps.Point (50, 0),
+        labelClass: "marker_label",
+        map: _map,
+        icon: '/resource/image/spotlight-poi-blue.png'
+      });
+    });
+    
     $loading.fadeOut (function () {
       $(this).hide (function () {
         $(this).remove ();

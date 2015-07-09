@@ -111,6 +111,18 @@
   }
 }
 
+.marker_label {
+  border: 1px solid rgba(39, 40, 34, .4);
+  background-color: rgba(255, 255, 255, .8);
+  padding: 3px 5px;
+  width: 100px;
+  font-size: medium;
+  @include opacity(.9);
+  @include overflow-docx3();
+  @include border-radius(3px);
+  @include transition(all .3s);
+  @include box-shadow(0 0 15px 1px rgba(0, 0, 0, 0.3));
+}
 #loading {
   position: fixed;
   top: 30px;

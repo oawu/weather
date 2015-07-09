@@ -61,7 +61,6 @@ $(function () {
   function updateLatLng (position) {
     $lat.text ('緯度：' + position.lat ()).data ('val', position.lat ());
     $lng.text ('經度：' + position.lng ()).data ('val', position.lng ());
-    // _map.setCenter (position);
     mapGo (position);
   }
   function initMarker (position) {
@@ -134,6 +133,20 @@ $(function () {
       return true;
     });
 
+    $('.weathers').map (function () {
+      new MarkerWithLabel ({
+        position: new google.maps.LatLng ($(this).data ('lat'), $(this).data ('lng')),
+        draggable: false,
+        raiseOnDrag: false,
+        clickable: true,
+        labelContent: $(this).val (),
+        labelAnchor: new google.maps.Point (50, 0),
+        labelClass: "marker_label",
+        map: _map,
+        icon: '/resource/image/spotlight-poi-blue.png'
+      });
+    });
+    
     $loading.fadeOut (function () {
       $(this).hide (function () {
         $(this).remove ();
