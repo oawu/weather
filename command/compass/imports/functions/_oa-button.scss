@@ -1,0 +1,74 @@
+/**
+ * @author      OA Wu <comdan66@gmail.com>
+ * @copyright   Copyright (c) 2015 OA Wu Design
+ */
+
+@mixin button ($color: 'blue', $shadow: true) {
+  border: 0 solid transparent;
+  color: rgba(255, 255, 255, .85);
+  padding: 2px 10px 4px 10px;
+  font-size: 15px;
+  cursor: pointer;
+  text-decoration: none;
+  margin: 0;
+  padding: 5px 15px;
+  font-weight: bolder;
+
+  @include border-radius(2px);
+  @include text-shadow(0 1px 3px rgba(0, 0, 0, 0.3));
+
+  @if $shadow == true {
+    @include box-shadow(
+      inset -1px -1px 2px rgba(0, 0, 0, 0.1),
+      inset 1px 1px 2px rgba(255, 255, 255, 0.1),
+      0 3px 10px rgba(0, 0, 0, 0.16));
+  } @else {
+    @include box-shadow(
+      inset -1px -1px 2px rgba(0, 0, 0, 0.1),
+      inset 1px 1px 2px rgba(255, 255, 255, 0.1));
+  }
+  @include transition(box-shadow color .3s cubic-bezier(.4, 0, .2, 1));
+
+  &[disabled] {
+    color: rgba(255, 255, 255, 0.75);
+    cursor: not-allowed;
+    @include text-shadow(none);
+    @include box-shadow(none);
+
+    &:hover {
+      color: rgba(255, 255, 255, 0.75);
+      @include box-shadow(none);
+      @include text-shadow(none);
+    }
+  }
+  &:hover {
+    color: rgba(255, 255, 255, 1);
+    @if $shadow == true {
+      @include box-shadow(
+        inset -1px -1px 2px rgba(0, 0, 0, 0.2),
+        inset 1px 1px 2px rgba(255, 255, 255, 0.2),
+        0 10px 30px rgba(0, 0, 0, 0.19));
+    } @else {
+      @include box-shadow(
+        inset -1px -1px 2px rgba(0, 0, 0, 0.2),
+        inset 1px 1px 2px rgba(255, 255, 255, 0.2));
+    }
+  }
+  &:active {
+    @include text-shadow(0 1px 3px rgba(0, 0, 0, 0.4));
+    @include box-shadow(inset 2px 2px 10px rgba(0, 0, 0, 0.225));
+    @include transition(none);
+  }
+  &:focus {
+    outline: 0;
+  }
+
+  $value: map-get($btns, $color);
+  background-color: rgba(nth($value, 1), nth($value, 2), nth($value, 3), 1);
+  &:hover {
+    background-color: rgba(nth($value, 1) - 10, nth($value, 2) - 10,nth($value, 3) - 10, 1);
+  }
+  &[disabled] {
+    background-color: rgba(nth($value, 1) + 10, nth($value, 2) + 10, nth($value, 3) + 10, 0.85);
+  }
+}

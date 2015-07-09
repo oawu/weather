@@ -1,0 +1,50 @@
+/**
+ * @author      OA Wu <comdan66@gmail.com>
+ * @copyright   Copyright (c) 2015 OA Wu Design
+ */
+
+@mixin loading ($dimension: 70px,$loadingWeight: 6px) {
+  position: relative;
+  display: inline-block;
+  width: $dimension;
+  height: $dimension;
+  margin: auto;
+  margin-top: 5px;
+
+  @include border-radius(50%);
+  @include box-shadow(inset 0 0 5px rgba(68, 68, 68, 0.7), 0 0 5px rgba(255, 255, 255, 0.475));
+
+  &:before {
+    content: "";
+    position: absolute;
+    display: inline-block;
+    margin: auto;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+
+    @include border-radius(50%);
+    @include animation (spin .5s infinite linear);
+    @include background-image(linear-gradient(transparent 60%, rgba(0, 0, 0, 0.3) 100%));
+  }
+  &:after {
+    content: "";
+    position: absolute;
+    display: inline-block;
+    margin: auto;
+    width: calc(100% - #{$loadingWeight} * 2);
+    height: calc(100% - #{$loadingWeight} * 2);
+    top: $loadingWeight;
+    left: $loadingWeight;
+    background: $mainBackgroundColor $mainBackgroundImage;
+
+    @include border-radius(50%);
+    @include box-shadow(0 0 5px rgba(68, 68, 68, 0.7), inset 0 0 5px rgba(255, 255, 255, 0.475));
+  }
+  @include keyframes(spin) {
+    to {
+      @include rotate(360deg);
+    }
+  }
+}

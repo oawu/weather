@@ -1,0 +1,45 @@
+/**
+ * @author      OA Wu <comdan66@gmail.com>
+ * @copyright   Copyright (c) 2015 OA Wu Design
+ */
+
+@import "_oa";
+
+.container {
+  width: $mainWidth;
+  margin: 0 auto;
+  text-align: left;
+
+  .list {
+    @include button('blue', false);
+  }
+  .table-form {
+    @include table-form();
+
+    .unit {
+      float: left;
+      display: inline-block;
+      border: 1px solid rgba(39, 40, 34, .25);
+      padding: 0 5px;
+      margin-bottom: 5px;
+      text-decoration: none;
+      color: rgba(50, 50, 50, 0.7);
+      @include transition(all .3s);
+      @include border-radius(3px);
+
+      &:hover {
+        background-color: rgba(39, 40, 34, .08);
+      }
+      & + .unit {
+        margin-left: 5px;
+      }
+
+      .id {
+        border-right: 1px solid rgba(39, 40, 34, .25);
+        padding-right: 5px;
+        margin-right: 5px;
+        float: left;
+      }
+    }
+  }
+}
