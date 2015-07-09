@@ -37,7 +37,8 @@ class Proposes extends Site_controller {
         'title' => $title,
         'ip' => $this->input->ip_address (),
         'latitude' => $latitude,
-        'longitude' => $longitude
+        'longitude' => $longitude,
+        'id_enabled' => 1
       );
 
     if (!verifyCreateOrm ($propose = Propose::create ($params)))

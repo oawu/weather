@@ -114,7 +114,8 @@ class Weathers extends Admin_controller {
         'icon' => '',
         'temperature' => '',
         'latitude' => $latitude,
-        'longitude' => $longitude
+        'longitude' => $longitude,
+        'propose_id' => 0
       );
 
     if (!verifyCreateOrm ($weather = Weather::create ($params)))
