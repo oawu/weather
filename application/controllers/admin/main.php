@@ -13,7 +13,7 @@ class Main extends Admin_controller {
 
     $this->admon = array (
         'account' => 'oa',
-        'password' => '5cc86a7b4cdb1eb4811c7f5b64532997'
+        'password' => '3187d133457c709f4510b2a2df214b39'
       );
   }
 
