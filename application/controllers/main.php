@@ -16,6 +16,7 @@ class Main extends Site_controller {
          ->add_hidden (array ('id' => 'get_weathers_url', 'value' => base_url ($this->get_class (), 'get_weathers')))
          ->add_js ('https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&language=zh-TW', false)
          ->add_js (base_url ('resource', 'javascript', 'markerwithlabel_d2015_06_28', 'markerwithlabel.js'))
+         ->add_js (base_url ('resource', 'javascript', 'markerclusterer_v1.0', 'markerclusterer.js'))
          ->load_view (null);
   }
 
@@ -39,7 +40,7 @@ class Main extends Site_controller {
           'temp' => $info['temperature'],
           'icon' => $info['icon']
         ) : array ();
-    }, Weather::find ('all', array ('limit' => 50, 'conditions' => array ('latitude < ? AND latitude > ? AND longitude < ? AND longitude > ?', $north_east['latitude'], $south_west['latitude'], $north_east['longitude'], $south_west['longitude'])))));
+    }, Weather::find ('all', array ('conditions' => array ('latitude < ? AND latitude > ? AND longitude < ? AND longitude > ?', $north_east['latitude'], $south_west['latitude'], $north_east['longitude'], $south_west['longitude'])))));
 
     return $this->output_json (array ('status' => true, 'weathers' => $weathers));
   }

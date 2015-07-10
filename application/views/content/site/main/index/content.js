@@ -12,6 +12,7 @@ $(function () {
   
   var _map = null;
   var _markers = [];
+  var _markerCluster = null;
   var _isGetPictures = false;
   var _getPicturesTimer = null;
 
@@ -78,8 +79,8 @@ $(function () {
           var delete_ids = deletes.map (function (t) { return t.id; });
           var add_ids = adds.map (function (t) { return t.id; });
 
-          deletes.map (function (t) { t.markerWithLabel.setMap (null); });
-          adds.map (function (t) { t.markerWithLabel.setMap (_map); });
+          _markerCluster.removeMarkers (deletes.map (function (t) { return t.markerWithLabel; }));
+          _markerCluster.addMarkers (adds.map (function (t) { return t.markerWithLabel; }));
 
           _markers = _markers.filter (function (t) { return $.inArray (t.id, delete_ids) == -1; }).concat (markers.filter (function (t) { return $.inArray (t.id, add_ids) != -1; }));
 
@@ -150,7 +151,7 @@ $(function () {
 
     var option = {
         zoom: 13,
-        minZoom: 7,
+        minZoom: 0,
         scaleControl: true,
         navigationControl: true,
         disableDoubleClickZoom: true,
@@ -164,6 +165,7 @@ $(function () {
     _map = new google.maps.Map ($map.get (0), option);
     _map.mapTypes.set ('map_style', styledMapType);
     _map.setMapTypeId ('map_style');
+    _markerCluster = new MarkerClusterer(_map);
     
     var last = getStorage ();
     if (last) {
