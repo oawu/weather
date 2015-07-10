@@ -181,10 +181,17 @@ class Weathers extends Admin_controller {
     $this->pagination->initialize ($configs);
     $pagination = $this->pagination->create_links ();
 
-    $weathers = Weather::find ('all', array ('offset' => $offset, 'limit' => $limit, 'order' => 'id DESC', 'conditions' => $conditions));
+    $weathers = Weather::find ('all', array ('offset' => $offset, 'limit' => $limit, 'order' => 'id DESC', 'include' => array ('log'), 'conditions' => $conditions));
 
     $message = identity ()->get_session ('_flash_message', true);
 
-    $this->load_view (array ('message' => $message, 'pagination' => $pagination, 'weathers' => $weathers, 'columns' => $columns));
+    $this->add_js (base_url ('resource', 'javascript', 'jquery-timeago_v1.3.1', 'jquery.timeago.js'))
+         ->add_js (base_url ('resource', 'javascript', 'jquery-timeago_v1.3.1', 'locales', 'jquery.timeago.zh-TW.js'))
+         ->load_view (array (
+        'message' => $message,
+        'pagination' => $pagination,
+        'weathers' => $weathers,
+        'columns' => $columns
+      ));
   }
 }

@@ -12,6 +12,8 @@ class Weather_cell extends Cell_Controller {
     return array ('time' => 30 * 60, 'key' => $weather->id);
   }
   public function icon ($weather) {
+    CallLog::create (array ('weather_id' => $weather->id));
+
     if (($data = download_web_file ('http://api.openweathermap.org/data/2.5/weather?lat=' . $weather->latitude . '&lon=' . $weather->longitude . '')) && ($data = json_decode ($data))) {
       if (isset ($data->weather[0]) && $data->weather[0]->icon && isset ($data->main->temp)) {
         $weather->temperature = $data->main->temp;

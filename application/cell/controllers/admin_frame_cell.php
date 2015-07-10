@@ -15,6 +15,7 @@ class Admin_frame_cell extends Cell_Controller {
     $links = array (
         array ('name' => '天氣管理', 'href' => base_url ('admin', 'weathers')),
         array ('name' => '推薦管理', 'href' => base_url ('admin', 'proposes')),
+        array ('name' => '紀錄管理', 'href' => base_url ('admin', 'call_logs')),
       );
     return $this->setUseCssList (true)
                 ->load_view (array (

@@ -62,6 +62,11 @@ class Proposes extends Admin_controller {
 
     $message = identity ()->get_session ('_flash_message', true);
 
-    $this->load_view (array ('message' => $message, 'pagination' => $pagination, 'proposes' => $proposes, 'columns' => $columns));
+    $this->load_view (array (
+        'message' => $message,
+        'pagination' => $pagination,
+        'proposes' => $proposes,
+        'columns' => $columns
+      ));
   }
 }

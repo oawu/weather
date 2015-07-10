@@ -26,11 +26,10 @@
       <tr>
         <th width='60'>ID</th>
         <th >標題</th>
-        <th width='100'>圖示</th>
         <th width='100'>地點</th>
-        <th width='100'>緯度</th>
-        <th width='100'>經度</th>
-        <th width='150'>編輯</th>
+        <th width='100'>經緯度</th>
+        <th width='130'>上次更新</th>
+        <th width='100'>編輯</th>
       </tr>
     </thead>
     <tbody>
@@ -40,10 +39,9 @@
           <tr>
             <td><?php echo $weather->id;?></td>
             <td><?php echo $weather->title;?></td>
-            <td><?php echo $weather->icon;?></td>
             <td><?php echo img ($weather->picture ());?></td>
-            <td><?php echo $weather->latitude;?></td>
-            <td><?php echo $weather->longitude;?></td>
+            <td style='text-align: left;'>緯度：<br/><?php echo $weather->latitude;?><br/>經度：<br/><?php echo $weather->longitude;?></td>
+            <td <?php echo $weather->log ? "class='timeago' data-time='" . $weather->log->created_at . "'" : '';?>><?php echo $weather->log ? $weather->log->created_at : '無紀錄';?></td>
             <td class='edit'>
               <a href='<?php echo base_url ('admin', 'weathers', 'edit', $weather->id);?>'><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="32" height="32" viewBox="0 0 32 32"><path fill="#444444" d="M12 20l4-2 14-14-2-2-14 14-2 4zM9.041 27.097c-0.989-2.085-2.052-3.149-4.137-4.137l3.097-8.525 4-2.435 12-12h-6l-12 12-6 20 20-6 12-12v-6l-12 12-2.435 4z"></path></svg></a>
               /
@@ -52,7 +50,7 @@
           </tr>
   <?php }
       } else { ?>
-        <tr><td colspan='7'>目前沒有任何資料。</td></tr>
+        <tr><td colspan='6'>目前沒有任何資料。</td></tr>
   <?php
       } ?>
     <tbody>
