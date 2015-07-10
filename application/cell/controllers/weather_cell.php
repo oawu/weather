@@ -22,7 +22,7 @@ class Weather_cell extends Cell_Controller {
         
         if (file_exists (implode (DIRECTORY_SEPARATOR, $file_path)))
           return array (
-              'temperature' => $weather->temperature - 273.15,
+              'temperature' => round ($weather->temperature - 273.15),
               'icon' => base_url ($file_path)
             );
         else
