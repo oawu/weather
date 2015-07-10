@@ -13,8 +13,8 @@ class Migration_Add_proposes extends CI_Migration {
         `title` varchar(255) COLLATE utf8_unicode_ci NOT NULL COMMENT '標題',
         
         `ip` varchar(20) COLLATE utf8_unicode_ci NOT NULL COMMENT 'IP',
-        `latitude` varchar(255) COLLATE utf8_unicode_ci NOT NULL COMMENT '緯度',
-        `longitude` varchar(255) COLLATE utf8_unicode_ci NOT NULL COMMENT '經度',
+        `latitude` float NOT NULL COMMENT '緯度',
+        `longitude` float NOT NULL COMMENT '經度',
         `id_enabled` int(11) NOT NULL,
 
         `updated_at` datetime NOT NULL DEFAULT '" . date ('Y-m-d H:i:s') . "' COMMENT '新增時間',

@@ -15,8 +15,9 @@ class Migration_Add_weathers extends CI_Migration {
         `icon` varchar(4) COLLATE utf8_unicode_ci NOT NULL COMMENT '圖示名稱',
         `temperature` varchar(10) COLLATE utf8_unicode_ci NOT NULL COMMENT '絕對溫度',
 
-        `latitude` varchar(255) COLLATE utf8_unicode_ci NOT NULL COMMENT '緯度',
-        `longitude` varchar(255) COLLATE utf8_unicode_ci NOT NULL COMMENT '經度',
+        `latitude` float NOT NULL COMMENT '緯度',
+        `longitude` float NOT NULL COMMENT '經度',
+        
         `propose_id` int(11) NOT NULL,
 
         `updated_at` datetime NOT NULL DEFAULT '" . date ('Y-m-d H:i:s') . "' COMMENT '新增時間',

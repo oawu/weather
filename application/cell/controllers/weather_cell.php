@@ -18,10 +18,15 @@ class Weather_cell extends Cell_Controller {
       if (isset ($data->weather[0]) && $data->weather[0]->icon && isset ($data->main->temp)) {
         $weather->temperature = $data->main->temp;
         $weather->save ();
-        return array (
-            'temperature' => $weather->temperature - 273.15,
-            'icon' => 'http://openweathermap.org/img/w/' . $data->weather[0]->icon . '.png'
-          );
+        $file_path = array ('resource', 'image', 'map', $data->weather[0]->icon . '.png');
+        
+        if (file_exists (implode (DIRECTORY_SEPARATOR, $file_path)))
+          return array (
+              'temperature' => $weather->temperature - 273.15,
+              'icon' => base_url ($file_path)
+            );
+        else
+          return '';
       }
     }
     return '';
