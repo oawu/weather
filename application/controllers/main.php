@@ -39,7 +39,7 @@ class Main extends Site_controller {
           'temp' => $info['temperature'],
           'icon' => $info['icon']
         ) : array ();
-    }, Weather::find ('all', array ('conditions' => array ('latitude < ? AND latitude > ? AND longitude < ? AND longitude > ?', $north_east['latitude'], $south_west['latitude'], $north_east['longitude'], $south_west['longitude'])))));
+    }, Weather::find ('all', array ('limit' => 50, 'conditions' => array ('latitude < ? AND latitude > ? AND longitude < ? AND longitude > ?', $north_east['latitude'], $south_west['latitude'], $north_east['longitude'], $south_west['longitude'])))));
 
     return $this->output_json (array ('status' => true, 'weathers' => $weathers));
   }

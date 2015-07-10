@@ -15,16 +15,16 @@ class Proposes extends Site_controller {
     if (!$this->has_post ())
       return redirect (array ('proposes'));
 
+    $title = trim ($this->input_post ('title'));
+    $latitude = trim ($this->input_post ('latitude'));
+    $longitude = trim ($this->input_post ('longitude'));
+
     if ((time () - identity ()->get_session ('post_time')) < (60 * 1))
       return identity ()->set_session ('_flash_message', '別急！一分鐘後再推薦新地點吧！', true)
                         ->set_session ('title', $title, true)
                         ->set_session ('latitude', $latitude, true)
                         ->set_session ('longitude', $longitude, true)
                         && redirect (array ('proposes'), 'refresh');
-
-    $title = trim ($this->input_post ('title'));
-    $latitude = trim ($this->input_post ('latitude'));
-    $longitude = trim ($this->input_post ('longitude'));
 
     if (!($title && $latitude && $longitude))
       return identity ()->set_session ('_flash_message', '填寫資訊有少！', true)
@@ -70,7 +70,7 @@ class Proposes extends Site_controller {
           'lng' => $weather->longitude,
           'title' => $weather->title,
         );
-    }, Weather::find ('all', array ('conditions' => array ('latitude < ? AND latitude > ? AND longitude < ? AND longitude > ?', $north_east['latitude'], $south_west['latitude'], $north_east['longitude'], $south_west['longitude']))));
+    }, Weather::find ('all', array ('limit' => 50, 'conditions' => array ('latitude < ? AND latitude > ? AND longitude < ? AND longitude > ?', $north_east['latitude'], $south_west['latitude'], $north_east['longitude'], $south_west['longitude']))));
 
     return $this->output_json (array ('status' => true, 'weathers' => $weathers));
   }
