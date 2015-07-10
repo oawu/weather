@@ -151,6 +151,7 @@ $(function () {
 
     var option = {
         zoom: 13,
+        minZoom: 4,
         scaleControl: true,
         navigationControl: true,
         disableDoubleClickZoom: true,
