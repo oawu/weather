@@ -15,7 +15,7 @@
     <form id='fm' action='<?php echo base_url ('proposes', 'create');?>' method='post' enctype='multipart/form-data'>
       <div class='input_bar'>
         <div class='l'>
-          <input type='text' name='title' value='<?php echo $title;?>' placeholder='請輸入標題..' maxlength='200' pattern='.{1,200}' required title='輸入 1~200 個字元!' />
+          <input type='text' name='title' id='title' value='<?php echo $title;?>' placeholder='請輸入標題..' maxlength='200' pattern='.{1,200}' required title='輸入 1~200 個字元!' />
         </div>
         <div class='r'>
           <button type='submit' class='button'>確定</button>

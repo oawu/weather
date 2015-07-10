@@ -188,12 +188,16 @@ $(function () {
     
     $('#fm').submit (function () {
       if (!($lat.data ('val') && $lng.data ('val'))) {
-        $('.error').text ('請點選地圖，選擇地點！').addClass ('show');
+        $('.error').text ('請點選地圖，選擇地點!').addClass ('show');
         return false;
       }
       $(this).append ($('<input />').attr ('type', 'hidden').attr ('name', 'latitude').val ($lat.data ('val')));
       $(this).append ($('<input />').attr ('type', 'hidden').attr ('name', 'longitude').val ($lng.data ('val')));
 
+      if (!(($('#title').val ().length > 0) && ($('#title').val ().length < 201))) {
+        $('.error').text ('輸入 1~200 個字元!').addClass ('show');
+        return false;
+      }
       return true;
     });
 
