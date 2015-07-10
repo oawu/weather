@@ -78,7 +78,7 @@ $(function () {
       .complete (function (result) {});
     }, 500);
   }
-  
+
   function initialize () {
     var styledMapType = new google.maps.StyledMapType ([
       { featureType: 'transit.station.bus',
@@ -120,6 +120,8 @@ $(function () {
 
     google.maps.event.addListener(_map, 'zoom_changed', getWeathers);
     google.maps.event.addListener(_map, 'dragend', getWeathers);
+    
+    getWeathers ();
 
     $loading.fadeOut (function () {
       $(this).hide (function () {
