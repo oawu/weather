@@ -1036,7 +1036,6 @@ function ClusterIcon(cluster, styles, opt_padding) {
   this.visible_ = false;
 
   this.setMap(this.map_);
-// console.error ();
   // var markerWithLabel = new MarkerWithLabel ({
   //             position: new google.maps.LatLng (t.lat, t.lng),
   //             draggable: false,
@@ -1099,7 +1098,6 @@ ClusterIcon.prototype.onAdd = function() {
  */
 ClusterIcon.prototype.getPosFromLatLng_ = function(latlng) {
   var pos = this.getProjection().fromLatLngToDivPixel(latlng);
-  // console.error (pos);
   // pos.x -= parseInt(this.width_ / 2, 10);
   // pos.y -= parseInt(this.height_ / 2, 10);
   pos.x -= parseInt(130 / 2, 10);
@@ -1219,7 +1217,6 @@ ClusterIcon.prototype.setCenter = function(center) {
  * @return {string} The css style text.
  */
 ClusterIcon.prototype.createCss = function(pos) {
-  // console.info (this.cluster_.markers_[0].icon);
   
   var style = [];
   style.push('background-image:url(' + this.url_ + ');');
