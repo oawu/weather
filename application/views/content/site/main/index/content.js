@@ -158,7 +158,7 @@ $(function () {
         zoomControl: true,
         scrollwheel: true,
         streetViewControl: false,
-        center: new google.maps.LatLng (25, 121.5),
+        center: new google.maps.LatLng (25.04, 121.55),
       };
 
     _map = new google.maps.Map ($map.get (0), option);
