@@ -4,7 +4,7 @@
 
 ---
 
-![OA's Weather Maps](resource/image/readme/weather.gif)
+![OA's Weather Maps](resource/image/readme/weather-compressor.gif)
 
 <br/>
 ## 聲明
