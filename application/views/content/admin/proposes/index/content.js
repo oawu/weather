@@ -4,4 +4,11 @@
  */
 
 $(function () {
+  $('.fanc').click (function () {
+    $.fancybox({
+        href : 'proposes/map/' + $(this).data ('id'),
+        type: 'iframe',
+        padding: 0
+    });
+  });
 });

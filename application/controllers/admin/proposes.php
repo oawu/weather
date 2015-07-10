@@ -11,6 +11,15 @@ class Proposes extends Admin_controller {
     parent::__construct ();
   }
 
+  public function map ($id = 0) {
+    if (!($propose = Propose::find ('one', array ('conditions' => array ('id_enabled = ? AND id = ?', 1, $id)))))
+      return redirect (array ('admin', 'proposes'));
+
+    $this->add_js ('https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&language=zh-TW', false)
+         ->load_view (array (
+            'propose' => $propose
+          ));
+  }
   public function destroy ($id = 0) {
     if (!($propose = Propose::find ('one', array ('conditions' => array ('id_enabled = ? AND id = ?', 1, $id)))))
       return redirect (array ('admin', 'proposes'));
@@ -62,7 +71,15 @@ class Proposes extends Admin_controller {
 
     $message = identity ()->get_session ('_flash_message', true);
 
-    $this->load_view (array (
+    $this->add_css (base_url ('resource', 'css', 'fancyBox_v2.1.5', 'jquery.fancybox.css'))
+         ->add_css (base_url ('resource', 'css', 'fancyBox_v2.1.5', 'jquery.fancybox-buttons.css'))
+         ->add_css (base_url ('resource', 'css', 'fancyBox_v2.1.5', 'jquery.fancybox-thumbs.css'))
+         ->add_css (base_url ('resource', 'css', 'fancyBox_v2.1.5', 'my.css'))
+         ->add_js (base_url ('resource', 'javascript', 'fancyBox_v2.1.5', 'jquery.fancybox.js'))
+         ->add_js (base_url ('resource', 'javascript', 'fancyBox_v2.1.5', 'jquery.fancybox-buttons.js'))
+         ->add_js (base_url ('resource', 'javascript', 'fancyBox_v2.1.5', 'jquery.fancybox-thumbs.js'))
+         ->add_js (base_url ('resource', 'javascript', 'fancyBox_v2.1.5', 'jquery.fancybox-media.js'))
+         ->load_view (array (
         'message' => $message,
         'pagination' => $pagination,
         'proposes' => $proposes,

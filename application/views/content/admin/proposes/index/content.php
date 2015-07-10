@@ -40,7 +40,7 @@
             <td><?php echo $propose->id;?></td>
             <td><?php echo $propose->title;?></td>
             <td><?php echo $propose->ip;?></td>
-            <td><?php echo img ($propose->picture ());?></td>
+            <td><?php echo img ($propose->picture (), false, 'class="fanc" data-id="' . $propose->id . '"');?></td>
             <td><?php echo $propose->latitude;?></td>
             <td><?php echo $propose->longitude;?></td>
             <td class='edit'>
