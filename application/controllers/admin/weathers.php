@@ -154,7 +154,7 @@ class Weathers extends Admin_controller {
     return $this->output_json (array ('status' => true, 'weathers' => $weathers));
   }
   public function index ($offset = 0) {
-    $columns = array ('latitude' => 'string', 'longitude' => 'string', 'temperature' => 'string');
+    $columns = array ('title' => 'string', 'latitude' => 'string', 'longitude' => 'string', 'temperature' => 'string');
     $configs = array ('admin', 'weathers', '%s');
 
     $conditions = conditions ($columns,

@@ -10,6 +10,7 @@
   <form action='<?php echo base_url ('admin', 'weathers');?>' method='get'>
     <div class='conditions'>
       <div class='l'>
+        <input type='text' name='title' value='<?php echo isset ($columns['title']) ? $columns['title'] : '';?>' placeholder='請輸入標題..' />
         <input type='text' name='latitude' value='<?php echo isset ($columns['latitude']) ? $columns['latitude'] : '';?>' placeholder='請輸入緯度(latitude)..' />
         <input type='text' name='longitude' value='<?php echo isset ($columns['longitude']) ? $columns['longitude'] : '';?>' placeholder='請輸入經度(longitude)..' />
         <input type='text' name='temperature' value='<?php echo isset ($columns['temperature']) ? $columns['temperature'] : '';?>' placeholder='請輸入溫度(絕對)..' />

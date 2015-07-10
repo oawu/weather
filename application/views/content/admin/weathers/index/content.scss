@@ -47,7 +47,7 @@
         float: left;
         @include input();
         font-size: 13px;
-        width: 210px;
+        width: 150px;
         &:not(:first-child) {
           margin-left: 20px;
         }
