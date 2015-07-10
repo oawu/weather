@@ -14,9 +14,7 @@
         <input type='text' name='longitude' value='<?php echo isset ($columns['longitude']) ? $columns['longitude'] : '';?>' placeholder='請輸入經度(longitude)..' />
         <button type='submit'>尋找</button>
       </div>
-      <div class='r'>
-        <a class='new' href='<?php echo base_url ('admin', 'proposes', 'add');?>'>新增</a>
-      </div>
+      <div class='r'></div>
     </div>
   </form>
 
