@@ -4,7 +4,7 @@
  */
 
 $(function () {
-  $('.fanc').click (function () {
+  $('.fancybox').click (function () {
     $.fancybox({
         href : 'proposes/map/' + $(this).data ('id'),
         type: 'iframe',

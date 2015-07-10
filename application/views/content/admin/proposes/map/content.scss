@@ -12,6 +12,23 @@
   width: 100%;
   overflow: hidden;
 
+  .loading_data {
+    position: absolute;
+    left: 0;
+    bottom: -100%;
+    display: inline-block;
+    width: 100%;
+    padding: 10px;
+    border-top: 1px solid rgba(39, 40, 34, .3);
+    background-color: rgba(255, 255, 255, .8);
+    @include border-radius(2px);
+    @include transition(all .5s cubic-bezier(0.560, 1.095, 0.710, 0.980));
+    @include box-shadow(0 0 15px 1px rgba(0, 0, 0, 0.2));
+
+    &.show {
+      bottom: 0;
+    }
+  }
   #map {
     position: relative;
     height: 100%;
@@ -33,6 +50,18 @@
   }
 }
 
+.marker_label {
+  border: 1px solid rgba(39, 40, 34, .4);
+  background-color: rgba(255, 255, 255, .8);
+  padding: 3px 5px;
+  width: 100px;
+  font-size: medium;
+  @include opacity(.9);
+  @include overflow-docx3();
+  @include border-radius(3px);
+  @include transition(all .3s);
+  @include box-shadow(0 0 15px 1px rgba(0, 0, 0, 0.3));
+}
 #loading {
   position: fixed;
   top: 30px;
