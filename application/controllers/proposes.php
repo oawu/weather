@@ -19,7 +19,7 @@ class Proposes extends Site_controller {
     $latitude = trim ($this->input_post ('latitude'));
     $longitude = trim ($this->input_post ('longitude'));
 
-    if ((time () - identity ()->get_session ('post_time')) < (60 * 1))
+    if ((time () - identity ()->get_session ('post_time')) < (30))
       return identity ()->set_session ('_flash_message', '別急！一分鐘後再推薦新地點吧！', true)
                         ->set_session ('title', $title, true)
                         ->set_session ('latitude', $latitude, true)
