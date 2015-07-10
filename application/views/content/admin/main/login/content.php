@@ -11,7 +11,7 @@
 
     <div class='row split-left'>
       <label class='l' for='password'>密  碼</label>
-      <input type='password' class='r' name='password' id='password' value='' placeholder='輸入密碼..' pattern=".{3,10}" required title="輸入密碼(6個英、數字元以上).."/>
+      <input type='password' class='r' name='password' id='password' value='' placeholder='輸入密碼..' pattern=".{3,}" required title="輸入密碼(3個英、數字元以上).."/>
     </div>
 
 <?php
