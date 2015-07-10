@@ -62,7 +62,7 @@ $(function () {
               draggable: false,
               raiseOnDrag: false,
               clickable: true,
-              labelContent: "<div class='temperature'>" + t.temp + "℃</div><div class='title'>" + t.title + "</div>",
+              labelContent: "<div class='temperature'>" + t.temp + "℃</div><div class='bottom'><div class='title'>" + t.title + "</div></div>",
               labelAnchor: new google.maps.Point (65, 95),
               labelClass: "marker_label",
               icon: t.icon
