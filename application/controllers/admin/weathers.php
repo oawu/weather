@@ -165,7 +165,7 @@ class Weathers extends Admin_controller {
 
     $conditions = array (implode (' AND ', $conditions));
 
-    $limit = 25;
+    $limit = 2;
     $total = Weather::count (array ('conditions' => $conditions));
     $offset = $offset < $total ? $offset : 0;
 
