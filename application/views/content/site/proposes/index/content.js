@@ -21,7 +21,21 @@ $(function () {
   Array.prototype.diff = function (a) {
     return this.filter (function (i) { return a.map (function (t) { return t.id; }).indexOf (i.id) < 0; });
   };
-
+  function getStorage () {
+    if ((typeof (Storage) !== 'undefined') && (last = localStorage.getItem ('weather_map')) && (last = JSON.parse (last)))
+      return last;
+    else
+      return;
+  }
+  function setStorage () {
+    if (typeof (Storage) !== 'undefined') {
+      localStorage.setItem ('weather_map', JSON.stringify ({
+        lat: _map.center.lat (),
+        lng: _map.center.lng (),
+        zoom: _map.zoom
+      }));
+    }
+  }
   function getWeathers () {
     clearTimeout (_getPicturesTimer);
 
@@ -77,6 +91,8 @@ $(function () {
       .fail (function (result) { ajaxError (result); })
       .complete (function (result) {});
     }, 500);
+
+    setStorage ();
   }
   var getUnit = function (will, now) {
     var addLat = will.lat () - now.lat ();
@@ -159,7 +175,8 @@ $(function () {
     ]);
 
     var option = {
-        zoom: 14,
+        zoom: 13,
+        minZoom: 7,
         scaleControl: true,
         navigationControl: true,
         disableDoubleClickZoom: true,
@@ -167,12 +184,23 @@ $(function () {
         zoomControl: true,
         scrollwheel: true,
         streetViewControl: false,
-        center: new google.maps.LatLng (25.022073145389157, 121.54706954956055),
+        center: new google.maps.LatLng (25, 121.5),
       };
 
     _map = new google.maps.Map ($map.get (0), option);
     _map.mapTypes.set ('map_style', styledMapType);
     _map.setMapTypeId ('map_style');
+
+    var last = getStorage ();
+    if (last) {
+      _map.setCenter (new google.maps.LatLng (last.lat, last.lng));
+      _map.setZoom (last.zoom);
+    } else {
+      navigator.geolocation.getCurrentPosition (function (position) {
+        _map.setZoom (14);
+        mapGo (new google.maps.LatLng (position.coords.latitude, position.coords.longitude), setStorage);
+      });
+    }
 
     google.maps.event.addListener(_map, 'zoom_changed', getWeathers);
     google.maps.event.addListener(_map, 'dragend', getWeathers);

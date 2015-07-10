@@ -18,7 +18,21 @@ $(function () {
   Array.prototype.diff = function (a) {
     return this.filter (function (i) { return a.map (function (t) { return t.id; }).indexOf (i.id) < 0; });
   };
-
+  function getStorage () {
+    if ((typeof (Storage) !== 'undefined') && (last = localStorage.getItem ('weather_map')) && (last = JSON.parse (last)))
+      return last;
+    else
+      return;
+  }
+  function setStorage () {
+    if (typeof (Storage) !== 'undefined') {
+      localStorage.setItem ('weather_map', JSON.stringify ({
+        lat: _map.center.lat (),
+        lng: _map.center.lng (),
+        zoom: _map.zoom
+      }));
+    }
+  }
   function getWeathers () {
     clearTimeout (_getPicturesTimer);
 
@@ -76,7 +90,47 @@ $(function () {
       .fail (function (result) { ajaxError (result); })
       .complete (function (result) {});
     }, 500);
+    
+    setStorage ();
   }
+  var getUnit = function (will, now) {
+    var addLat = will.lat () - now.lat ();
+    var addLng = will.lng () - now.lng ();
+    var aveAdd = ((Math.abs (addLat) + Math.abs (addLng)) / 2);
+    var unit = aveAdd < 10 ? aveAdd < 1 ? aveAdd < 0.1 ? aveAdd < 0.01 ? aveAdd < 0.001 ? aveAdd < 0.0001 ? 3 : 6 : 9 : 12 : 15 : 24 : 21;
+    var lat = addLat / unit;
+    var lng = addLng / unit;
+
+    if (!((Math.abs (lat) > 0) || (Math.abs (lng) > 0)))
+      return null;
+
+    return {
+      unit: unit,
+      lat: lat,
+      lng: lng
+    };
+  };
+  var mapMove = function (unitLat, unitLng, unitCount, unit, callback) {
+    if (unit > unitCount) {
+      _map.setCenter (new google.maps.LatLng (_map.getCenter ().lat () + unitLat, _map.getCenter ().lng () + unitLng));
+      setTimeout (function () {
+        mapMove (unitLat, unitLng, unitCount + 1, unit, callback);
+      }, 50);
+    } else {
+      if (callback)
+        callback ();
+    }
+  };
+
+  var mapGo = function (will, callback) {
+    var now = _map.getCenter ();
+
+    var Unit = getUnit (will, now);
+    if (!Unit)
+      return false;
+
+    mapMove (Unit.lat, Unit.lng, 0, Unit.unit, callback);
+  };
 
   function initialize () {
     var styledMapType = new google.maps.StyledMapType ([
@@ -104,12 +158,23 @@ $(function () {
         zoomControl: true,
         scrollwheel: true,
         streetViewControl: false,
-        center: new google.maps.LatLng (25.022073145389157, 121.54706954956055),
+        center: new google.maps.LatLng (25, 121.5),
       };
 
     _map = new google.maps.Map ($map.get (0), option);
     _map.mapTypes.set ('map_style', styledMapType);
     _map.setMapTypeId ('map_style');
+    
+    var last = getStorage ();
+    if (last) {
+      _map.setCenter (new google.maps.LatLng (last.lat, last.lng));
+      _map.setZoom (last.zoom);
+    } else {
+      navigator.geolocation.getCurrentPosition (function (position) {
+        _map.setZoom (14);
+        mapGo (new google.maps.LatLng (position.coords.latitude, position.coords.longitude), setStorage);
+      });
+    }
 
     google.maps.event.addListener(_map, 'zoom_changed', getWeathers);
     google.maps.event.addListener(_map, 'dragend', getWeathers);
