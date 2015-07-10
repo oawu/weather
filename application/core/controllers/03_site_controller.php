@@ -39,7 +39,7 @@ class Site_controller extends Oa_controller {
                 ->add_meta (array ('property' => 'og:locale', 'content' => 'zh_TW'))
                 ->add_meta (array ('property' => 'og:locale', 'content' => 'en_US'))
                 ->add_meta (array ('property' => 'og:type', 'content' => 'website'))
-                ->add_meta (array ('property' => 'og:image', 'content' => base_url ('resource', 'image', 'og', 'large-compressor.png'), 'alt' => 'CatMap'))
+                ->add_meta (array ('property' => 'og:image', 'content' => base_url ('resource', 'image', 'og', 'large-compressor.png'), 'alt' => 'Weather Maps'))
                 ->add_meta (array ('property' => 'og:image:type', 'content' => 'image/png'))
                 ->add_meta (array ('property' => 'og:image:width', 'content' => '1200'))
                 ->add_meta (array ('property' => 'og:image:height', 'content' => '630'))
