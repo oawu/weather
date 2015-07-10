@@ -13,7 +13,7 @@ class Admin_frame_cell extends Cell_Controller {
   // }
   public function header () {
     $links = array (
-        array ('name' => '地圖管理', 'href' => base_url ('admin', 'maps')),
+        // array ('name' => '地圖管理', 'href' => base_url ('admin', 'maps')),
         array ('name' => '天氣管理', 'href' => base_url ('admin', 'weathers')),
         array ('name' => '推薦管理', 'href' => base_url ('admin', 'proposes')),
         array ('name' => '紀錄管理', 'href' => base_url ('admin', 'call_logs')),
