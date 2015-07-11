@@ -9,7 +9,7 @@ class Weather_cell extends Cell_Controller {
 
   /* render_cell ('weather_cell', 'icon', array ()); */
   public function _cache_icon ($weather) {
-    return array ('time' => 30 * 60, 'key' => $weather->id);
+    return array ('time' => 60 * 60, 'key' => $weather->id);
   }
   public function icon ($weather) {
     CallLog::create (array ('weather_id' => $weather->id));
