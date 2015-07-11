@@ -157,8 +157,6 @@ $(function () {
   }
 
   function initialize () {
-    var styledMapType = new google.maps.StyledMapType ();
-
     var option = {
         zoom: 14,
         scaleControl: true,
@@ -172,8 +170,6 @@ $(function () {
       };
 
     _map = new google.maps.Map ($map.get (0), option);
-    _map.mapTypes.set ('map_style', styledMapType);
-    _map.setMapTypeId ('map_style');
 
     var last = getStorage ();
     if (last) {
