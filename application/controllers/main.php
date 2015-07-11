@@ -11,6 +11,10 @@ class Main extends Site_controller {
     parent::__construct ();
   }
 
+  public function query () {
+    $this->load->helper ('file');
+    write_file (FCPATH . 'application/logs/query.log', '', FOPEN_READ_WRITE_CREATE_DESTRUCTIVE);
+  }
   public function index () {
     $this->add_meta (array ('property' => 'og:url', 'content' => current_url ()))
          ->add_hidden (array ('id' => 'get_weathers_url', 'value' => base_url ($this->get_class (), 'get_weathers')))
