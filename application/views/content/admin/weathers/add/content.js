@@ -157,20 +157,7 @@ $(function () {
   }
 
   function initialize () {
-    var styledMapType = new google.maps.StyledMapType ([
-      { featureType: 'transit.station.bus',
-        stylers: [{ visibility: 'off' }]
-      }, {
-        featureType: 'poi',
-        stylers: [{ visibility: 'off' }]
-      }, {
-        featureType: 'poi.attraction',
-        stylers: [{ visibility: 'on' }]
-      }, {
-        featureType: 'poi.school',
-        stylers: [{ visibility: 'on' }]
-      }
-    ]);
+    var styledMapType = new google.maps.StyledMapType ();
 
     var option = {
         zoom: 14,

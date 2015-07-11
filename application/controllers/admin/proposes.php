@@ -9,6 +9,9 @@ class Proposes extends Admin_controller {
 
   public function __construct () {
     parent::__construct ();
+    
+    if (!identity ()->get_session ('is_login'))
+      return redirect (array ('admin'));
   }
 
   public function get_weathers () {
