@@ -159,21 +159,6 @@ $(function () {
   }
 
   function initialize () {
-    var styledMapType = new google.maps.StyledMapType ([
-      { featureType: 'transit.station.bus',
-        stylers: [{ visibility: 'off' }]
-      }, {
-        featureType: 'poi',
-        stylers: [{ visibility: 'off' }]
-      }, {
-        featureType: 'poi.attraction',
-        stylers: [{ visibility: 'on' }]
-      }, {
-        featureType: 'poi.school',
-        stylers: [{ visibility: 'on' }]
-      }
-    ]);
-
     var option = {
         zoom: 13,
         minZoom: 4,
@@ -188,8 +173,6 @@ $(function () {
       };
 
     _map = new google.maps.Map ($map.get (0), option);
-    _map.mapTypes.set ('map_style', styledMapType);
-    _map.setMapTypeId ('map_style');
 
     var last = getStorage ();
     if (last) {
