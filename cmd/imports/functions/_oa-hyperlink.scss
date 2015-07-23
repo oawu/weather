@@ -6,7 +6,7 @@
 @mixin a ($color: rgba(42, 90, 149, 0.7), $hoverColor: rgba(12, 65, 109, .85), $underLine: true) {
   display: inline-block;
   color: $color;
-  font-weight: bold;
+  font-weight: normal;
   text-decoration: none;
   @include transition(all .3s);
 
