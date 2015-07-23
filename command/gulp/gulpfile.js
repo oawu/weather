@@ -5,7 +5,8 @@
  */
 
 var gulp = require ('gulp'),
-    livereload = require('gulp-livereload');
+    livereload = require('gulp-livereload'),
+    del        = require('del');
 
 gulp.task ('default', function () {
   livereload.listen ();
@@ -20,4 +21,10 @@ gulp.task ('default', function () {
 gulp.task ('reload', function () {
   livereload.changed ();
   console.info ('\nReLoad Browser!\n');
+});
+
+// ===================================================
+
+gulp.task ('gh-pages', function () {
+  del (['./root']);
 });

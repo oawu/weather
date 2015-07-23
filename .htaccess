@@ -1,3 +1,4 @@
+DirectoryIndex index.php index.html
 RewriteEngine on
 RewriteCond $1 !^(index\.php)
 RewriteCond %{REQUEST_FILENAME} !-f

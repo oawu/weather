@@ -1,0 +1,31 @@
+/**
+ * @author      OA Wu <comdan66@gmail.com>
+ * @copyright   Copyright (c) 2015 OA Wu Design
+ */
+
+@mixin paper () {
+  position: relative;
+
+  &:before, &:after {
+    z-index: -1;
+    position: absolute;
+    display: inline-block;
+    content: "";
+    bottom: 15px;
+    left: 10px;
+    width: 50%;
+    max-width:300px;
+    background: #777;
+    max-height: 100px;
+    min-height: 10px;
+
+    @include transform(rotate(-3deg));
+    @include box-shadow(0 15px 10px #777);
+  }
+  &:after {
+    right: 10px;
+    left: auto;
+
+    @include transform(rotate(3deg));
+  }
+}

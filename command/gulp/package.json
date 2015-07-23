@@ -7,6 +7,7 @@
   "devDependencies": {
     "gulp": "^3.8.9",
     "gulp-notify": "^2.0.0",
+    "del": "^0.1.0",
     "gulp-livereload": "^2.1.1"
   }
 }

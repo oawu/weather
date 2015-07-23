@@ -1,0 +1,135 @@
+/**
+ * @author      OA Wu <comdan66@gmail.com>
+ * @copyright   Copyright (c) 2015 OA Wu Design
+ */
+
+@mixin checkbox ($color: 'blue', $shadow: true) {
+  $checkboxWidth: 16px;
+  $checkboxHeight: 16px;
+  $borderWidth: 2px;
+
+  $tickWidth: ($checkboxHeight / 3) * 2;
+  $tickHeight: ($checkboxHeight / 3) * 4;
+  $tickBorderWidth: $checkboxWidth / 3;
+
+  position: relative;
+  display: inline-block;
+
+  * {
+    vertical-align: middle;
+  }
+
+  label {
+    cursor: pointer;
+  }
+
+  input[type='checkbox'] {
+    position: absolute;
+    z-index: 1;
+    margin: 0;
+    width: $checkboxWidth;
+    height: $checkboxHeight;
+    cursor: pointer;
+
+    @include opacity(0);
+
+    &[disabled] {
+      cursor: not-allowed;
+    }
+
+    &~.ckb-check {
+      position: relative;
+      display: inline-block;
+      z-index: 0;
+      width: $checkboxWidth;
+      height: $checkboxHeight;
+      background-color: rgba(255, 255, 255, 1);
+      cursor: pointer;
+      pointer-events: none;
+      border: solid $borderWidth transparent;
+
+      @include border-radius(5px);
+      @include box-sizing(content-box);
+      @include transition(all .5s cubic-bezier(0.375, -0.600, 0.000, 1.520));
+
+      &:after {
+        content: "";
+        position: absolute;
+        display: inline-block;
+        margin: 0;
+        pointer-events: none;
+
+        bottom: 0 - $borderWidth;
+        right: 0 - $borderWidth;
+        width: $tickWidth;
+        height: $tickHeight;
+        border: $borderWidth solid transparent;
+        border-color: rgba(192, 192, 192, 1);
+        border-width: 0 $tickBorderWidth $tickBorderWidth 0;
+
+        @include simple-transform(1, 0, 0, 0, 0, 0, 0, 0);
+        @include opacity(0);
+        @include border-radius(5px);
+        @include box-sizing(border-box);
+        @include transition(all .4s ease-in-out);
+      }
+    }
+
+    &:checked {
+      &~.ckb-check {
+        @include animation(ckb-jelly .2s ease-out);
+        &:after {
+          width: $tickWidth;
+          height: $tickHeight;
+
+          @include opacity(1);
+          @include border-radius($checkboxWidth / 5);
+          @if $shadow == true {
+            @include box-shadow(2px 2px 2px rgba(0, 0, 0, 0.4));
+          }
+          @include simple-transform(1, 45deg, $tickWidth / 4, 0 - $tickWidth, 0, 0, 0, 0);
+        }
+      }
+    }
+  }
+
+
+
+  $value: map-get($btns, $color);
+  input[type='checkbox'] {
+    &[disabled] {
+      &~.ckb-check {
+        border: solid $borderWidth rgba(nth($value, 1) - 100, nth($value, 2) - 100,nth($value, 3) - 100, .25);
+      }
+    }
+    &:checked {
+      &~.ckb-check {
+        border-color: rgba(nth($value, 1) - 100, nth($value, 2) - 100,nth($value, 3) - 100, .3);
+      }
+    }
+    &~.ckb-check {
+      border-color: rgba(nth($value, 1) - 100, nth($value, 2) - 100,nth($value, 3) - 100, .4);
+      &:after {
+        border-color: rgba(nth($value, 1), nth($value, 2), nth($value, 3), 1);
+      }
+    }
+  }
+
+  @include keyframes(ckb-jelly) {
+    0% {
+      @include scale(1);
+    }
+    30% {
+      @include scale(1.2);
+    }
+    80% {
+      @include scale(0.9);
+    }
+    90% {
+      @include scale(1.05);
+    }
+    100% {
+      @include scale(1);
+    }
+  }
+}

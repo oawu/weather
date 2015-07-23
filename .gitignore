@@ -24,3 +24,9 @@ command/compass/.sass-cache/*
 command/gulp/node_modules/*
 command/gulp/.sass-cache/*
 command/gulp/npm-debug.log
+
+cmd/.sass-cache/*
+
+cmd/node_modules/*
+cmd/.sass-cache/*
+cmd/npm-debug.log
