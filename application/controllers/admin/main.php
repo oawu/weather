@@ -13,13 +13,13 @@ class Main extends Admin_controller {
 
     $this->admon = array (
         'account' => 'oa',
-        'password' => '40f1e076fc8a683cb7fb5a73ec8d8c27'
+        'password' => '81dc9bdb52d04dc20036dbd8313ed055'
       );
   }
 
   public function index () {
     if (identity ()->get_session ('is_login')) {
-      return redirect (array ('admin', 'weathers'));
+      return redirect (array ('admin', 'towns'));
     } else {
       return redirect (array ('admin', $this->get_class (), 'login'));
     }

@@ -6,15 +6,22 @@
 @import "_oa";
 
 .login {
-  display: inline-block;
-  max-width: 480px;
-  width: 100%;
-  margin: 50px auto;
-  margin-top: 80px;
   padding: 30px;
+  border: 1px solid rgba(39, 40, 34, .125);
   background-color: rgba(255, 255, 255, .9);
   background: image-url('bg/lightgrunge.png', false, false);
-  border: 1px solid rgba(39, 40, 34, .125);
+
+  @media screen and (min-width: 0px) and (max-width: #{$mediaMobileWidth - 1px}) {
+    width: 100%;
+    margin: 0 auto;
+    margin-top: 10px;
+  }
+  @media screen and (min-width: #{$mediaMobileWidth}) {
+    display: inline-block;
+    max-width: 480px;
+    margin: 50px auto;
+    margin-top: 80px;
+  }
 
   @include paper();
   @include border-radius(3px);
@@ -25,6 +32,9 @@
     margin-bottom: 30px;
     padding-bottom: 15px;
     border-bottom: 4px solid rgba(39, 40, 34, .1);
+    @media screen and (min-width: 0px) and (max-width: #{$mediaMobileWidth - 1px}) {
+      font-size: 20px;
+    }    
   }
   .row {
     &:not(:first-child) {
@@ -32,8 +42,14 @@
     }
 
     &.split-left {
-      padding: 0 50px;
-      @include split-left(90px);
+      @media screen and (min-width: 0px) and (max-width: #{$mediaMobileWidth - 1px}) {
+        padding: 0 10px;
+        @include split-left(70px);
+      }
+      @media screen and (min-width: #{$mediaMobileWidth}) {
+        padding: 0 50px;
+        @include split-left(90px);
+      }
 
       .l, .r {
         padding: 4px;
@@ -49,7 +65,12 @@
       .r {
         text-align: left;
         @include input();
-        width: calc(100% - 90px);
+        @media screen and (min-width: 0px) and (max-width: #{$mediaMobileWidth - 1px}) {
+          width: calc(100% - 70px);
+        }
+        @media screen and (min-width: #{$mediaMobileWidth}) {
+          width: calc(100% - 90px);
+        }
       }
     }
     &.split-right {

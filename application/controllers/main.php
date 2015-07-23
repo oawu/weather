@@ -16,17 +16,20 @@ class Main extends Site_controller {
     write_file (FCPATH . 'application/logs/query.log', '', FOPEN_READ_WRITE_CREATE_DESTRUCTIVE);
   }
   public function index () {
-    $this->add_meta (array ('property' => 'og:url', 'content' => current_url ()))
-         ->add_hidden (array ('id' => 'get_weathers_url', 'value' => base_url ($this->get_class (), 'get_weathers')))
-         ->add_js ('https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&language=zh-TW', false)
-         ->add_js (base_url ('resource', 'javascript', 'markerwithlabel_d2015_06_28', 'markerwithlabel.js'))
-         ->add_js (base_url ('resource', 'javascript', 'markerclusterer_v1.0', 'markerclusterer.js'))
-         ->load_view (null);
+    // $this->add_meta (array ('property' => 'og:url', 'content' => current_url ()))
+    //      ->add_hidden (array ('id' => 'get_weathers_url', 'value' => base_url ($this->get_class (), 'get_weathers')))
+    //      ->add_js ('https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&language=zh-TW', false)
+    //      ->add_js (base_url ('resource', 'javascript', 'markerwithlabel_d2015_06_28', 'markerwithlabel.js'))
+    //      ->add_js (base_url ('resource', 'javascript', 'markerclusterer_v1.0', 'markerclusterer.js'))
+    //      ->load_view (null);
   }
 
   public function get_weathers () {
-    if (!$this->is_ajax (false))
-      return show_error ("It's not Ajax request!<br/>Please confirm your program again.");
+    header ('Content-type: text/html');
+    header ('Access-Control-Allow-Origin: http://dev.comdan66.github.io');
+
+    // if (!$this->is_ajax (false))
+    //   return show_error ("It's not Ajax request!<br/>Please confirm your program again.");
 
     $north_east = $this->input_post ('NorthEast');
     $south_west = $this->input_post ('SouthWest');

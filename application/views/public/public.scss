@@ -5,7 +5,112 @@
 
 @import "_oa";
 
-@include font-face("Monaco", font-files("/resource/font/monaco/monaco.ttf", "/resource/font/monaco/monaco.otf"));
+@include font-face("Monaco", font-files("monaco/monaco.ttf", "monaco/monaco.otf"));
+@include font-face("icomoon", font-files("icomoon/icomoon.eot", "icomoon/icomoon.woff", "icomoon/icomoon.ttf", "icomoon/icomoon.svg"));
+
+[class^="icon-"], [class*=" icon-"] {
+  font-family: 'icomoon';
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  @include font-smoothing(antialiased);
+}
+
+.icon-refresh:before {
+  content: "\e615";
+}
+.icon-home:before {
+  content: "\e601";
+}
+.icon-link-external:before {
+  content: "\e605";
+}
+.icon-link:before {
+  content: "\e606";
+}
+.icon-eye:before {
+  content: "\e607";
+}
+.icon-pencil2:before {
+  content: "\e906";
+}
+.icon-eyedropper:before {
+  content: "\e90a";
+}
+.icon-hour-glass:before {
+  content: "\e979";
+}
+.icon-fire:before {
+  content: "\e9a9";
+}
+.icon-bin:before {
+  content: "\e9ac";
+}
+.icon-th-menu:before {
+  content: "\e600";
+}
+.icon-arrow-right:before {
+  content: "\e60e";
+}
+.icon-uniE610:before {
+  content: "\e610";
+}
+.icon-uniE611:before {
+  content: "\e611";
+}
+.icon-uniE63B:before {
+  content: "\e63b";
+}
+.icon-uniE63C:before {
+  content: "\e63c";
+}
+.icon-uniE63E:before {
+  content: "\e63e";
+}
+.icon-eye2:before {
+  content: "\e613";
+}
+.icon-location:before {
+  content: "\e60c";
+}
+.icon-check-circle-o:before {
+  content: "\e612";
+}
+.icon-heart-o:before {
+  content: "\e608";
+}
+.icon-heart:before {
+  content: "\e60d";
+}
+.icon-sign-out:before {
+  content: "\e60f";
+}
+.icon-chevron-right:before {
+  content: "\e60a";
+}
+.icon-chevron-left:before {
+  content: "\e60b";
+}
+.icon-facebook-square:before {
+  content: "\e609";
+}
+.icon-star-1:before {
+  content: "\e602";
+}
+.icon-star-0:before {
+  content: "\e603";
+}
+.icon-star-2:before {
+  content: "\e604";
+}
+.icon-street-view:before {
+  content: "\e614";
+}
+
 
 * {
   &, &:after, &:before {
@@ -27,11 +132,15 @@ html {
     width: 100%;
     height: 100%;
     font-size: medium;
-    font-family: Monaco "微軟正黑體";
+    font-family: Gafata, Monaco, "微軟正黑體";
     background: $mainBackgroundColor $mainBackgroundImage;
     color: rgba(50, 50, 50, 0.7);
 
     @include font-smoothing(antialiased);
     @include box-shadow(none);
   }
+}
+
+.gm-style-cc {
+  display: none;
 }

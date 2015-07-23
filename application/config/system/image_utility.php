@@ -5,6 +5,6 @@
  * @copyright   Copyright (c) 2015 OA Wu Design
  */
 
-$image_utility['module'] = 'gd'; // gd、imgk
+$image_utility['module'] = 'imgk'; // gd、imgk
 $image_utility['modules'] = array ('gd'   => 'ImageGdUtility',
                                    'imgk' => 'ImageImagickUtility');
