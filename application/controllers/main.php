@@ -16,6 +16,9 @@ class Main extends Site_controller {
     write_file (FCPATH . 'application/logs/query.log', '', FOPEN_READ_WRITE_CREATE_DESTRUCTIVE);
   }
   public function index () {
-    return redirect ('http://comdan66.github.io/weather/index.html');
+    if (ENVIRONMENT == 'production')
+      return redirect ('http://comdan66.github.io/weather/index.html');
+    else
+      return redirect ('http://dev.comdan66.github.io/weather/index.html');
   }
 }
