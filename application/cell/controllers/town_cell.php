@@ -8,9 +8,9 @@
 class Town_cell extends Cell_Controller {
 
   /* render_cell ('town_cell', 'update_weather', array ()); */
-  // public function _cache_update_weather ($town) {
-  //   return array ('time' => 30 * 60, 'key' => $town->id);
-  // }
+  public function _cache_update_weather ($town) {
+    return array ('time' => 60 * 60, 'key' => $town->id);
+  }
   public function update_weather ($town) {
     $this->CI->load->library ('phpQuery');
     $base_url = 'http://www.cwb.gov.tw';

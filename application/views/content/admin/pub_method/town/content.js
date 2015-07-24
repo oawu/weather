@@ -10,6 +10,7 @@ $(function () {
   var $bound = $('#bound');
   var $marker = $('#marker');
   var $loadingData = $('#loading_data');
+  var $zoom = $('#zoom');
 
   var _map = null;
   var _update = false;
@@ -120,10 +121,10 @@ $(function () {
       updateTown ($marker.val (), marker.position);
     });
 
-    google.maps.event.addListener(_map, 'zoom_changed', getTowns.bind (this, _map, $marker.val (), $('#loading_data'), true));
-    google.maps.event.addListener(_map, 'idle', getTowns.bind (this, _map, $marker.val (), $('#loading_data'), true));
+    google.maps.event.addListener(_map, 'zoom_changed', getTowns.bind (this, _map, $marker.val (), $loadingData, true, $zoom));
+    google.maps.event.addListener(_map, 'idle', getTowns.bind (this, _map, $marker.val (), $loadingData, true, $zoom));
     
-    getTowns ( _map, $marker.val (), $('#loading_data'), true);
+    getTowns ( _map, $marker.val (), $loadingData, true, $zoom);
   }
 
   google.maps.event.addDomListener (window, 'load', initialize);

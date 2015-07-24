@@ -9,6 +9,9 @@ class Towns extends Admin_controller {
 
   public function __construct () {
     parent::__construct ();
+
+    if (!identity ()->get_session ('is_login'))
+      return redirect ('admin', 'main', 'login');
   }
 
   public function destroy ($id = 0) {
@@ -32,6 +35,7 @@ class Towns extends Admin_controller {
     $postal_code = trim (identity ()->get_session ('postal_code', true));
     $latitude = trim (identity ()->get_session ('latitude', true));
     $longitude = trim (identity ()->get_session ('longitude', true));
+    $zoom = trim (identity ()->get_session ('zoom', true));
 
     $this->add_hidden (array ('id' => 'marker', 'data-lat' => $town->latitude, 'data-lng' => $town->longitude, 'value' => $town->id))
          ->load_view (array (
@@ -41,7 +45,8 @@ class Towns extends Admin_controller {
         'name' => $name,
         'postal_code' => $postal_code,
         'latitude' => $latitude,
-        'longitude' => $longitude
+        'longitude' => $longitude,
+        'zoom' => $zoom
       ));
   }
 
@@ -57,14 +62,16 @@ class Towns extends Admin_controller {
     $postal_code = trim ($this->input_post ('postal_code'));
     $latitude = trim ($this->input_post ('latitude'));
     $longitude = trim ($this->input_post ('longitude'));
+    $zoom = trim ($this->input_post ('zoom'));
 
-    if (!($town_category_id && $name && $postal_code && $latitude && $longitude))
+    if (!($town_category_id && $name && $postal_code && $latitude && $longitude && $zoom))
       return identity ()->set_session ('_flash_message', '填寫資訊有少！', true)
                         ->set_session ('town_category_id', $town_category_id, true)
                         ->set_session ('name', $name, true)
                         ->set_session ('postal_code', $postal_code, true)
                         ->set_session ('latitude', $latitude, true)
                         ->set_session ('longitude', $longitude, true)
+                        ->set_session ('zoom', $zoom, true)
                         && redirect (array ('admin', 'towns', 'edit', $town->id), 'refresh');
 
 
@@ -75,6 +82,7 @@ class Towns extends Admin_controller {
                         ->set_session ('postal_code', $postal_code, true)
                         ->set_session ('latitude', $latitude, true)
                         ->set_session ('longitude', $longitude, true)
+                        ->set_session ('zoom', $zoom, true)
                         && redirect (array ('admin', 'towns', 'add'), 'refresh');
 
     // if (Town::find ('one', array ('select' => 'id', 'conditions' => array ('id != ? AND postal_code = ?', $town->id, $postal_code))))
@@ -84,6 +92,7 @@ class Towns extends Admin_controller {
     //                     ->set_session ('postal_code', $postal_code, true)
     //                     ->set_session ('latitude', $latitude, true)
     //                     ->set_session ('longitude', $longitude, true)
+    //                    ->set_session ('zoom', $zoom, true)
     //                     && redirect (array ('admin', 'towns', 'edit', $town->id), 'refresh');
 
 
@@ -94,6 +103,7 @@ class Towns extends Admin_controller {
                         ->set_session ('postal_code', $postal_code, true)
                         ->set_session ('latitude', $latitude, true)
                         ->set_session ('longitude', $longitude, true)
+                        ->set_session ('zoom', $zoom, true)
                         && redirect (array ('admin', 'towns', 'add'), 'refresh');
 
     if (($town->latitude == $latitude) && ($town->longitude == $longitude))
@@ -106,6 +116,7 @@ class Towns extends Admin_controller {
     $town->postal_code = $postal_code;
     $town->latitude = $latitude;
     $town->longitude = $longitude;
+    $town->zoom = $zoom;
 
     if (!$town->save ())
       return identity ()->set_session ('_flash_message', '修改失敗！', true)
@@ -114,6 +125,7 @@ class Towns extends Admin_controller {
                         ->set_session ('postal_code', $postal_code, true)
                         ->set_session ('latitude', $latitude, true)
                         ->set_session ('longitude', $longitude, true)
+                        ->set_session ('zoom', $zoom, true)
                         && redirect (array ('admin', 'towns', 'edit', $town->id), 'refresh');
 
     if ($is_update_pic)
@@ -131,6 +143,7 @@ class Towns extends Admin_controller {
     $postal_code = trim (identity ()->get_session ('postal_code', true));
     $latitude = trim (identity ()->get_session ('latitude', true));
     $longitude = trim (identity ()->get_session ('longitude', true));
+    $zoom = trim (identity ()->get_session ('zoom', true));
 
     $this->load_view (array (
         'message' => $message,
@@ -138,7 +151,8 @@ class Towns extends Admin_controller {
         'name' => $name,
         'postal_code' => $postal_code,
         'latitude' => $latitude,
-        'longitude' => $longitude
+        'longitude' => $longitude,
+        'zoom' => $zoom
       ));
   }
 
@@ -151,14 +165,16 @@ class Towns extends Admin_controller {
     $postal_code = trim ($this->input_post ('postal_code'));
     $latitude = trim ($this->input_post ('latitude'));
     $longitude = trim ($this->input_post ('longitude'));
+    $zoom = trim ($this->input_post ('zoom'));
 
-    if (!($town_category_id && $name && $postal_code && $latitude && $longitude))
+    if (!($town_category_id && $name && $postal_code && $latitude && $longitude && is_numeric ($zoom)))
       return identity ()->set_session ('_flash_message', '填寫資訊有少！', true)
                         ->set_session ('town_category_id', $town_category_id, true)
                         ->set_session ('name', $name, true)
                         ->set_session ('postal_code', $postal_code, true)
                         ->set_session ('latitude', $latitude, true)
                         ->set_session ('longitude', $longitude, true)
+                        ->set_session ('zoom', $zoom, true)
                         && redirect (array ('admin', 'towns', 'add'), 'refresh');
 
     if (!($town_category = TownCategory::find_by_id ($town_category_id)))
@@ -168,6 +184,7 @@ class Towns extends Admin_controller {
                         ->set_session ('postal_code', $postal_code, true)
                         ->set_session ('latitude', $latitude, true)
                         ->set_session ('longitude', $longitude, true)
+                        ->set_session ('zoom', $zoom, true)
                         && redirect (array ('admin', 'towns', 'add'), 'refresh');
 
     // if (Town::find ('one', array ('select' => 'id', 'conditions' => array ('postal_code = ?', $postal_code))))
@@ -177,6 +194,7 @@ class Towns extends Admin_controller {
     //                     ->set_session ('postal_code', $postal_code, true)
     //                     ->set_session ('latitude', $latitude, true)
     //                     ->set_session ('longitude', $longitude, true)
+    //                     ->set_session ('zoom', $zoom, true)
     //                     && redirect (array ('admin', 'towns', 'add'), 'refresh');
 
     if (Town::find ('one', array ('select' => 'id', 'conditions' => array ('town_category_id = ? AND name = ?', $town_category->id, $name))))
@@ -186,6 +204,7 @@ class Towns extends Admin_controller {
                         ->set_session ('postal_code', $postal_code, true)
                         ->set_session ('latitude', $latitude, true)
                         ->set_session ('longitude', $longitude, true)
+                        ->set_session ('zoom', $zoom, true)
                         && redirect (array ('admin', 'towns', 'add'), 'refresh');
 
     $params = array (
@@ -194,6 +213,7 @@ class Towns extends Admin_controller {
         'postal_code' => $postal_code,
         'latitude' => $latitude,
         'longitude' => $longitude,
+        'zoom' => $zoom,
         'pic' => '',
         'cwb_town_id' => ''
       );
@@ -205,6 +225,7 @@ class Towns extends Admin_controller {
                         ->set_session ('postal_code', $postal_code, true)
                         ->set_session ('latitude', $latitude, true)
                         ->set_session ('longitude', $longitude, true)
+                        ->set_session ('zoom', $zoom, true)
                         && redirect (array ('admin', 'towns', 'add'), 'refresh');
 
     if (!$town->put_pic () && ($town->destroy () || true))
@@ -214,6 +235,7 @@ class Towns extends Admin_controller {
                         ->set_session ('postal_code', $postal_code, true)
                         ->set_session ('latitude', $latitude, true)
                         ->set_session ('longitude', $longitude, true)
+                        ->set_session ('zoom', $zoom, true)
                         && redirect (array ('admin', 'towns', 'add'), 'refresh');
 
     return identity ()->set_session ('_flash_message', '新增成功！', true)
@@ -342,6 +364,7 @@ class Towns extends Admin_controller {
     $postal_code = trim (identity ()->get_session ('postal_code', true));
     $latitude = trim (identity ()->get_session ('latitude', true));
     $longitude = trim (identity ()->get_session ('longitude', true));
+    $zoom = trim (identity ()->get_session ('zoom', true));
 
     $this->add_hidden (array ('id' => 'marker', 'data-lat' => $town->latitude, 'data-lng' => $town->longitude, 'value' => $town->id))
          ->load_view (array (
@@ -350,7 +373,8 @@ class Towns extends Admin_controller {
         'name' => $name,
         'postal_code' => $postal_code,
         'latitude' => $latitude,
-        'longitude' => $longitude
+        'longitude' => $longitude,
+        'zoom' => $zoom
       ));
   }
   public function cate_update_town ($id = 0) {
@@ -364,14 +388,16 @@ class Towns extends Admin_controller {
     $postal_code = trim ($this->input_post ('postal_code'));
     $latitude = trim ($this->input_post ('latitude'));
     $longitude = trim ($this->input_post ('longitude'));
+    $zoom = trim ($this->input_post ('zoom'));
 
-    if (!($name && $postal_code && $latitude && $longitude))
+    if (!($name && $postal_code && $latitude && $longitude && is_numeric ($zoom)))
       return identity ()->set_session ('_flash_message', '填寫資訊有少！', true)
                         ->set_session ('town_category_id', $town_category_id, true)
                         ->set_session ('name', $name, true)
                         ->set_session ('postal_code', $postal_code, true)
                         ->set_session ('latitude', $latitude, true)
                         ->set_session ('longitude', $longitude, true)
+                        ->set_session ('zoom', $zoom, true)
                         && redirect (array ('admin', 'towns', 'cate_edit_town', $town->id), 'refresh');
 
     // if (Town::find ('one', array ('select' => 'id', 'conditions' => array ('id != ? AND postal_code = ?', $town->id, $postal_code))))
@@ -381,6 +407,7 @@ class Towns extends Admin_controller {
     //                     ->set_session ('postal_code', $postal_code, true)
     //                     ->set_session ('latitude', $latitude, true)
     //                     ->set_session ('longitude', $longitude, true)
+    //                     ->set_session ('zoom', $zoom, true)
     //                     && redirect (array ('admin', 'towns', 'cate_edit_town', $town->id), 'refresh');
 
     if (Town::find ('one', array ('select' => 'id', 'conditions' => array ('id != ? AND town_category_id = ? AND name = ?', $town->id, $town_category->id, $name))))
@@ -390,6 +417,7 @@ class Towns extends Admin_controller {
                         ->set_session ('postal_code', $postal_code, true)
                         ->set_session ('latitude', $latitude, true)
                         ->set_session ('longitude', $longitude, true)
+                        ->set_session ('zoom', $zoom, true)
                         && redirect (array ('admin', 'towns', 'cate_edit_town', $town->id), 'refresh');
 
     if (($town->latitude == $latitude) && ($town->longitude == $longitude))
@@ -401,6 +429,7 @@ class Towns extends Admin_controller {
     $town->postal_code = $postal_code;
     $town->latitude = $latitude;
     $town->longitude = $longitude;
+    $town->zoom = $zoom;
 
     if (!$town->save ())
       return identity ()->set_session ('_flash_message', '修改失敗！', true)
@@ -409,6 +438,7 @@ class Towns extends Admin_controller {
                         ->set_session ('postal_code', $postal_code, true)
                         ->set_session ('latitude', $latitude, true)
                         ->set_session ('longitude', $longitude, true)
+                        ->set_session ('zoom', $zoom, true)
                         && redirect (array ('admin', 'towns', 'cate_edit_town', $town->id), 'refresh');
 
     if ($is_update_pic)
@@ -428,6 +458,7 @@ class Towns extends Admin_controller {
     $postal_code = trim (identity ()->get_session ('postal_code', true));
     $latitude = trim (identity ()->get_session ('latitude', true));
     $longitude = trim (identity ()->get_session ('longitude', true));
+    $zoom = trim (identity ()->get_session ('zoom', true));
 
     $this->load_view (array (
         'message' => $message,
@@ -435,7 +466,8 @@ class Towns extends Admin_controller {
         'name' => $name,
         'postal_code' => $postal_code,
         'latitude' => $latitude,
-        'longitude' => $longitude
+        'longitude' => $longitude,
+        'zoom' => $zoom
       ));
   }
   public function cate_create_town ($cate_id = 0) {
@@ -450,14 +482,16 @@ class Towns extends Admin_controller {
     $postal_code = trim ($this->input_post ('postal_code'));
     $latitude = trim ($this->input_post ('latitude'));
     $longitude = trim ($this->input_post ('longitude'));
+    $zoom = trim ($this->input_post ('zoom'));
 
-    if (!($town_category_id && $name && $postal_code && $latitude && $longitude))
+    if (!($town_category_id && $name && $postal_code && $latitude && $longitude && is_numeric ($zoom)))
       return identity ()->set_session ('_flash_message', '填寫資訊有少！', true)
                         ->set_session ('town_category_id', $town_category_id, true)
                         ->set_session ('name', $name, true)
                         ->set_session ('postal_code', $postal_code, true)
                         ->set_session ('latitude', $latitude, true)
                         ->set_session ('longitude', $longitude, true)
+                        ->set_session ('zoom', $zoom, true)
                         && redirect (array ('admin', 'towns', 'cate_add_town', $town_category_id), 'refresh');
 
     if (!($town_category = TownCategory::find_by_id ($town_category_id)))
@@ -467,6 +501,7 @@ class Towns extends Admin_controller {
                         ->set_session ('postal_code', $postal_code, true)
                         ->set_session ('latitude', $latitude, true)
                         ->set_session ('longitude', $longitude, true)
+                        ->set_session ('zoom', $zoom, true)
                         && redirect (array ('admin', 'towns', 'cate_add_town', $town_category_id), 'refresh');
 
     // if (Town::find ('one', array ('select' => 'id', 'conditions' => array ('postal_code = ?', $postal_code))))
@@ -476,6 +511,7 @@ class Towns extends Admin_controller {
     //                     ->set_session ('postal_code', $postal_code, true)
     //                     ->set_session ('latitude', $latitude, true)
     //                     ->set_session ('longitude', $longitude, true)
+    //                    ->set_session ('zoom', $zoom, true)
     //                     && redirect (array ('admin', 'towns', 'cate_add_town', $town_category_id), 'refresh');
 
 
@@ -486,6 +522,7 @@ class Towns extends Admin_controller {
                         ->set_session ('postal_code', $postal_code, true)
                         ->set_session ('latitude', $latitude, true)
                         ->set_session ('longitude', $longitude, true)
+                        ->set_session ('zoom', $zoom, true)
                         && redirect (array ('admin', 'towns', 'cate_add_town', $town_category_id), 'refresh');
 
     $params = array (
@@ -494,6 +531,7 @@ class Towns extends Admin_controller {
         'postal_code' => $postal_code,
         'latitude' => $latitude,
         'longitude' => $longitude,
+        'zoom' => $zoom,
         'pic' => '',
         'cwb_town_id' => ''
       );
@@ -505,6 +543,7 @@ class Towns extends Admin_controller {
                         ->set_session ('postal_code', $postal_code, true)
                         ->set_session ('latitude', $latitude, true)
                         ->set_session ('longitude', $longitude, true)
+                        ->set_session ('zoom', $zoom, true)
                         && redirect (array ('admin', 'towns', 'cate_add_town', $town_category_id), 'refresh');
 
     if (!$town->put_pic () && ($town->destroy () || true))
@@ -514,6 +553,7 @@ class Towns extends Admin_controller {
                         ->set_session ('postal_code', $postal_code, true)
                         ->set_session ('latitude', $latitude, true)
                         ->set_session ('longitude', $longitude, true)
+                        ->set_session ('zoom', $zoom, true)
                         && redirect (array ('admin', 'towns', 'cate_add_town', $town_category_id), 'refresh');
 
     return identity ()->set_session ('_flash_message', '新增成功！', true)

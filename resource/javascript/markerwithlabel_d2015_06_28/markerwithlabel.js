@@ -398,7 +398,7 @@ MarkerLabel_.prototype.setStyles = function () {
  */
 MarkerLabel_.prototype.setMandatoryStyles = function () {
   this.labelDiv_.style.position = "absolute";
-  this.labelDiv_.style.overflow = "hidden";
+  this.labelDiv_.style.overflow = "";
   // Make sure the opacity setting causes the desired effect on MSIE:
   if (typeof this.labelDiv_.style.opacity !== "undefined" && this.labelDiv_.style.opacity !== "") {
     this.labelDiv_.style.MsFilter = "\"progid:DXImageTransform.Microsoft.Alpha(opacity=" + (this.labelDiv_.style.opacity * 100) + ")\"";

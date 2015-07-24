@@ -48,6 +48,12 @@
             </td>
           </tr>
           <tr>
+            <th>放大級別</th>
+            <td>
+              <input type='text' id='zoom' name='zoom' value='<?php echo $zoom ? $zoom : $town->zoom;?>' placeholder='請輸入放大級別..' maxlength='3' pattern='.{1,3}' required title='輸入 1~3 個字元!' />
+            </td>
+          </tr>
+          <tr>
             <th>地圖</th>
             <td>
               <div class='map'>

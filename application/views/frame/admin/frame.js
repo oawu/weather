@@ -3,13 +3,13 @@
  * @copyright   Copyright (c) 2015 OA Wu Design
  */
 
-function getTowns (map, town_id, $loadingData, notSaveLast) {
+function getTowns (map, town_id, $loadingData, notSaveLast, $zoom) {
   clearTimeout (map.getGoalsTimer);
 
   map.getGoalsTimer = setTimeout (function () {
     if (map.isGetGoals)
       return;
-    
+
     if(!map.markers)
       map.markers = [];
         
@@ -24,7 +24,8 @@ function getTowns (map, town_id, $loadingData, notSaveLast) {
       url: $('#get_towns_url').val (),
       data: { NorthEast: {latitude: northEast.lat (), longitude: northEast.lng ()},
               SouthWest: {latitude: southWest.lat (), longitude: southWest.lng ()},
-              town_id: town_id ? town_id : 0
+              town_id: town_id ? town_id : 0,
+              zoom: map.zoom
             },
       async: true, cache: false, dataType: 'json', type: 'POST',
       beforeSend: function () {}
@@ -40,26 +41,49 @@ function getTowns (map, town_id, $loadingData, notSaveLast) {
               labelContent: t.name,
               labelAnchor: new google.maps.Point (50, 0),
               labelClass: "marker_label",
-              icon: '/resource/image/map/spotlight-poi-blue.png'
+              icon: '/resource/image/map/spotlight-poi-blue.png',
+              initCallback: function (t) {
+              }
             });
-          
-          var polygon = (t.bound !== null ? new google.maps.Polygon ({
-                        paths: [
-                          new google.maps.LatLng (t.bound.northeast.lat, t.bound.northeast.lng),
-                          new google.maps.LatLng (t.bound.southwest.lat, t.bound.northeast.lng),
-                          new google.maps.LatLng (t.bound.southwest.lat, t.bound.southwest.lng),
-                          new google.maps.LatLng (t.bound.northeast.lat, t.bound.southwest.lng)
-                        ],
-                        strokeColor: 'rgba(1, 50, 162, 1)',
-                        strokeOpacity: 0.8,
-                        strokeWeight: 2,
-                        fillColor: 'rgba(96, 144, 255, 1)',
-                        fillOpacity: 0.35
-                      }) : null);
+
+          // google.maps.event.addListener (markerWithLabel, 'click', function () {
+          //   $.ajax ({
+          //     url: $('#update_town_zoom_url').val (),
+          //     data: {
+          //       id: t.id,
+          //       zoom: map.zoom + 1,
+          //     },
+          //     async: true, cache: false, dataType: 'json', type: 'POST',
+          //     beforeSend: function () { }
+          //   })
+          //   .done (function (result) {
+          //     if (result.status) {
+          //       markerWithLabel.setMap (null);
+          //       map.markers = map.markers.filter (function (u) { return u.id != t.id; });
+          //     }
+          //   })
+          //   .fail (function (result) { ajaxError (result); })
+          //   .complete (function (result) {});
+          // });
+
+          // google.maps.event.addListener (markerWithLabel, 'rightclick', function () {
+          //   $.ajax ({
+          //     url: $('#update_town_zoom_url').val (),
+          //     data: {
+          //       id: t.id,
+          //       zoom: map.zoom - 1,
+          //     },
+          //     async: true, cache: false, dataType: 'json', type: 'POST',
+          //     beforeSend: function () { }
+          //   })
+          //   .done (function (result) {})
+          //   .fail (function (result) { ajaxError (result); })
+          //   .complete (function (result) {});
+          // });
+
           return {
             id: t.id,
-            markerWithLabel: markerWithLabel,
-            polygon: polygon
+            markerWithLabel: markerWithLabel
           };
         });
 
@@ -69,13 +93,9 @@ function getTowns (map, town_id, $loadingData, notSaveLast) {
         var add_ids = adds.map (function (t) { return t.id; });
 
         deletes.map (function (t) {
-          if (t.polygon)
-            t.polygon.setMap (null);
           t.markerWithLabel.setMap (null);
         });
         adds.map (function (t) {
-          if (t.polygon)
-            t.polygon.setMap (map);
           t.markerWithLabel.setMap (map);
         });
 
@@ -89,6 +109,10 @@ function getTowns (map, town_id, $loadingData, notSaveLast) {
     .fail (function (result) { ajaxError (result); })
     .complete (function (result) {});
   }, 200);
+
+    
+  if ($zoom.length)
+    $zoom.text (map.zoom);
 
   if (!notSaveLast)
     setStorage.apply (this, ['weather_maps_admin_last', {

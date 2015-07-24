@@ -30,37 +30,30 @@ class Pub_method extends Admin_controller {
     if (!$this->is_ajax (false))
       return show_error ("It's not Ajax request!<br/>Please confirm your program again.");
     
-    $is_use_bound = false;
-
     $north_east = $this->input_post ('NorthEast');
     $south_west = $this->input_post ('SouthWest');
     $town_id = ($town_id = $this->input_post ('town_id')) ? $town_id : 0;
+    $zoom = $this->input_post ('zoom');
 
     if (!(isset ($north_east['latitude']) && isset ($south_west['latitude']) && isset ($north_east['longitude']) && isset ($south_west['longitude'])))
       return $this->output_json (array ('status' => true, 'towns' => array ()));
 
-    $towns = array_map (function ($town) use ($is_use_bound) {
+    $that = $this;
+    $towns = array_map (function ($town) use ($that) {
       return array (
           'id' => $town->id,
           'lat' => $town->latitude,
           'lng' => $town->longitude,
           'name' => $town->name,
-          'bound' => $is_use_bound && $town->bound ? array (
-              'northeast' => array (
-                'lat' => $town->bound->northeast_latitude,
-                'lng' => $town->bound->northeast_longitude,
-                ),
-              'southwest' => array (
-                'lat' => $town->bound->southwest_latitude,
-                'lng' => $town->bound->southwest_longitude,
-                )
-            ) : null
+          'info' => $that->load_content (array (
+              'town' => $town
+            ), true)
         );
-    }, Town::find ('all', array ('conditions' => array ('latitude < ? AND latitude > ? AND longitude < ? AND longitude > ? AND id != ?', $north_east['latitude'], $south_west['latitude'], $north_east['longitude'], $south_west['longitude'], $town_id))));
+    }, Town::find ('all', array ('conditions' => array ('id != ? AND zoom <= ? AND (latitude BETWEEN ? AND ?) AND (longitude BETWEEN ? AND ?)', $town_id, $zoom, $south_west['latitude'], $north_east['latitude'], $south_west['longitude'], $north_east['longitude']))));
 
     return $this->output_json (array ('status' => true, 'towns' => $towns));
   }
-  public function update_town_position ($id = 0) {
+  public function update_town_position () {
     if (!$this->is_ajax (false))
       return show_error ("It's not Ajax request!<br/>Please confirm your program again.");
 
@@ -95,6 +88,24 @@ class Pub_method extends Admin_controller {
 
     if ($is_update_pic)
       $town->put_pic ();
+
+    return $this->output_json (array ('status' => true));
+  }
+  public function update_town_zoom () {
+    if (!$this->is_ajax (false))
+      return show_error ("It's not Ajax request!<br/>Please confirm your program again.");
+
+    $id = trim ($this->input_post ('id'));
+    $zoom = trim ($this->input_post ('zoom'));
+    $zoom = $zoom > 0 ? $zoom < 21 ? $zoom : 21 : 0;
+
+    if (!($id && is_numeric ($zoom) &&($town = Town::find_by_id ($id, array ('select' => 'id, zoom')))))
+      return $this->output_json (array ('status' => false));
+    
+    $town->zoom = $zoom;
+
+    if (!$town->save ())
+      return $this->output_json (array ('status' => false));
 
     return $this->output_json (array ('status' => true));
   }

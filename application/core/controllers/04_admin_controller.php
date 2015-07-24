@@ -21,6 +21,7 @@ class Admin_controller extends Oa_controller {
          
          ->add_hidden (array ('id' => 'get_towns_url', 'value' => base_url ('admin', 'pub_method', 'get_towns')))
          ->add_hidden (array ('id' => 'update_town_position_url', 'value' => base_url ('admin', 'pub_method', 'update_town_position')))
+         ->add_hidden (array ('id' => 'update_town_zoom_url', 'value' => base_url ('admin', 'pub_method', 'update_town_zoom')))
 
          ->_add_meta ()
          ->_add_css ()
@@ -45,6 +46,7 @@ class Admin_controller extends Oa_controller {
   private function _add_js () {
     return $this->add_js (Cfg::setting ('google', 'client_js_url'), false)
                 ->add_js (base_url ('resource', 'javascript', 'markerwithlabel_d2015_06_28', 'markerwithlabel.js'))
+                // ->add_js (base_url ('resource', 'javascript', 'infobubble-v3', 'infobubble-compiled.js'))
                 ->add_js (base_url ('resource', 'javascript', 'jquery_v1.10.2', 'jquery-1.10.2.min.js'))
                 ->add_js (base_url ('resource', 'javascript', 'fancyBox_v2.1.5', 'jquery.fancybox.js'))
                 ->add_js (base_url ('resource', 'javascript', 'fancyBox_v2.1.5', 'jquery.fancybox-buttons.js'))

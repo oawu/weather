@@ -133,8 +133,10 @@ body {
   }
 
 
-  background-color: rgba(255, 255, 255, .9);
-  background: image-url('bg/lightgrunge.png', false, false);
+  // background-color: rgba(255, 255, 255, .9);
+  // background: image-url('bg/lightgrunge.png', false, false);
+  background-color: rgba(251, 120, 83, 1);
+  border-bottom: 1px solid rgba(255, 255, 255, .4);
 
   @include opacity(.9);
   @include box-shadow(0 0 5px rgba(0, 0, 0, 0.8));
@@ -155,10 +157,11 @@ body {
       .l, .r {
         width: 50px;
         a {
-          @include a(rgba(120, 120, 120, 1));
+          @include a(rgba(255, 255, 255, 1));
           display: none;
           border-bottom-width: 0;
           &:hover, &:active {
+            cursor: pointer;
             border-bottom-width: 0;
             color: rgba(100, 100, 100, 1);
           }
@@ -167,18 +170,22 @@ body {
             font-size: 28px;
             display: inline-block;
             text-decoration: none;
-            font-weight: normal;
-            @include text-shadow(0 0 1px rgba(255, 255, 255, 1), 0 0 1px rgba(255, 255, 255, 1));
+            @include text-shadow(0 0 1px rgba(0, 0, 0, 1));
+          }
+          &:hover {
+            color: rgba(255, 255, 255, 1);
+            @include text-shadow(0 0 1px rgba(0, 0, 0, 1), 0 0 5px rgba(0, 0, 0, .8));
           }
         }
       }
       .c {
         padding-top: 7px;
         width: calc(100% - 100px);
-        color: rgba(120, 120, 120, 1);
+        color: rgba(255, 255, 255, 1);
         font-weight: bold;
         font-size: x-large;
-        @include background-image(radial-gradient(50% 50%, rgba(255, 255, 255, .3) 0px, rgba(255, 255, 255, 0) 100%));
+        cursor: pointer;
+        @include text-shadow(0 0 1px rgba(0, 0, 0, 1));
       }
     }
     @media screen and (min-width: #{$mediaMobileWidth}) {
@@ -188,22 +195,23 @@ body {
         @include opacity(0);
       }
       .l, .r {
-        width: calc(100% - #{$rightWidth});
         padding-top: 3px;
+        width: calc(100% - #{$rightWidth});
         @include clearfix ();
 
         a {
-          @include a(rgba(120, 120, 120, 1));
+          @include a(rgba(255, 255, 255, .8));
           float: left;
+          font-weight: bolder;
           border-bottom-width: 3px;
           display: inline-block;
           padding: 5px 15px;
           padding-bottom: 6px;
 
           &.active, &:hover {
-            color: rgba(100, 100, 100, 1);
+            color: rgba(255, 255, 255, 1);
             border-bottom-width: 3px;
-            border-bottom-color: rgba(130, 130, 130, .6);
+            border-bottom-color: rgba(255, 255, 255, .8);
           }
 
           &.home, &.option {

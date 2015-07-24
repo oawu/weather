@@ -77,7 +77,24 @@ html {
 
     @include font-smoothing(antialiased);
     @include box-shadow(none);
+    
+    #container {
+      position: relative;
+      display: block;
+      margin: 0 auto;
+      max-width: $mainWidth;
+
+      padding: 0 10px;
+
+      @media screen and (min-width: #{$mainWidth}) {
+        padding: 0;
+      }
+    }
   }
+}
+
+.gm-style-cc {
+  display: none;
 }
 
 $navbarHeight: 35px;
@@ -270,6 +287,7 @@ body {
         @include opacity(0);
       }
       .l, .r {
+        padding-top: 3px;
         width: calc(100% - #{$rightWidth});
         @include clearfix ();
 
@@ -344,6 +362,60 @@ $footerHeight: 50px;
   }
 }
 
+.marker_label {
+  position: relative;
+  width: 130px;
+  height: 130px;
+
+  .icon {
+    display: inline-block;
+    width: 100%;
+    height: 100px;
+
+    img {
+      width: 100%;
+      height: 100%;
+    }
+  }
+  .bottom {
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    display: inline-block;
+    width: 100%;
+    height: 55px;
+    line-height: 35px;
+    text-align: center;
+    font-size: large;
+    font-weight: bolder;
+    color: rgba(255, 255, 255, 1);
+
+    @include overflow-docx3();
+    @include text-shadow(0 0 1px rgba(0, 0, 0, .3));
+    @include background-image(radial-gradient(50% 50%, rgba(0, 0, 0, .7) 0px, rgba(0, 0, 0, 0) 100%));
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+  }
+  .temperature {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    display: inline-block;
+    padding: 5px;
+    max-width: 100%;
+    font-size: samll;
+    font-weight: bold;
+    color: rgba(255, 255, 255, 1);
+    border: 1px solid rgba(255, 0, 0, .3);
+    background-color: rgba(248, 131, 97, 1);
+
+    @include opacity(.9);
+    @include overflow-docx3();
+    @include border-radius(20px);
+    @include text-shadow(0 0 1px rgba(0, 0, 0, .5));
+    @include box-shadow(0 0 5px 1px rgba(0, 0, 0, 0.3));
+  }
+}
 #main_loading {
   position: fixed;
   top: 0;
