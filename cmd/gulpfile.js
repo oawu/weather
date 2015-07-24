@@ -45,13 +45,13 @@ gulp.task ('minify-html', function () {
       .pipe (gulp.dest ('./root/'));
 });
 gulp.task ('image-min', function () {
-  gulp.src ('./root/img/**/*.+(png|jpg|gif)')
+  gulp.src ('./root/resource/image/**/*.+(png|jpg|gif)')
       .pipe (imagemin ({
         progressive: true,
         svgoPlugins: [{removeViewBox: false}],
         use: [pngquant ()]
       }))
-      .pipe(gulp.dest ('./root/img/'));
+      .pipe(gulp.dest ('./root/resource/image/'));
 });
 
 // ===================================================
