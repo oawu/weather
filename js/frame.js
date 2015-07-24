@@ -3,11 +3,11 @@
  * @copyright   Copyright (c) 2015 OA Wu Design
  */
 
-window.url = 'http://dev.comdan66.github.io/weather/';
-window.getWeathersUrl = 'http://dev.weather.ioa.tw/api/github/get_weathers/';
-window.getTownsUrl = 'http://dev.weather.ioa.tw/api/github/get_towns/';
-window.getWeatherByNameUrl = 'http://dev.weather.ioa.tw/api/github/get_weather_by_name/';
-window.getWeatherByPostalCodeUrl = 'http://dev.weather.ioa.tw/api/github/get_weather_by_postal_code/';
+window.url = 'http://comdan66.github.io/weather/';
+window.getWeathersUrl = 'http://weather.ioa.tw/api/github/get_weathers/';
+window.getTownsUrl = 'http://weather.ioa.tw/api/github/get_towns/';
+window.getWeatherByNameUrl = 'http://weather.ioa.tw/api/github/get_weather_by_name/';
+window.getWeatherByPostalCodeUrl = 'http://weather.ioa.tw/api/github/get_weather_by_postal_code/';
 
 function initWeatherFeature (t, map) {
   var markerWithLabel = new MarkerWithLabel ({
