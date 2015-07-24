@@ -11,7 +11,7 @@ class Github extends Api_controller {
     parent::__construct ();
 
     header ('Content-type: text/html');
-    header ('Access-Control-Allow-Origin: http://dev.comdan66.github.io');
+    header ('Access-Control-Allow-Origin: http://comdan66.github.io');
   }
 
   private function _weather_format ($town) {
