@@ -13,11 +13,11 @@ $(function () {
 
   var $input = $('<input />').addClass ('search').attr ('type', 'text').attr ('placeholder', '快來搜尋一下天氣吧！').val (decodeURIComponent (hash)).keyup (function (e) {
     if ((e.keyCode == 13) && $(this).val ().trim ().length)
-      window.location.hash = $(this).val ().trim ();
+      window.location.hash = encodeURIComponent ($(this).val ().trim ());
   });
   var $button = $('<button />').addClass ('go_search').text ('搜尋').click (function () {
     if ($input.val ().trim ().length)
-      window.location.hash = $input.val ().trim ();
+      window.location.hash = encodeURIComponent ($input.val ().trim ());
   });
   
   var $weather = $('<div />').addClass ('r').append (
@@ -56,7 +56,7 @@ $(function () {
                         $('<div />').addClass ('title').text ('您可以試著搜尋..')).append (
                         $('<div />').addClass ('towns').append (result.towns.map (function (t) {
                           return $('<a />').text (t.name).click (function () {
-                            window.location.hash = $(this).text ();
+                            window.location.hash = encodeURIComponent ($(this).text ());
                           });
                         }))).appendTo ($container);
         setTimeout (towns.bind (this, $noData.find ('a'), 0), 100);
