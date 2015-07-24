@@ -15,6 +15,12 @@ class Main extends Site_controller {
     $this->load->helper ('file');
     write_file (FCPATH . 'application/logs/query.log', '', FOPEN_READ_WRITE_CREATE_DESTRUCTIVE);
   }
+  public function weather_all () {
+    foreach (Town::all () as $town) {
+      clean_cell ('town_cell', 'update_weather', $town->id);
+      $town->update_weather ();
+    }
+  }
   public function index () {
     if (ENVIRONMENT == 'production')
       return redirect ('http://comdan66.github.io/weather/index.html');

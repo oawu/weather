@@ -23,7 +23,10 @@ class Demo extends Site_controller {
     echo "\n";
   }
   public function weather_all () {
-    Town::update_weather_all();
+    foreach (Town::all () as $town) {
+      clean_cell ('town_cell', 'update_weather', $town->id);
+      $town->update_weather ();
+    }
   }
 
   public function town () {

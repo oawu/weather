@@ -14,7 +14,10 @@
 | path to your installation.
 |
 */
-$config['base_url']	= '';
+if (ENVIRONMENT == 'production')
+  $config['base_url']	= 'http://weather.ioa.tw/';
+else
+  $config['base_url'] = 'http://dev.weather.ioa.tw/';
 
 /*
 |--------------------------------------------------------------------------
