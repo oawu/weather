@@ -107,84 +107,281 @@
   }
 }
 
-@mixin table-list () {
+@mixin table-list() {
+  $borderRadius: 3px;
+  $borderColor: rgba(153, 155, 152, 1);
+  $headColor: rgba(191, 192, 191, 1);
+  $bodyColor: rgba(255, 255, 255, 1);
+  $bodyHoverColor: rgba(235, 235, 235, 1);
+  $footColor: rgba(191, 192, 191, 1);
+
   margin: 0;
   width: 100%;
   border-collapse: separate;
   border-spacing: 0;
-  $borderRadius: 3px;
+  @include box-shadow(0 1px 4px 0 rgba(153, 153, 153, 0.5));
 
   &, &:after, &:before, *, *:after, *:before {
       @include box-sizing(border-box);
   }
-  thead {
-    tr {
-      background-color: rgba(39, 40, 34, .15);
-
-      &:first-child {
-        th {
-          &:first-child {
-            @include border-top-left-radius($borderRadius);
-          }
-          &:last-child {
-            @include border-top-right-radius($borderRadius);
+  thead, tbody, tfoot {
+    &:first-child {
+      tr {
+        &:first-child {
+          td, th {
+            &:first-child {
+              @include border-top-left-radius($borderRadius);
+            }
+            &:last-child {
+              @include border-top-right-radius($borderRadius);
+            }
           }
         }
       }
-      &:not(:first-child) {
-        th {
-          border-top: 0;
-        }
-      }
-      th {
-        border: 1px solid rgba(39, 40, 34, .25);
-        border-right: 0;
-
+    }
+    &:last-child {
+      tr {
         &:last-child {
-          border-right: 1px solid rgba(39, 40, 34, .25);
+          td, th {
+            &:first-child {
+              @include border-bottom-left-radius($borderRadius);
+            }
+            &:last-child {
+              @include border-bottom-right-radius($borderRadius);
+            }
+            border-bottom: 1px solid $borderColor;
+          }
         }
-        padding: 5px;
-        text-align: center;
+      }
+    }
+
+    tr {
+      background-color: $headColor;
+      td, th {
+        border-top: 1px solid $borderColor;
+        border-left: 1px solid $borderColor;
+        font-weight: bold;
+        &:last-child {
+          border-right: 1px solid $borderColor;
+        }
       }
     }
   }
   tbody {
     tr {
-      &:last-child {
-        td {
-          &:first-child {
-            @include border-bottom-left-radius($borderRadius);
-          }
-          &:last-child {
-            @include border-bottom-right-radius($borderRadius);
-          }
-        }
-      }
+      background-color: $bodyColor;
+      @include transition(background-color .3s);
+
       &:hover {
-        background-color: rgba(39, 40, 34, .03);
+        background-color: $bodyHoverColor;
       }
       td {
-        border: 1px solid rgba(39, 40, 34, .25);
-        border-right: 0;
-        border-top: 0;
-        background-color: rgba(255, 255, 255, .5);
+        word-break: break-all;
+        font-weight: normal;
+      }
+    }
+  }
+  tfoot {
+    tr {
+      background-color: $footColor;
+    }
+  }
+}
 
-        &:last-child {
-          border-right: 1px solid rgba(39, 40, 34, .25);
-        }
-        padding: 5px 8px;
-        text-align: center;
+@mixin table-list-rwd() {
+  $borderRadius: 3px;
+  $borderColor: rgba(153, 155, 152, 1);
+  $headColor: rgba(191, 192, 191, 1);
+  $bodyColor: rgba(255, 255, 255, 1);
+  $bodyHoverColor: rgba(240, 240, 240, 1);
+  $footColor: rgba(191, 192, 191, 1);
+  $headerHeight: 30px;
+  $changeWidth: 900px;
 
-        svg {
-          @include transition(all .3s);
-          @include svg-color(rgba(39, 40, 34, .6), rgba(39, 40, 34, 1));
+  $headCellPadding: 5px;
+  $footCellPadding: 5px;
+  $bodyCellPadding: 5px;
+
+  // mobile
+  $trTopMargin: 10px;
+  $titleWidth: 90px;
+  $titlePadding: 5px;
+
+  margin: 0;
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+
+  &, &:after, &:before, *, *:after, *:before {
+      @include box-sizing(border-box);
+  }
+  @media screen and (min-width: 0px) and (max-width: #{$changeWidth - 1px}) {
+    display: block;
+
+    thead, tbody, tfoot {
+      display: block;
+
+      tr {
+        display: block;
+        @include box-shadow(0 1px 4px 0 rgba(153, 153, 153, 0.5));
+        & + tr {
+          margin-top: $trTopMargin;
         }
-        input[type='text'] {
-          @include input();
+        td, th {
+          &:first-child {
+            @include border-top-radius($borderRadius);
+          }
+          &:last-child {
+            @include border-bottom-radius($borderRadius);
+          }
+          position: relative;
+          display: block;
+          border: 1px solid $borderColor;
+          background-color: $bodyColor;
+          text-align: left;
+          padding: $bodyCellPadding;
+          padding-left: $bodyCellPadding + $titleWidth;
+          word-break: break-all;
           width: 100%;
+
+          &:not(:last-child) {
+            border-bottom: 0;
+          }
+
+          &:before {
+            content: attr(data-title);
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: inline-block;
+            width: $titleWidth;
+            padding: $titlePadding;
+            text-align: right;
+            height: 100%;
+            background-color: rgba(191, 192, 191, 1);
+            border-right: 1px solid $borderColor;
+            @include overflow-docx3();
+          }
+          &[colspan] {
+            padding-left: $bodyCellPadding;
+            text-align: center;
+            &:before {
+              display: none;
+            }
+          }
         }
-        a {
-          @include a(rgba(39, 40, 34, .6), rgba(39, 40, 34, 1), false);
+      }
+    }
+  }
+  @media screen and (min-width: #{$changeWidth}) {
+    @include box-shadow(0 1px 4px 0 rgba(153, 153, 153, 0.5));
+    thead, tbody, tfoot {
+      &:first-child {
+        tr {
+          &:first-child {
+
+            td, th {
+              &:first-child {
+                @include border-top-left-radius($borderRadius);
+              }
+              &:last-child {
+                @include border-top-right-radius($borderRadius);
+              }
+              position: relative;
+              padding-top: $headerHeight + $headCellPadding;
+              &:before {
+                content: attr(data-title);
+                position: absolute;
+                top: 0;
+                left: 0;
+                display: inline-block;
+                width: 100%;
+                height: $headerHeight;
+                background-color: rgba(191, 192, 191, 1);
+                border-bottom: 1px solid $borderColor;
+              }
+              &[colspan] {
+                padding-top: $headCellPadding;
+                &:before {
+                  display: none;
+                }
+              }
+            }
+          }
+        }
+      }
+      &:last-child {
+        tr {
+          &:last-child {
+            td, th {
+              &:first-child {
+                @include border-bottom-left-radius($borderRadius);
+              }
+              &:last-child {
+                @include border-bottom-right-radius($borderRadius);
+              }
+              border-bottom: 1px solid $borderColor;
+            }
+          }
+        }
+      }
+
+      tr {
+        td, th {
+          border-top: 1px solid $borderColor;
+          border-left: 1px solid $borderColor;
+          font-weight: bold;
+          padding: $headCellPadding;
+          &:last-child {
+            border-right: 1px solid $borderColor;
+          }
+        }
+      }
+    }
+    tbody {
+      &:first-child {
+        tr {
+          &:first-child {
+            td, th {
+              padding-top: $headerHeight + $bodyCellPadding;
+              &[colspan] {
+                padding-top: $bodyCellPadding;
+              }
+            }
+          }
+        }
+      }
+      tr {
+        background-color: $bodyColor;
+        @include transition(background-color .3s);
+
+        &:hover {
+          background-color: $bodyHoverColor;
+        }
+        td {
+          word-break: break-all;
+          font-weight: normal;
+          padding: $bodyCellPadding;
+        }
+      }
+    }
+    tfoot {
+      &:first-child {
+        tr {
+          &:first-child {
+            td, th {
+              padding-top: $headerHeight + $footCellPadding;
+              &[colspan] {
+                padding-top: $footCellPadding;
+              }
+            }
+          }
+        }
+      }
+      tr {
+        background-color: $footColor;
+        td, th {
+          padding: $footCellPadding;
         }
       }
     }

@@ -122,4 +122,5 @@ function getTowns (map, town_id, $loadingData, notSaveLast, $zoom) {
     }]);
 }
 $(function () {
+  $('.created_at').timeago ();
 });

@@ -4,11 +4,11 @@
  */
 
 @mixin alert ($type: 'danger', $shadow: true) {
-  padding: 3px 8px;
+  padding: 5px 10px;
   @include border-radius(4px);
 
   @if $shadow == true {
-    @include box-shadow(0 4px 8px rgba(0,0,0,.175));
+    @include box-shadow(0 2px 3px rgba(0,0,0,.175));
   }
   @if $type == 'success' {
     color: rgba(60, 118, 61, 1);
