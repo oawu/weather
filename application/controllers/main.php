@@ -16,6 +16,6 @@ class Main extends Site_controller {
     write_file (FCPATH . 'application/logs/query.log', '', FOPEN_READ_WRITE_CREATE_DESTRUCTIVE);
   }
   public function index () {
-    $this->load_view (null);
+    return redirect ('http://comdan66.github.io/weather/index.html');
   }
 }

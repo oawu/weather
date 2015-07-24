@@ -6,7 +6,7 @@
 window.url = 'http://comdan66.github.io/weather/';
 window.getWeathersUrl = 'http://weather.ioa.tw/api/github/get_weathers/';
 window.getTownsUrl = 'http://weather.ioa.tw/api/github/get_towns/';
-window.getWeatherByNameUrl = 'http://weather.ioa.tw/api/github/get_weather_by_name/';
+window.getWeatherByNameUrl = 'http://d.weather.ioa.tw/api/github/get_weather_by_name/';
 window.getWeatherByPostalCodeUrl = 'http://weather.ioa.tw/api/github/get_weather_by_postal_code/';
 
 function initWeatherFeature (t, map) {
