@@ -3,11 +3,25 @@
  * @copyright   Copyright (c) 2015 OA Wu Design
  */
 
-window.url = 'http://comdan66.github.io/weather/';
-window.getWeathersUrl = 'http://weather.ioa.tw/api/github/get_weathers/';
-window.getTownsUrl = 'http://weather.ioa.tw/api/github/get_towns/';
-window.getWeatherByNameUrl = 'http://weather.ioa.tw/api/github/get_weather_by_name/';
-window.getWeatherByPostalCodeUrl = 'http://weather.ioa.tw/api/github/get_weather_by_postal_code/';
+var ENVIRONMENT = 'dev';
+
+if (ENVIRONMENT == 'dev') {
+  window.url = 'http://dev.comdan66.github.io/weather/';
+  window.api = {
+    getWeathersUrl: 'http://dev.weather.ioa.tw/api/github/get_weathers/',
+    getTownsUrl: 'http://dev.weather.ioa.tw/api/github/get_towns/',
+    getWeatherByNameUrl: 'http://dev.weather.ioa.tw/api/github/get_weather_by_name/',
+    getWeatherByPostalCodeUrl: 'http://dev.weather.ioa.tw/api/github/get_weather_by_postal_code/',
+  };
+} else {
+  window.url = 'http://comdan66.github.io/weather/';
+  window.api = {
+    getWeathersUrl: 'http://weather.ioa.tw/api/github/get_weathers/',
+    getTownsUrl: 'http://weather.ioa.tw/api/github/get_towns/',
+    getWeatherByNameUrl: 'http://weather.ioa.tw/api/github/get_weather_by_name/',
+    getWeatherByPostalCodeUrl: 'http://weather.ioa.tw/api/github/get_weather_by_postal_code/',
+  };
+}
 
 function initWeatherFeature (t, map) {
   var markerWithLabel = new MarkerWithLabel ({
@@ -58,7 +72,7 @@ function getWeathers (map, townId, $loadingData, notSaveLast) {
     var southWest = map.getBounds().getSouthWest ();
 
     $.ajax ({
-      url: window.getWeathersUrl,
+      url: window.api.getWeathersUrl,
       data: { NorthEast: {latitude: northEast.lat (), longitude: northEast.lng ()},
               SouthWest: {latitude: southWest.lat (), longitude: southWest.lng ()},
               townId: townId ? townId : 0,

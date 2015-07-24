@@ -10,6 +10,7 @@ class TownCategory extends OaModel {
   static $table_name = 'town_categories';
 
   static $has_one = array (
+    array ('town', 'class_name' => 'Town', 'order' => 'RAND()')
   );
 
   static $has_many = array (

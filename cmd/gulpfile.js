@@ -34,6 +34,10 @@ gulp.task ('js-uglify', function () {
   gulp.src ('./root/js/**/*.js')
       .pipe (uglifyJS ())
       .pipe (gulp.dest ('./root/js/'));
+
+  gulp.src ('./root/resource/javascript/**/*.js')
+      .pipe (uglifyJS ())
+      .pipe (gulp.dest ('./root/resource/javascript/'));
 });
 gulp.task ('minify-html', function () {
   gulp.src ('./root/*.html')

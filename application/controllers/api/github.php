@@ -11,7 +11,7 @@ class Github extends Api_controller {
     parent::__construct ();
 
     header ('Content-type: text/html');
-    header ('Access-Control-Allow-Origin: http://comdan66.github.io');
+    header ('Access-Control-Allow-Origin: http://dev.comdan66.github.io');
   }
 
   private function _weather_format ($town) {
@@ -44,10 +44,48 @@ class Github extends Api_controller {
     if (!$name)
       return $this->output_json (array ('status' => false));
 
-    if (!($town = Town::find ('one', array ('conditions' => array ('name LIKE CONCAT("%", ? ,"%")', $name)))))
+    $list = array ();
+    $list['臺'] = '台';
+    $list['北市'] = '台北市';
+    $list['北北基'] = '台北';
+    $list['花東'] = '花蓮';
+    $name = strtr ($name, $list);
+
+    if (!($names = explode (' ', $name)))
       return $this->output_json (array ('status' => false));
 
-    return $this->output_json (array ('status' => true, 'weather' => $this->_weather_format ($town)));
+    $towns = array ();
+    $cates = array ();
+    foreach ($names as $name) {
+      if ($town = Town::find ('one', array ('conditions' => array ('name LIKE CONCAT("%", ? ,"%")', $name))))
+        array_push ($towns, $town);
+
+      if ($cate = TownCategory::find ('one', array ('select' => 'id', 'conditions' => array ('name LIKE CONCAT("%", ? ,"%")', $name))))
+        array_push ($cates, $cate);
+    }
+
+    if (!$cates && !$towns)
+      return $this->output_json (array ('status' => false));
+
+    if ($towns && !$cates && ($town = $towns[0]))
+      return $this->output_json (array ('status' => true, 'weather' => $this->_weather_format ($town)));
+
+    if (!$towns && $cates && ($cate = $cates[0]))
+      return $this->output_json (array ('status' => true, 'weather' => $this->_weather_format ($cate->town)));
+
+    if ($towns && $cates) {
+      $temps = array ();
+      foreach ($cates as $cate)
+        foreach ($towns as $town)
+          if ($town->town_category_id == $cate->id)
+            array_push ($temps, $town);
+  
+      if ($temps && ($town = $temps[0]))
+        return $this->output_json (array ('status' => true, 'weather' => $this->_weather_format ($town)));
+      else
+        return $this->output_json (array ('status' => true, 'weather' => $this->_weather_format ($towns[0])));
+    }
+    return $this->output_json (array ('status' => false));
   }
 
   public function get_towns () {

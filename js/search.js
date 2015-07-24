@@ -11,7 +11,7 @@ $(function () {
   
   $container = $('#container');
 
-  var $input = $('<input />').addClass ('search').attr ('type', 'text').attr ('placeholder', '快來搜尋一下天氣吧！').val (hash).keyup (function (e) {
+  var $input = $('<input />').addClass ('search').attr ('type', 'text').attr ('placeholder', '快來搜尋一下天氣吧！').val (decodeURIComponent (hash)).keyup (function (e) {
     if ((e.keyCode == 13) && $(this).val ().trim ().length)
       window.location.hash = $(this).val ().trim ();
   });
@@ -45,7 +45,7 @@ $(function () {
   }
   function initNoData () {
     $.ajax ({
-      url: window.getTownsUrl,
+      url: window.api.getTownsUrl,
       data: { },
       async: true, cache: false, dataType: 'json', type: 'GET',
       beforeSend: function () {}
@@ -55,7 +55,9 @@ $(function () {
         var $noData = $('<div />').attr ('id', 'no_data').addClass ('show').append (
                         $('<div />').addClass ('title').text ('您可以試著搜尋..')).append (
                         $('<div />').addClass ('towns').append (result.towns.map (function (t) {
-                          return $('<a />').attr ('href', window.location.href + '#' + t.name).text (t.name);
+                          return $('<a />').text (t.name).click (function () {
+                            window.location.hash = $(this).text ();
+                          });
                         }))).appendTo ($container);
         setTimeout (towns.bind (this, $noData.find ('a'), 0), 100);
         
@@ -104,7 +106,7 @@ $(function () {
 
   if (hash.length)
     $.ajax ({
-      url: window.getWeatherByNameUrl,
+      url: window.api.getWeatherByNameUrl,
       data: { name: hash },
       async: true, cache: false, dataType: 'json', type: 'POST',
       beforeSend: function () {}
@@ -123,7 +125,7 @@ $(function () {
 
   function initWeather (postal_code) {
     $.ajax ({
-      url: window.getWeatherByPostalCodeUrl,
+      url: window.api.getWeatherByPostalCodeUrl,
       data: { postal_code: postal_code },
       async: true, cache: false, dataType: 'json', type: 'POST',
       beforeSend: function () {}
