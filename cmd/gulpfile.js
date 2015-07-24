@@ -2,8 +2,8 @@ var gulp       = require ('gulp'),
     livereload = require('gulp-livereload'),
     uglifyJS   = require ('gulp-uglify'),
     htmlmin    = require('gulp-html-minifier'),
-    imagemin = require('gulp-imagemin'),
-    pngquant = require('imagemin-pngquant'),
+    // imagemin = require('gulp-imagemin'),
+    // pngquant = require('imagemin-pngquant'),
     del        = require('del');
 
 // ===================================================
