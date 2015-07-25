@@ -3,6 +3,7 @@
  * @copyright   Copyright (c) 2015 OA Wu Design
  */
 
+// var ENVIRONMENT = 'dev';
 var ENVIRONMENT = 'production';
 
 if (ENVIRONMENT == 'dev') {
@@ -39,7 +40,7 @@ function initWeatherFeature (t, map) {
                           raiseOnDrag: false,
                           clickable: true,
                           labelContent: t.c,
-                          labelAnchor: new google.maps.Point (65, 130),
+                          labelAnchor: new google.maps.Point (65, 100),
                           labelClass: "marker_label",
                           icon: {path: 'M 0 0'},
                           initCallback: function (t) {

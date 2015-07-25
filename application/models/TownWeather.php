@@ -6,7 +6,7 @@
  */
 
 class TownWeather extends OaModel {
-  static $file_name_encode = true;
+  static $paths = array ('resource', 'image', 'weather', 'd4');
 
   static $table_name = 'town_weathers';
 
@@ -23,10 +23,10 @@ class TownWeather extends OaModel {
     parent::__construct ($attributes, $guard_attributes, $instantiating_via_find, $new_record);
   }
   public function icon () {
-    return base_url ('resource', 'image', 'weather', $this->icon);
+    return base_url (array_merge (self::$paths, array ($this->icon)));
   }
   public function special_icon () {
-    return base_url ('resource', 'image', 'weather', $this->special_icon);
+    return base_url (array_merge (self::$paths, array ('special', $this->special_icon)));
   }
   public function has_special () {
     return $this->special_icon && $this->special_status && $this->special_describe;

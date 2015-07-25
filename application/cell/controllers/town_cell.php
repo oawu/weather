@@ -32,13 +32,11 @@ class Town_cell extends Cell_Controller {
 
     if (!(count ($img) && count ($describe) && count ($degree) && count ($humidity) && count ($rainfall) && count ($sunrise) && count ($sunset)))
       return $town->weather_array ();
+    
+    if (!($img_name = pathinfo ($img->attr ('src'), PATHINFO_BASENAME)))
+      return $town->weather_array ();
 
-    if (TownWeather::$file_name_encode)
-      $img_name = md5 (str_replace ('/', '_', pathinfo ($img->attr ('src'), PATHINFO_DIRNAME) . '/' . pathinfo ($img->attr ('src'), PATHINFO_FILENAME))) . '.' . pathinfo ($img->attr ('src'), PATHINFO_EXTENSION);
-    else
-      $img_name = str_replace ('/', '_', $img->attr ('src'));
-
-    $file_paths = array ('resource', 'image', 'weather', $img_name);
+    $file_paths = array_merge (TownWeather::$paths, array ($img_name));
     $img_url = $base_url . $img->attr ('src');
 
     $describe_text = $describe->text ();
@@ -97,13 +95,12 @@ class Town_cell extends Cell_Controller {
 
     if (!($icon && $status && $at && $describe))
       return $weather->to_array ();
-    
-    if (TownWeather::$file_name_encode)
-      $img_name = md5 (str_replace ('/', '_', pathinfo ($icon, PATHINFO_DIRNAME) . '/' . pathinfo ($icon, PATHINFO_FILENAME))) . '.' . pathinfo ($icon, PATHINFO_EXTENSION);
-    else
-      $img_name = str_replace ('/', '_', $icon);
+
+    if (!($img_name = pathinfo ($icon, PATHINFO_BASENAME)))
+      return $weather->to_array ();
 
     $file_paths = array ('resource', 'image', 'weather', $img_name);
+    $file_paths = array_merge (TownWeather::$paths, array ('special', $img_name));
 
     if (!(file_exists (FCPATH . implode (DIRECTORY_SEPARATOR, $file_paths)) || download_web_file ($img_url, FCPATH . implode (DIRECTORY_SEPARATOR, $file_paths))))
       return $weather->to_array ();
