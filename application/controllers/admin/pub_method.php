@@ -11,7 +11,7 @@ class Pub_method extends Admin_controller {
     parent::__construct ();
 
     if (!identity ()->get_session ('is_login'))
-      return redirect ('admin', 'main', 'login');
+      return redirect (array ('admin', 'main', 'login'));
   }
 
   public function town ($id = 0) {

@@ -11,7 +11,7 @@ class Crontab_logs extends Admin_controller {
     parent::__construct ();
 
     if (!identity ()->get_session ('is_login'))
-      return redirect ('admin', 'main', 'login');
+      return redirect (array ('admin', 'main', 'login'));
   }
 
   public function destroy ($id = 0) {

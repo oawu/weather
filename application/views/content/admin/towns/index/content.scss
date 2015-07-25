@@ -7,89 +7,109 @@
 
 #container {
 
-  .conditions {
-    text-align: left;
-    margin-bottom: 20px;
-    @include split-right(100px);
-
-    .l {
-      @include clearfix();
-
-      label {
-        margin-top: 4px;
-        float: left;
-        display: inline-block;
-        color: rgba(50, 50, 50, 1);
-        vertical-align: middle;
-
-        + label {
-          margin-left: 10px;
-        }
-
-        select {
-          color: rgba(50, 50, 50, 0.85);
-
-          position: relative;
-          min-width: 50px;
-
-          background-color: rgba(255, 255, 255, .5);
-
-          padding: 2px;
-          text-align: center;
-
-          outline:0;
-          border: 1px solid rgba(193, 194, 192, 1);
-        }
-      }
-      input[type="text"] {
-        float: left;
-        @include input();
-        font-size: 13px;
-        width: 250px;
-        &:not(:first-child) {
-          margin-left: 20px;
-        }
-      }
-      button[type="submit"] {
-        float: left;
-        @include button('blue-gray');
-        margin-left: 20px;
-      }
-    }
-    .r {
-      text-align: right;
-
-      @include clearfix();
-
-      .new {
-        float: right;
-        padding: 4px 12px;
-        @include button();
-      }
-    }
-  }
   .info {
     padding: 10px;
     margin-bottom: 10px;
     border: 1px solid rgba(255, 0, 0, .3);
-    @include alert('info', false);
+    @include alert('info');
   }
-  .table-list {
-    @include table-list();
-    @include box-shadow(0 1px 10px 0 rgba(153, 153, 153, 0.6));
-    .edit {
-      vertical-align: middle;
 
-      a {
-        vertical-align: middle;
-        font-weight: normal;
-        font-size: 20px;
-        cursor: pointer;
+  form {
+    @include clearfix();
+    $submitWidth: 60px;
+    $newWidth: 60px;
+
+    @media screen and (min-width: 0px) and (max-width: #{$mediaTabletWidth - 1px}) {
+      display: none;
+      &.show {
+        display: block;
       }
     }
-    .left {
+
+    .l, .submit, .new {
+      display: inline-block;
+      float: left;
+      width: calc(100% / 3);
+    }
+    .l {
+      width: calc(100% - #{$submitWidth + $newWidth + 10px});
+      @media screen and (min-width: 0px) and (max-width: #{$mediaMobileWidth - 1px}) {
+        width: 100%;
+      }
       text-align: left;
-      word-break: break-all;
+      input {
+        float: left;
+        @include clearfix();
+        @include input();
+        margin: 0;
+
+        @media screen and (min-width: 0px) and (max-width: #{$mediaMobileWidth - 1px}) {
+          width: 100%;
+          &:not(:first-child) {
+            margin-top: 5px;
+          }
+        }
+        @media screen and (min-width: $mediaMobileWidth) and (max-width: #{$mediaTabletWidth - 1px}) {
+          width: calc((100% / 3) - 7px);
+          &:not(:nth-child(3n + 1)) {
+            margin-left: 5px;
+          }
+          &:not(:nth-child(-n + 3)) {
+            margin-top: 5px;
+          }
+        }
+        @media screen and (min-width: #{$mediaTabletWidth}) {
+          width: calc((100% / 4) - 7px);
+          &:not(:nth-child(4n + 1)) {
+            margin-left: 5px;
+          }
+          &:not(:nth-child(-n + 4)) {
+            margin-top: 5px;
+          }
+        }
+      }
+    }
+    .submit {
+      width: $submitWidth;
+      @include button('blue-gray');
+      margin-top: 2px;
+      @media screen and (min-width: 0px) and (max-width: #{$mediaMobileWidth - 1px}) {
+        width: 100%;
+        margin-top: 5px;
+      }
+    }
+    .new {
+      width: $newWidth;
+      @include button();
+      margin-top: 2px;
+      margin-left: 10px;
+      @media screen and (min-width: 0px) and (max-width: #{$mediaMobileWidth - 1px}) {
+        width: 100%;
+        margin-left: 0;
+        margin-top: 5px;
+      }
+    }
+  }
+
+  .search_feature {
+    @include button('indigo');
+    @media screen and (min-width: #{$mediaTabletWidth}) {
+      display: none;
+    }
+    width: 100%;
+    margin-top: 5px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+  }
+
+  .table-list-rwd {
+    @include table-list-rwd();
+    margin-top: 20px;
+
+    a {
+      @include a(rgba(50, 50, 50, 0.7), rgba(50, 50, 50, 0.9), false);
+      font-size: 22px;
+      cursor: pointer;
     }
     .pic {
       cursor: pointer;
@@ -98,85 +118,12 @@
       display: inline-block;
       margin: 3px;
       border: 1px solid rgba(39, 40, 34, .2);
+      background-color: rgba(255, 255, 255, 1);
       @include border-radius(3px);
       @include box-shadow(0 0 5px rgba(39, 40, 34, .1));
 
       &:hover {
         @include box-shadow(0 0 5px rgba(39, 40, 34, .2));
-      }
-    }
-    .map {
-      img {
-        cursor: pointer;
-        border: 1px solid rgba(39, 40, 34, .2);
-        @include border-radius(3px);
-        @include box-shadow(0 0 2px rgba(39, 40, 34, .1));
-        @include transition(all .5s);
-
-        &:hover {
-          @include box-shadow(0 0 5px rgba(39, 40, 34, .2));
-        }
-      }
-      a {
-        @include a();
-      }
-    }
-  }
-  ul.pagination {
-    margin: 0;
-    padding: 0;
-    margin-top: 20px;
-    list-style-type: none;
-    @include clearfix();
-
-    li {
-      float: left;
-
-      + li {
-        a {
-          margin-left: 10px;
-        }
-      }
-      a {
-        display: inline-block;
-        padding: 0 5px;
-        min-width: 30px;
-        line-height: 28px;
-
-        color: rgba(95, 95, 95, 1);
-        background-color: rgba(255, 255, 255, 1);
-        border: 1px solid rgba(193, 194, 198, 1);
-        font-size: 14px;
-        font-weight: bold;
-
-        text-decoration: none;
-        text-align: center;
-
-        @include transition(all .3s);
-        @include border-radius(20px);
-        @include box-shadow(1px 1px 3px 1px rgba(153, 153, 153, 0.3));
-
-        &:hover {
-          border: 1px solid rgba(193, 194, 198, 1) !important;
-          background-color: rgba(238, 238, 238, 1) !important;
-        }
-      }
-      &.active {
-        a {
-          color: rgba(255, 255, 255, 1);
-          background-color: rgba(86, 86, 86, 0.4);
-          border: 1px solid rgba(163, 164, 168, 1);
-          font-weight: bold;
-
-          @include text-shadow(1px 1px 2px rgba(0, 0, 0, 0.375));
-          @include box-shadow(inset 1px 2px 4px rgba(100, 100, 100, 0.3), 0 1px 2px rgba(255, 255, 255, 0.5));
-
-          &:hover {
-            color: rgba(255, 255, 255, 1) !important;
-            border: 1px solid rgba(163, 164, 168, 1) !important;
-            background-color: rgba(86, 86, 86, 0.5) !important;
-          }
-        }
       }
     }
   }

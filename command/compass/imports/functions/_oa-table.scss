@@ -332,6 +332,19 @@
           border-left: 1px solid $borderColor;
           font-weight: bold;
           padding: $headCellPadding;
+
+          &.left {
+            text-align: left;
+          }
+          &.right {
+            text-align: right;
+          }
+          &.center {
+            text-align: center;
+          }
+          &.middle {
+            vertical-align: middle;
+          }
           &:last-child {
             border-right: 1px solid $borderColor;
           }
