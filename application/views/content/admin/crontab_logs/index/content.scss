@@ -106,6 +106,10 @@
     @include table-list-rwd();
     margin-top: 20px;
 
+    .error {
+      color: red;
+      font-weight: bold;
+    }
     a {
       @include a(rgba(50, 50, 50, 0.7), rgba(50, 50, 50, 0.9), false);
       font-size: 22px;

@@ -25,7 +25,7 @@
         foreach ($crontab_logs as $crontab_log) { ?>
           <tr>
             <td data-title='ID' width='120'><?php echo $crontab_log->id;?></td>
-            <td data-title='狀態' width='180'><?php echo $crontab_log->type;?></td>
+            <td data-title='狀態' width='180'<?php echo $crontab_log->type != '完成' ? ' class="error"' : '';?>><?php echo $crontab_log->type;?></td>
             <td data-title='訊息'><?php echo $crontab_log->message;?></td>
             <td data-title='執行時間' width='160'><?php echo $crontab_log->run_time;?> 秒</td>
             <td data-title='開始時間' width='160' data-time='<?php echo $crontab_log->created_at;?>' class='created_at'><?php echo $crontab_log->created_at;?></td>
