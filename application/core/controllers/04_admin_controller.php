@@ -22,6 +22,7 @@ class Admin_controller extends Oa_controller {
          ->add_hidden (array ('id' => 'get_towns_url', 'value' => base_url ('admin', 'pub_method', 'get_towns')))
          ->add_hidden (array ('id' => 'update_town_position_url', 'value' => base_url ('admin', 'pub_method', 'update_town_position')))
          ->add_hidden (array ('id' => 'update_town_zoom_url', 'value' => base_url ('admin', 'pub_method', 'update_town_zoom')))
+         ->add_hidden (array ('id' => 'update_town_view_url', 'value' => base_url ('admin', 'pub_method', 'update_town_view')))
 
          ->_add_meta ()
          ->_add_css ()

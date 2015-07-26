@@ -44,7 +44,7 @@
           </tr>
   <?php }
       } else { ?>
-        <tr><td colspan data-title='aa'>目前沒有任何資料。</td></tr>
+        <tr><td colspan>目前沒有任何資料。</td></tr>
 <?php }?>
     </tbody>
   </table>

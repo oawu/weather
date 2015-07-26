@@ -14,12 +14,21 @@ class Pub_method extends Admin_controller {
       return redirect (array ('admin', 'main', 'login'));
   }
 
-  public function town ($id = 0) {
+  public function view ($id = 0) {
     if (!($town = Town::find ('one', array ('conditions' => array ('id = ?', $id)))))
       return show_404();
+    
+    if ($town->view)
+      $this->add_hidden (array ('id' => 'panorama', 'data-lat' => $town->view->latitude, 'data-lng' => $town->view->longitude, 'data-heading' => $town->view->heading, 'data-pitch' => $town->view->pitch, 'data-zoom' => $town->view->zoom, 'value' => $town->id));
 
-    if ($town->bound)
-      $this->add_hidden (array ('id' => 'bound', 'data-northeast_latitude' => $town->bound->northeast_latitude, 'data-northeast_longitude' => $town->bound->northeast_longitude, 'data-southwest_latitude' => $town->bound->southwest_latitude, 'data-southwest_longitude' => $town->bound->southwest_longitude, 'value' => $town->bound->id));
+    $this->add_hidden (array ('id' => 'marker', 'data-lat' => $town->latitude, 'data-lng' => $town->longitude, 'value' => $town->id))
+         ->load_view (array (
+            'town' => $town
+          ));
+  }
+  public function town ($id = 0) {
+    if (!($town = Town::find ('one', array ('conditions' => array ('id = ?', $id)))))
+      return show_404 ();
 
     $this->add_hidden (array ('id' => 'marker', 'data-lat' => $town->latitude, 'data-lng' => $town->longitude, 'value' => $town->id))
          ->load_view (array (
@@ -99,7 +108,7 @@ class Pub_method extends Admin_controller {
     $zoom = trim ($this->input_post ('zoom'));
     $zoom = $zoom > 0 ? $zoom < 21 ? $zoom : 21 : 0;
 
-    if (!($id && is_numeric ($zoom) &&($town = Town::find_by_id ($id, array ('select' => 'id, zoom')))))
+    if (!($id && is_numeric ($zoom) && ($town = Town::find_by_id ($id, array ('select' => 'id, zoom')))))
       return $this->output_json (array ('status' => false));
     
     $town->zoom = $zoom;
@@ -107,6 +116,51 @@ class Pub_method extends Admin_controller {
     if (!$town->save ())
       return $this->output_json (array ('status' => false));
 
+    return $this->output_json (array ('status' => true));
+  }
+  public function update_town_view () {
+    if (!$this->is_ajax (false))
+      return show_error ("It's not Ajax request!<br/>Please confirm your program again.");
+
+    $id = trim ($this->input_post ('id'));
+    $lat = trim ($this->input_post ('lat'));
+    $lng = trim ($this->input_post ('lng'));
+    $heading = trim ($this->input_post ('heading'));
+    $pitch = trim ($this->input_post ('pitch'));
+    $zoom = trim ($this->input_post ('zoom'));
+
+    if (!($id && $lat && $lng && is_numeric ($heading) && is_numeric ($pitch) && is_numeric ($zoom) && ($town = Town::find_by_id ($id, array ('select' => 'id, zoom')))))
+      return $this->output_json (array ('status' => false));
+    
+    if ($town->view) {
+      if (($town->view->latitude == $lat) && ($town->view->longitude == $lng) && ($town->view->heading == $heading) && ($town->view->pitch == $pitch) && ($town->view->zoom == $zoom))
+        return $this->output_json (array ('status' => true));
+
+      $town->view->latitude = $lat;
+      $town->view->longitude = $lng;
+      $town->view->heading = $heading;
+      $town->view->pitch = $pitch;
+      $town->view->zoom = $zoom;
+
+      if (!$town->view->save ())
+        return $this->output_json (array ('status' => false));
+
+      $town->view->put_pic ();
+    } else {
+      $params = array (
+          'town_id' => $town->id,
+          'latitude' => $lat,
+          'longitude' => $lng,
+          'heading' => $heading,
+          'pitch' => $pitch,
+          'zoom' => $zoom,
+        );
+      if (!verifyCreateOrm ($view = TownView::create ($params)))
+        return $this->output_json (array ('status' => false));
+      
+      if (!$view->put_pic () && ($view->destroy () || true))
+        return $this->output_json (array ('status' => false));
+    }
     return $this->output_json (array ('status' => true));
   }
 }

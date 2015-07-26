@@ -36,6 +36,20 @@ $(function () {
         }
     });
   });
+  
+  $('.fancybox_view').click (function () {
+    $.fancybox ({
+        href: '/admin/pub_method/view/' + $(this).data ('id') + '?t=' + new Date ().getTime (),
+        type: 'iframe',
+        padding: 0,
+        margin: 100,
+        width: '100%',
+        maxWidth: '1200',
+        afterClose: function () {
+          // location.reload ();
+        }
+    });
+  });
 
   $('.pic[href]').fancybox ({
               padding: 0,

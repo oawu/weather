@@ -3,6 +3,71 @@
  * @copyright   Copyright (c) 2015 OA Wu Design
  */
 
+  function updateTownView (map, id, lat, lng, heading, pitch, zoom) {
+    if (map.is_update_view)
+      return;
+
+    map.is_update_view = true;
+
+    $.ajax ({
+      url: $('#update_town_view_url').val (),
+      data: {
+        id: id,
+        lat: lat,
+        lng: lng,
+        heading: heading,
+        pitch: pitch,
+        zoom: zoom,
+      },
+      async: true, cache: false, dataType: 'json', type: 'POST',
+      beforeSend: function () { }
+    })
+    .done (function (result) {})
+    .fail (function (result) { ajaxError (result); })
+    .complete (function (result) {
+      map.is_update_view = false;
+    });
+  }
+  function updateTown (map, id, position) {
+    if (map.is_update_town)
+      return;
+
+    map.is_update_town = true;
+
+    new google.maps.Geocoder ().geocode ({'latLng': position}, function (result, status) {
+
+      if ((status == google.maps.GeocoderStatus.OK) && result.length && (result = result[0])) {
+        var name = result.address_components.map (function (t) {
+                      return t.types.length && ($.inArray ('administrative_area_level_3', t.types) !== -1) ? t.long_name : null;
+                    }).filter (function (t) { return t; });
+
+        var postal_code = result.address_components.map (function (t) {
+                      return t.types.length && ($.inArray ('postal_code', t.types) !== -1) ? t.long_name : null;
+                    }).filter (function (t) { return t; });
+
+        name = name.length ? name[0] : '';
+        postal_code = postal_code.length ? postal_code[0] : '';
+
+        $.ajax ({
+          url: $('#update_town_position_url').val (),
+          data: {
+            id: id,
+            lat: position.lat (),
+            lng: position.lng (),
+            name: name,
+            postal_code: postal_code
+          },
+          async: true, cache: false, dataType: 'json', type: 'POST',
+          beforeSend: function () { }
+        })
+        .done (function (result) {})
+        .fail (function (result) { ajaxError (result); })
+        .complete (function (result) {
+          map.is_update_town = false;
+        });
+      }
+    });
+  }
 function getTowns (map, town_id, $loadingData, notSaveLast, $zoom) {
   clearTimeout (map.getGoalsTimer);
 
@@ -111,7 +176,7 @@ function getTowns (map, town_id, $loadingData, notSaveLast, $zoom) {
   }, 200);
 
     
-  if ($zoom.length)
+  if ($zoom && $zoom.length)
     $zoom.text (map.zoom);
 
   if (!notSaveLast)

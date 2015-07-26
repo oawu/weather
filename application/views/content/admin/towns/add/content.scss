@@ -9,6 +9,9 @@
   position: relative;
   display: inline-block;
   height: 500px;
+  @media screen and (min-width: 0px) and (max-width: #{$mediaTabletWidth - 1px}) {
+    height: 300px;
+  }
   width: 100%;
   overflow: hidden;
 

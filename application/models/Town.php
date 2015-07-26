@@ -10,7 +10,8 @@ class Town extends OaModel {
   static $table_name = 'towns';
 
   static $has_one = array (
-    array ('bound', 'class_name' => 'TownBound', 'order' => 'id DESC')
+    array ('bound', 'class_name' => 'TownBound'),
+    array ('view', 'class_name' => 'TownView')
   );
 
   static $has_many = array (
@@ -49,6 +50,7 @@ class Town extends OaModel {
   public function destroy () {
     TownBound::delete_all (array ('conditions' => array ('town_id = ?', $this->id)));
     TownWeather::delete_all (array ('conditions' => array ('town_id = ?', $this->id)));
+    TownView::delete_all (array ('conditions' => array ('town_id = ?', $this->id)));
     return $this->pic->cleanAllFiles () && $this->delete ();
   }
 }

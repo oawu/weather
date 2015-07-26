@@ -14,6 +14,105 @@ class Towns extends Admin_controller {
       return redirect (array ('admin', 'main', 'login'));
   }
 
+  public function update_view ($id = 0) {
+    if (!($town = Town::find_by_id ($id)))
+      return redirect (array ('admin', 'towns'));
+
+    if (!$this->has_post ())
+      return redirect (array ('admin', 'towns', 'view', $town->id));
+
+    $latitude = trim ($this->input_post ('latitude'));
+    $longitude = trim ($this->input_post ('longitude'));
+    $heading = trim ($this->input_post ('heading'));
+    $pitch = trim ($this->input_post ('pitch'));
+    $zoom = trim ($this->input_post ('zoom'));
+
+    if (!($latitude && $longitude && is_numeric ($heading) && is_numeric ($pitch) && is_numeric ($zoom)))
+      return identity ()->set_session ('_flash_message', '填寫資訊有少！', true)
+                        ->set_session ('latitude', $latitude, true)
+                        ->set_session ('longitude', $longitude, true)
+                        ->set_session ('heading', $heading, true)
+                        ->set_session ('pitch', $pitch, true)
+                        ->set_session ('zoom', $zoom, true)
+                        && redirect (array ('admin', 'towns', 'view', $town->id), 'refresh');
+
+    if ($town->view) {
+      if (($town->view->latitude == $latitude) && ($town->view->longitude == $longitude) && ($town->view->heading == $heading) && ($town->view->pitch == $pitch) && ($town->view->zoom == $zoom))
+        return identity ()->set_session ('_flash_message', '設定成功！', true)
+                          && redirect (array ('admin', 'towns'), 'refresh');
+
+      $town->view->latitude = $latitude;
+      $town->view->longitude = $longitude;
+      $town->view->heading = $heading;
+      $town->view->pitch = $pitch;
+      $town->view->zoom = $zoom;
+
+      if (!$town->view->save ())
+        return identity ()->set_session ('_flash_message', '設定失敗！', true)
+                        ->set_session ('latitude', $latitude, true)
+                        ->set_session ('longitude', $longitude, true)
+                        ->set_session ('heading', $heading, true)
+                        ->set_session ('pitch', $pitch, true)
+                        ->set_session ('zoom', $zoom, true)
+                        && redirect (array ('admin', 'town', 'view', $town->id), 'refresh');
+
+        $town->view->put_pic ();
+    } else {
+      $params = array (
+          'town_id' => $town->id,
+          'latitude' => $latitude,
+          'longitude' => $longitude,
+          'heading' => $heading,
+          'pitch' => $pitch,
+          'zoom' => $zoom,
+        );
+
+      if (!verifyCreateOrm ($view = TownView::create ($params)))
+        return identity ()->set_session ('_flash_message', '設定失敗！', true)
+                        ->set_session ('latitude', $latitude, true)
+                        ->set_session ('longitude', $longitude, true)
+                        ->set_session ('heading', $heading, true)
+                        ->set_session ('pitch', $pitch, true)
+                        ->set_session ('zoom', $zoom, true)
+                        && redirect (array ('admin', 'towns', 'view', $town->id), 'refresh');
+
+      if (!$view->put_pic () && ($view->destroy () || true))
+        return identity ()->set_session ('_flash_message', '設定失敗(取得 Static 失敗)！', true)
+                        ->set_session ('latitude', $latitude, true)
+                        ->set_session ('longitude', $longitude, true)
+                        ->set_session ('heading', $heading, true)
+                        ->set_session ('pitch', $pitch, true)
+                        ->set_session ('zoom', $zoom, true)
+                        && redirect (array ('admin', 'towns', 'view', $town->id), 'refresh');
+    }
+
+    return identity ()->set_session ('_flash_message', '設定成功！', true)
+                      && redirect (array ('admin', 'towns'), 'refresh');
+  }
+  public function view ($id = 0) {
+    if (!($town = Town::find_by_id ($id)))
+      return redirect (array ('admin', 'towns'));
+
+    $message  = identity ()->get_session ('_flash_message', true);
+    
+    $latitude = identity ()->get_session ('latitude', true);
+    $longitude = identity ()->get_session ('longitude', true);
+    $heading = identity ()->get_session ('heading', true);
+    $pitch = identity ()->get_session ('pitch', true);
+    $zoom = identity ()->get_session ('zoom', true);
+
+    $this->add_hidden (array ('id' => 'marker', 'data-lat' => $town->latitude, 'data-lng' => $town->longitude, 'value' => $town->id))
+         ->load_view (array (
+        'town' => $town,
+        'view' => $town->view,
+        'message' => $message,
+        'latitude' => $latitude,
+        'longitude' => $longitude,
+        'heading' => $heading,
+        'pitch' => $pitch,
+        'zoom' => $zoom,
+      ));
+  }
   public function destroy ($id = 0) {
     if (!($town = Town::find_by_id ($id)))
       return redirect (array ('admin', 'towns'));
@@ -257,7 +356,7 @@ class Towns extends Admin_controller {
     $this->pagination->initialize ($configs);
     $pagination = $this->pagination->create_links ();
 
-    $towns = Town::find ('all', array ('include' => array ('category', 'weathers'), 'offset' => $offset, 'limit' => $limit, 'order' => 'id DESC', 'conditions' => $conditions));
+    $towns = Town::find ('all', array ('include' => array ('category', 'weathers', 'view'), 'offset' => $offset, 'limit' => $limit, 'order' => 'id DESC', 'conditions' => $conditions));
 
     $message = identity ()->get_session ('_flash_message', true);
 
