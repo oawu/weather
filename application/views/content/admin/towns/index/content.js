@@ -37,7 +37,7 @@ $(function () {
     });
   });
 
-  $('.pic').fancybox ({
+  $('.pic[href]').fancybox ({
               padding: 0,
               helpers: {
                 overlay: { locked: false },
