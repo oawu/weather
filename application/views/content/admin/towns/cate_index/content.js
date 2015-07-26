@@ -9,6 +9,7 @@ $(function () {
         href: '/admin/pub_method/town/' + $(this).data ('id') + '?t=' + new Date ().getTime (),
         type: 'iframe',
         padding: 0,
+        margin: '70 30 30 30',
         margin: 100,
         width: '100%',
         maxWidth: '1200',

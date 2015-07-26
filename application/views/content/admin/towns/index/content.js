@@ -28,7 +28,7 @@ $(function () {
         href: '/admin/pub_method/town/' + $(this).data ('id') + '?t=' + new Date ().getTime (),
         type: 'iframe',
         padding: 0,
-        margin: 100,
+        margin: '70 30 30 30',
         width: '100%',
         maxWidth: '1200',
         afterClose: function () {
@@ -42,7 +42,7 @@ $(function () {
         href: '/admin/pub_method/view/' + $(this).data ('id') + '?t=' + new Date ().getTime (),
         type: 'iframe',
         padding: 0,
-        margin: 100,
+        margin: '70 30 30 30',
         width: '100%',
         maxWidth: '1200',
         afterClose: function () {
@@ -53,6 +53,7 @@ $(function () {
 
   $('.pic[href]').fancybox ({
               padding: 0,
+              margin: '70 30 30 30',
               helpers: {
                 overlay: { locked: false },
                 title: { type: 'over' },

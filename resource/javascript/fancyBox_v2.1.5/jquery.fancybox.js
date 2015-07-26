@@ -796,6 +796,13 @@
 			if ($.type(margin) === 'number') {
 				coming.margin = [margin, margin, margin, margin];
 			}
+			if ($.type(margin) === 'string') {
+				var margins = margin.split (' ').map (function (t) { return parseInt (t, 10);});
+				if (margins.length > 1)
+					coming.margin = [margins[0], margins[1], margins[0], margins[1]];
+				if (margins.length > 3)
+					coming.margin = margins;
+			}
 
 			if ($.type(padding) === 'number') {
 				coming.padding = [padding, padding, padding, padding];
