@@ -367,7 +367,11 @@ $changeWidth: 800px;
         margin-top: 20px;
         height: 180px;
         $timesHeight: 25px;
-
+        &.heighter {
+          @media screen and (min-width: $changeWidth) {
+            height: 300px;
+          }
+        }
 
         @for $i from 1 through 10 {
           &.c#{$i} {

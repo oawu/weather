@@ -157,6 +157,7 @@ $(function () {
 
     if (town.weather.special.length === 0) {
       $special.remove ();
+      $details.addClass ('heighter');
     } else {
       $specialStatus.text (town.weather.special.status + '特報');
       $specialIcon.attr ('src', town.weather.special.icon);
