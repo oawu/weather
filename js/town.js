@@ -258,6 +258,8 @@ $(function () {
   .done (function (result) {
     if (result.status)
       initTown (result.town);
+    else 
+      window.location.assign ('index.html');
   })
   .fail (function (result) { ajaxError (result); })
   .complete (function (result) {});
