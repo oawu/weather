@@ -117,7 +117,7 @@ $(function () {
                   });
 
     map = new google.maps.Map ($map.get (0), {
-            zoom: 12,
+            zoom: $(window).height () < changeWidth ? 11 : 12,
             zoomControl: true,
             scrollwheel: true,
             scaleControl: true,
