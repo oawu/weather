@@ -21,7 +21,7 @@ $changeWidth: 800px;
         height: 300px;
       }
       @media screen and (min-width: 0px) and (max-width: #{$mediaMiniMobileWidth - 1px}) {
-        height: 200px;
+        height: 250px;
       }
 
       height: 0;
