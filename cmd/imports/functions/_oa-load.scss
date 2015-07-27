@@ -7,6 +7,9 @@
   @if $background == none {
     background: $mainBackgroundColor $mainBackgroundImage;
   }
+  @else {
+    background: $background;
+  }
 
   position: relative;
   display: inline-block;
@@ -43,6 +46,9 @@
     left: $loadingWeight;
     @if $background == none {
       background: $mainBackgroundColor $mainBackgroundImage;
+    }
+    @else {
+      background: $background;
     }
 
     @include border-radius(50%);

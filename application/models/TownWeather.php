@@ -33,6 +33,7 @@ class TownWeather extends OaModel {
   }
   public function to_array () {
     return array (
+          'id' => $this->id,
           'icon' => $this->icon (),
           'describe' => $this->describe,
           'temperature' => $this->temperature,
@@ -40,6 +41,7 @@ class TownWeather extends OaModel {
           'rainfall' => $this->rainfall,
           'sunrise' => $this->sunrise,
           'sunset' => $this->sunset,
+          'created_at' => $this->created_at->format ('Y-m-d H:m:i'),
           'special' => $this->has_special () ? array (
               'icon' => $this->special_icon (),
               'status' => $this->special_status,

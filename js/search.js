@@ -90,7 +90,7 @@ $(function () {
                 streetViewControl: false,
                 disableDoubleClickZoom: true
               });
-    var markerWithLabel = initWeatherFeature (result, map);
+    var markerWithLabel = initWeatherFeature (result, map, true);
     map.setCenter (markerWithLabel.position);
     markerWithLabel.setMap (map);
 
@@ -125,14 +125,14 @@ $(function () {
 
   function initWeather (postal_code) {
     $.ajax ({
-      url: window.api.getWeatherByPostalCodeUrl,
+      url: window.api.getWeatherContentByPostalCodeUrl,
       data: { postal_code: postal_code },
       async: true, cache: false, dataType: 'json', type: 'POST',
       beforeSend: function () {}
     })
     .done (function (result) {
       if (result.status)
-        $weather.empty ().append ($(result.weather.c));
+        $weather.empty ().append ($(result.weather));
       else
         $search.addClass ('no_weather');
     })
@@ -140,16 +140,28 @@ $(function () {
     .complete (function (result) {});
   }
 
-  navigator.geolocation.getCurrentPosition (function (position) {
-    new google.maps.Geocoder ().geocode ({'latLng': new google.maps.LatLng (position.coords.latitude, position.coords.longitude)}, function (result, status) {
-      var postal_code = [];
-      if ((status == google.maps.GeocoderStatus.OK) && result.length && (result = result[0]))
-        postal_code = result.address_components.map (function (t) { return t.types.length && ($.inArray ('postal_code', t.types) !== -1) ? t.long_name : null; }).filter (function (t) { return t; });
-      postal_code = postal_code.length ? postal_code[0] : '';
 
-      initWeather (postal_code);
+  var now = new Date ().getTime ();
+  var postal_code = getStorage ('weather_maps_last_postal_code');
+  if (postal_code && (now - postal_code.t < 1 * 86400 * 1000))
+    initWeather (postal_code.code);
+  else
+    navigator.geolocation.getCurrentPosition (function (position) {
+      new google.maps.Geocoder ().geocode ({'latLng': new google.maps.LatLng (position.coords.latitude, position.coords.longitude)}, function (result, status) {
+        var postal_code = [];
+        if ((status == google.maps.GeocoderStatus.OK) && result.length && (result = result[0]))
+          postal_code = result.address_components.map (function (t) { return t.types.length && ($.inArray ('postal_code', t.types) !== -1) ? t.long_name : null; }).filter (function (t) { return t; });
+        
+        postal_code = postal_code.length ? postal_code[0] : '';
+    
+        if (postal_code === '')
+          initWeather (100);
+        else {
+          setStorage ('weather_maps_last_postal_code', {code: postal_code, t: now});
+          initWeather (postal_code);
+        }
+      });
+    }, function () {
+      initWeather (100);
     });
-  }, function () {
-    initWeather (100);
-  });
 });

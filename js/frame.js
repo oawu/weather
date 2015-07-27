@@ -12,7 +12,9 @@ if (ENVIRONMENT == 'dev') {
     getWeathersUrl: 'http://dev.weather.ioa.tw/api/github/get_weathers/',
     getTownsUrl: 'http://dev.weather.ioa.tw/api/github/get_towns/',
     getWeatherByNameUrl: 'http://dev.weather.ioa.tw/api/github/get_weather_by_name/',
-    getWeatherByPostalCodeUrl: 'http://dev.weather.ioa.tw/api/github/get_weather_by_postal_code/',
+    getWeatherContentByPostalCodeUrl: 'http://dev.weather.ioa.tw/api/github/get_weather_content_by_postal_code/',
+    getTownUrl: 'http://dev.weather.ioa.tw/api/github/get_town/',
+    getMoreTownsUrl: 'http://dev.weather.ioa.tw/api/github/get_more_town/',
   };
 } else {
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -28,18 +30,20 @@ if (ENVIRONMENT == 'dev') {
     getWeathersUrl: 'http://weather.ioa.tw/api/github/get_weathers/',
     getTownsUrl: 'http://weather.ioa.tw/api/github/get_towns/',
     getWeatherByNameUrl: 'http://weather.ioa.tw/api/github/get_weather_by_name/',
-    getWeatherByPostalCodeUrl: 'http://weather.ioa.tw/api/github/get_weather_by_postal_code/',
+    getWeatherContentByPostalCodeUrl: 'http://weather.ioa.tw/api/github/get_weather_content_by_postal_code/',
+    getTownUrl: 'http://weather.ioa.tw/api/github/get_town/',
+    getMoreTownsUrl: 'http://weather.ioa.tw/api/github/get_more_town/',
   };
 }
 
-function initWeatherFeature (t, map) {
+function initWeatherFeature (t, map, hasAction) {
   var markerWithLabel = new MarkerWithLabel ({
                           id: t.id,
                           position: new google.maps.LatLng (t.lat, t.lng),
                           draggable: false,
                           raiseOnDrag: false,
-                          clickable: true,
-                          labelContent: t.c,
+                          clickable: hasAction,
+                          labelContent: t.content,
                           labelAnchor: new google.maps.Point (65, 100),
                           labelClass: "marker_label",
                           icon: {path: 'M 0 0'},
@@ -47,8 +51,9 @@ function initWeatherFeature (t, map) {
                             $(t).find ('.icon').imgLiquid ({verticalAlign: 'center'});
                           }
                         });
-  google.maps.event.addListener (markerWithLabel, 'click', function () {
-    if (map.zoom < 13) {
+
+  if (hasAction)
+    google.maps.event.addListener (markerWithLabel, 'click', function () {
       mapGo (map, new google.maps.LatLng (t.lat, t.lng), function (map) {
         setStorage.apply (this, ['weather_maps_last', {
           lat: map.center.lat (),
@@ -57,10 +62,12 @@ function initWeatherFeature (t, map) {
         }]);
         map.setZoom (map.zoom + 1);
       });
-    } else {
-      
-    }
-  });
+
+      clearTimeout (map.toTownTimmer);
+      map.toTownTimmer = setTimeout (function () {
+        window.location.assign ('town.html#' + encodeURIComponent (t.name));
+      }, 500);
+    });
   return markerWithLabel;
 }
 function getWeathers (map, townId, $loadingData, notSaveLast) {
@@ -96,10 +103,9 @@ function getWeathers (map, townId, $loadingData, notSaveLast) {
           var markers = result.weathers.map (function (t) {
             return {
               id: t.id,
-              markerWithLabel: initWeatherFeature (t, map)
+              markerWithLabel: initWeatherFeature (t, map, true)
             };
           });
-
 
           var deletes = map.markers.diff (markers);
           var adds = markers.diff (map.markers);
@@ -108,7 +114,8 @@ function getWeathers (map, townId, $loadingData, notSaveLast) {
 
           map.markers = map.markers.filter (function (t) { return $.inArray (t.id, delete_ids) == -1; }).concat (markers.filter (function (t) { return $.inArray (t.id, add_ids) != -1; }));
 
-          $loadingData.removeClass ('show');
+          if ($loadingData)
+            $loadingData.removeClass ('show');
           map.isGetWeathers = false;
         }
     })
