@@ -94,15 +94,13 @@ class Github extends Api_controller {
     if (!(($last = TownWeather::last (array ('select' => 'created_at'))) && ($last = $last->created_at->format ('Y-m-d H:00:00'))))
       return $this->output_json (array ('status' => false));
 
-    if (!($weathers = TownWeather::find ('all', array ('conditions' => array ('created_at > ? AND special_icon != ? AND special_status != ? AND special_describe != ?', $last, '', '', '')))))
-      return $this->output_json (array ('status' => false));
-
-    if (!($town_ids = array_unique (column_array ($weathers, 'town_id'))))
-      return $this->output_json (array ('status' => false));
+    $weathers = TownWeather::find ('all', array ('conditions' => array ('created_at > ? AND special_icon != ? AND special_status != ? AND special_describe != ?', $last, '', '', '')));
+    $town_ids = array_unique (column_array ($weathers, 'town_id'));
 
     $towns = array ();
-    foreach (Town::find ('all', array ('include' => array ('category'), 'select' => 'id, name, town_category_id', 'conditions' => array ('id IN (?)', $town_ids))) as $town)
-      $towns[$town->id] = $town;
+    if ($town_ids)
+      foreach (Town::find ('all', array ('include' => array ('category'), 'select' => 'id, name, town_category_id', 'conditions' => array ('id IN (?)', $town_ids))) as $town)
+        $towns[$town->id] = $town;
 
     $specials = array ();
     foreach ($weathers as $weather) {
@@ -111,6 +109,7 @@ class Github extends Api_controller {
 
       array_push ($specials[$weather->special_status . '-' . $towns[$weather->town_id]->category->name]['towns'], array ('id' => $towns[$weather->town_id]->id, 'name' => $towns[$weather->town_id]->name));
     }
+
     // $specials = array_values ($specials);
 
     $units = array ();

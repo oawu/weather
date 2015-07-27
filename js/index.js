@@ -46,7 +46,7 @@ $(function () {
     if (result.status)
       initUI (result.specials, result.units);
     else
-    console.error ('x');
+      console.error ('x');
   })
   .fail (function (result) { ajaxError (result); })
   .complete (function (result) {});
