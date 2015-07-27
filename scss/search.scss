@@ -511,7 +511,8 @@ $colors:
   .loading_data {
     position: absolute;
     left: 0;
-    bottom: -100%;
+    bottom: -40px;
+    height: 40px;
     display: inline-block;
     width: 100%;
     padding: 10px;

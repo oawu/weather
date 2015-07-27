@@ -151,16 +151,20 @@ $(function () {
       $specialDescribe.text (town.weather.special.describe);
       $specialAt.text (town.weather.special.at).data ('time', town.weather.special.at).timeago ();
     }
-
-    $details.addClass ('c' + town.weathers.length);
-    $times.append (town.weathers.map (function (t) {
-      return $('<div />').addClass ('time').text (t.hour);
-    }));
-    $tempers.append (town.weathers.map (function (t) {
-      var min = 20;
-      var max = 40;
-      return $('<div />').addClass ('temper').data ('height', 'calc((100% - 10px) * ' + (t.temperature - min) / (max - min) + ')').append ($('<div />').text (t.temperature + '°c')).append ($('<div />'));
-    }));
+    
+    if (town.weathers) {
+      $details.addClass ('c' + town.weathers.length);
+      $times.append (town.weathers.map (function (t) {
+        return $('<div />').addClass ('time').text (t.hour);
+      }));
+      $tempers.append (town.weathers.map (function (t) {
+        var min = 20;
+        var max = 40;
+        return $('<div />').addClass ('temper').data ('height', 'calc((100% - 10px) * ' + (t.temperature - min) / (max - min) + ')').append ($('<div />').text (t.temperature + '°c')).append ($('<div />'));
+      }));
+    } else {
+      $details.remove ();
+    }
 
     $(window).scroll (function () {
       if ($tempers.data ('has_loaded') || ($(this).scrollTop () + $(this).height () < $tempers.offset ().top))
@@ -204,7 +208,7 @@ $(function () {
 
             ids = ids.map (function (t) { return parseInt (t.id, 10); });
           $towns.append (result.towns.map (function (t) {
-            return $('<a />').addClass ($.inArray (t.id, ids) != -1 ? 'viewed' : null).attr ('href', window.url + 'town.html#' + encodeURIComponent (t.name)).addClass ('town').append ($('<img />').attr ('src', t.src)).append ($('<div />').addClass ('name').text (t.name)).click (function () { window.location.hash = encodeURIComponent (t.name); }).append ($('<div />').addClass ('tick').addClass ('icon-uniE63B'));
+            return $('<a />').addClass ($.inArray (t.id, ids) != -1 ? 'viewed' : null).attr ('href', window.url + 'town.html#' + encodeURIComponent (t.id)).addClass ('town').append ($('<img />').attr ('src', t.src)).append ($('<div />').addClass ('name').text (t.name)).click (function () { window.location.hash = encodeURIComponent (t.id); }).append ($('<div />').addClass ('tick').addClass ('icon-uniE63B'));
           })).find ('a').imgLiquid ({verticalAlign: 'center'});
 
           $moreLoading.remove ();
@@ -245,7 +249,7 @@ $(function () {
   .done (function (result) {
     if (result.status)
       initTown (result.town);
-    else 
+    else
       window.location.assign ('index.html');
   })
   .fail (function (result) { ajaxError (result); })

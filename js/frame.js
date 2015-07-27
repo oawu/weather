@@ -9,14 +9,26 @@ var ENVIRONMENT = 'production';
 if (ENVIRONMENT == 'dev') {
   window.url = 'http://dev.comdan66.github.io/weather/';
   window.api = {
-    getWeathersUrl: 'http://dev.weather.ioa.tw/api/github/get_weathers/',
+    getTownUrl: 'http://dev.weather.ioa.tw/api/github/get_town/',
     getTownsUrl: 'http://dev.weather.ioa.tw/api/github/get_towns/',
+    getIndexData: 'http://dev.weather.ioa.tw/api/github/get_index_data/',
+    getWeathersUrl: 'http://dev.weather.ioa.tw/api/github/get_weathers/',
+    getMoreTownsUrl: 'http://dev.weather.ioa.tw/api/github/get_more_town/',
     getWeatherByNameUrl: 'http://dev.weather.ioa.tw/api/github/get_weather_by_name/',
     getWeatherContentByPostalCodeUrl: 'http://dev.weather.ioa.tw/api/github/get_weather_content_by_postal_code/',
-    getTownUrl: 'http://dev.weather.ioa.tw/api/github/get_town/',
-    getMoreTownsUrl: 'http://dev.weather.ioa.tw/api/github/get_more_town/',
   };
 } else {
+  window.url = 'http://comdan66.github.io/weather/';
+  window.api = {
+    getTownUrl: 'http://weather.ioa.tw/api/github/get_town/',
+    getTownsUrl: 'http://weather.ioa.tw/api/github/get_towns/',
+    getIndexData: 'http://weather.ioa.tw/api/github/get_index_data/',
+    getWeathersUrl: 'http://weather.ioa.tw/api/github/get_weathers/',
+    getMoreTownsUrl: 'http://weather.ioa.tw/api/github/get_more_town/',
+    getWeatherByNameUrl: 'http://weather.ioa.tw/api/github/get_weather_by_name/',
+    getWeatherContentByPostalCodeUrl: 'http://weather.ioa.tw/api/github/get_weather_content_by_postal_code/',
+  };
+
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
   m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
@@ -24,16 +36,6 @@ if (ENVIRONMENT == 'dev') {
 
   ga('create', 'UA-46121102-7', 'auto');
   ga('send', 'pageview');
-  
-  window.url = 'http://comdan66.github.io/weather/';
-  window.api = {
-    getWeathersUrl: 'http://weather.ioa.tw/api/github/get_weathers/',
-    getTownsUrl: 'http://weather.ioa.tw/api/github/get_towns/',
-    getWeatherByNameUrl: 'http://weather.ioa.tw/api/github/get_weather_by_name/',
-    getWeatherContentByPostalCodeUrl: 'http://weather.ioa.tw/api/github/get_weather_content_by_postal_code/',
-    getTownUrl: 'http://weather.ioa.tw/api/github/get_town/',
-    getMoreTownsUrl: 'http://weather.ioa.tw/api/github/get_more_town/',
-  };
 }
 
 function initWeatherFeature (t, map, hasAction) {
@@ -65,7 +67,7 @@ function initWeatherFeature (t, map, hasAction) {
 
       clearTimeout (map.toTownTimmer);
       map.toTownTimmer = setTimeout (function () {
-        window.location.assign ('town.html#' + encodeURIComponent (t.name));
+        window.location.assign ('town.html#' + encodeURIComponent (t.id));
       }, 500);
     });
   return markerWithLabel;
@@ -204,6 +206,7 @@ $(function () {
     left: [
       {name: '首頁', file: 'index.html', target: '_self'},
       {name: '搜尋', file: 'search.html', target: '_self'},
+      {name: '地圖', file: 'maps.html', target: '_self'},
     ],
     right: [
       {name: '關於', file: 'about.html', target: '_self'},
@@ -221,7 +224,7 @@ $(function () {
   var now = document.URL.replace (/^.*[\\\/]/, '');
   var nowLink = sideLinks.filter (function (t) { return t.file == now; });
   if (nowLink.length && (nowLink = nowLink[0]))
-    $('title').text (nowLink.name);
+    $('title').text (nowLink.name + ' - Weather Maps');
 
   var $body = $('body');
   var overflow = $body.css ('overflow');

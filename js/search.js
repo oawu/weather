@@ -8,7 +8,7 @@ $(function () {
   window.onhashchange = function () {
     location.reload ();
   };
-  
+  var _timer = null
   $container = $('#container');
 
   var $input = $('<input />').addClass ('search').attr ('type', 'text').attr ('placeholder', '快來搜尋一下天氣吧！').val (decodeURIComponent (hash)).keyup (function (e) {
@@ -35,7 +35,9 @@ $(function () {
 
   function towns ($a, i) {
     var $tags = $a.slice (i, i + 5).removeClass ('back').addClass ('start');
-    setTimeout (function () {
+    clearTimeout (_timer);
+
+    _timer = setTimeout (function () {
       $tags.addClass ('end');
       setTimeout (towns.bind (this, $a, (i + 5) % 10), 100);
       setTimeout (function () {
@@ -143,7 +145,7 @@ $(function () {
 
   var now = new Date ().getTime ();
   var postal_code = getStorage ('weather_maps_last_postal_code');
-  if (postal_code && (now - postal_code.t < 1 * 86400 * 1000))
+  if (postal_code && (now - postal_code.t < 60 * 60 * 1000))
     initWeather (postal_code.code);
   else
     navigator.geolocation.getCurrentPosition (function (position) {

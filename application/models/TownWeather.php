@@ -17,6 +17,7 @@ class TownWeather extends OaModel {
   );
 
   static $belongs_to = array (
+    array ('town', 'class_name' => 'Town')
   );
 
   public function __construct ($attributes = array (), $guard_attributes = true, $instantiating_via_find = false, $new_record = true) {
@@ -31,6 +32,14 @@ class TownWeather extends OaModel {
   public function has_special () {
     return $this->special_icon && $this->special_status && $this->special_describe;
   }
+  public function special_to_array () {
+    return $this->has_special () ? array (
+              'icon' => $this->special_icon (),
+              'status' => $this->special_status,
+              'describe' => $this->special_describe,
+              'at' => $this->special_at->format ('Y-m-d H:m:i')
+            ) : array ();
+  }
   public function to_array () {
     return array (
           'id' => $this->id,
@@ -42,12 +51,7 @@ class TownWeather extends OaModel {
           'sunrise' => $this->sunrise,
           'sunset' => $this->sunset,
           'created_at' => $this->created_at->format ('Y-m-d H:m:i'),
-          'special' => $this->has_special () ? array (
-              'icon' => $this->special_icon (),
-              'status' => $this->special_status,
-              'describe' => $this->special_describe,
-              'at' => $this->special_at->format ('Y-m-d H:m:i')
-            ) : array ()
+          'special' => $this->special_to_array ()
         );
   }
   public function destroy () {

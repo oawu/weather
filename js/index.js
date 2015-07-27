@@ -4,51 +4,52 @@
  */
 
 $(function () {
-  $container = $('#container');
-  $map = $container.find ('#map');
-  $loadingData = $container.find ('.loading_data');
+  var $container = $('#container');
 
-  function initialize () {
-    _map = new google.maps.Map ($map.get (0), {
-        zoom: 14,
-        zoomControl: true,
-        scrollwheel: true,
-        scaleControl: true,
-        mapTypeControl: false,
-        navigationControl: true,
-        streetViewControl: false,
-        disableDoubleClickZoom: true,
-        center: new google.maps.LatLng (25.04, 121.55),
-      });
 
-    var last = getLastPosition ('weather_maps_last');
+  function initUI (specials, units) {
+    if (units.length > 0)
+      $('<div />').addClass ('units').append (units.map (function (t) {
+        return $('<a />').attr ('href', 'town.html#' + encodeURIComponent (t.info.id)).append ($('<h2 />').text (t.title)).append ($('<div />').addClass ('content').append ($('<div />').addClass ('l').append ($(t.info.content))).append ($('<div />').addClass ('r').append ($('<div />').addClass ('describe').text (t.info.weather.describe)).append ($('<div />').addClass ('sub_describe').append ($('<div />').addClass ('humidity').text ('溫濕度：' + t.info.weather.humidity + '%')).append ($('<div />').addClass ('rainfall').text ('降雨量：' + t.info.weather.rainfall + 'mm'))).append ($('<div />').addClass ('created_at').data ('time', t.info.weather.created_at).text (t.info.weather.created_at).timeago ())));
+      })).appendTo ($container);
 
-    if (last) {
-      _map.setCenter (new google.maps.LatLng (last.lat, last.lng));
-      _map.setZoom (last.zoom);
-    } else {
-      navigator.geolocation.getCurrentPosition (function (position) {
-        _map.setZoom (14);
-        mapGo (_map, new google.maps.LatLng (position.coords.latitude, position.coords.longitude), function (map) {
-          setStorage.apply (this, ['weather_maps_last', {
-            lat: map.center.lat (),
-            lng: map.center.lng (),
-            zoom: map.zoom
-          }]);
-        });
-      });
+    if (specials.length > 0) {
+      $('<div />').addClass ('line').append ($('<div />')).append ($('<div />').text ('特報')).append ($('<div />')).appendTo ($container);
+      
+      var $specials = $('<div />').addClass ('specials').append (specials.map (function (t) {
+        return $('<div />').addClass ('special').append ($('<h2 />').text (t.special.title + '特報')).append ($('<div />').addClass ('towns').append (t.towns.map (function (u) { return $('<a />').attr ('href', 'town.html#' + encodeURIComponent (u.id)).text (u.name); }))).append ($('<div />').addClass ('describe').text (t.special.describe).prepend ($('<img />').attr ('src', t.special.icon))).append ($('<div />').addClass ('at').data ('time', t.special.at).text (t.special.at).timeago ());
+      })).appendTo ($container);
+      var masonry = new Masonry ($specials.get (0), {
+                      itemSelector: '.special',
+                      columnWidth: 1,
+                      transitionDuration: '0.3s',
+                      visibleStyle: {
+                        opacity: 1,
+                        transform: 'none'
+                      }});
+
     }
-
-    google.maps.event.addListener(_map, 'zoom_changed', getWeathers.bind (this, _map, 0, $loadingData));
-    google.maps.event.addListener(_map, 'idle', getWeathers.bind (this, _map, 0, $loadingData));
-
     window.mainLoading.fadeOut (function () {
       $(this).hide (function () {
-        getWeathers (_map, 0, $loadingData);
         $(this).remove ();
       });
     });
   }
 
-  google.maps.event.addDomListener (window, 'load', initialize);
+  $.ajax ({
+    url: window.api.getIndexData,
+    data: { },
+    async: true, cache: false, dataType: 'json', type: 'POST',
+    beforeSend: function () {}
+  })
+  .done (function (result) {
+    if (result.status)
+      initUI (result.specials, result.units);
+    else
+    console.error ('x');
+  })
+  .fail (function (result) { ajaxError (result); })
+  .complete (function (result) {});
+
+
 });

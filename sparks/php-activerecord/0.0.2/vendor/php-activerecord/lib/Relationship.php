@@ -136,6 +136,8 @@ abstract class AbstractRelationship implements InterfaceRelationship
 
 		foreach ($attributes as $column => $value)
 			$values[] = $value[$inflector->variablize($model_values_key)];
+		
+		$values = array_unique ($values);
 
 		$values = array($values);
 		$conditions = SQLBuilder::create_conditions_from_underscored_string($table->conn,$query_key,$values);
