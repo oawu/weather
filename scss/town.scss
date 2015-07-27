@@ -206,6 +206,7 @@ $changeWidth: 800px;
           padding-bottom: 25px;
           background-color: rgba(255, 255, 255, 1);
           @include border-radius(3px);
+          @include box-shadow(0 0 10px 2px rgba(213, 216, 221, 0.8));
           
           @media screen and (min-width: 0px) and (max-width: #{$changeWidth - 1px}) {
             $arrowWidth: 9px;
@@ -300,6 +301,7 @@ $changeWidth: 800px;
         border: 1px solid rgba(190, 191, 189, 1);
         background-color: rgba(255, 255, 255, 1);
         @include border-radius(3px);
+        @include box-shadow(0 0 10px 2px rgba(213, 216, 221, 0.8));
         
         
         $arrowWidth: 9px;
