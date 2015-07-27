@@ -20,9 +20,9 @@ $changeWidth: 800px;
         width: 100%;
         height: 300px;
       }
-      @media screen and (min-width: 0px) and (max-width: #{$mediaMiniMobileWidth - 1px}) {
-        height: 250px;
-      }
+      // @media screen and (min-width: 0px) and (max-width: #{$mediaMiniMobileWidth - 1px}) {
+      //   height: 250px;
+      // }
 
       height: 0;
       position: relative;
