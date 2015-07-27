@@ -61,10 +61,6 @@ class Github extends Api_controller {
   private function _town_temperatures ($town) {
     $weathers = TownWeather::find_by_sql ('select id, temperature, HOUR(created_at) AS hour from (SELECT * FROM town_weathers WHERE town_weathers.town_id = ' . $town->id . ' ORDER BY id DESC) AS town_weathers WHERE created_at > CURDATE() GROUP BY HOUR(created_at) ORDER BY hour DESC LIMIT 0, 8;');
     
-    usort ($weathers, function ($a, $b) {
-      return $a->hour > $b->hour;
-    });
-    
     return array ('weathers' => array_map (function ($weather) {
           return array (
               'id' => $weather->id,

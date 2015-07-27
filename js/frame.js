@@ -114,7 +114,8 @@ function getWeathers (map, townId, $loadingData, notSaveLast) {
 
           map.markers = map.markers.filter (function (t) { return $.inArray (t.id, delete_ids) == -1; }).concat (markers.filter (function (t) { return $.inArray (t.id, add_ids) != -1; }));
 
-          $loadingData.removeClass ('show');
+          if ($loadingData)
+            $loadingData.removeClass ('show');
           map.isGetWeathers = false;
         }
     })

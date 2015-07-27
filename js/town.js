@@ -133,21 +133,8 @@ $(function () {
     map.setCenter (markerWithLabel.position);
     markerWithLabel.setMap (map);
 
-    // if (town.bound)
-    //   new google.maps.Circle ({
-    //     strokeColor: '#FF0000',
-    //     strokeOpacity: 0.4,
-    //     strokeWeight: 2,
-    //     fillColor: '#FF0000',
-    //     fillOpacity: 0.175,
-    //     map: map,
-    //     center: markerWithLabel.position,
-    //     radius: Math.max (Math.abs (town.bound.northeast.lat - town.bound.southwest.lat), Math.abs (town.bound.northeast.lng - town.bound.southwest.lng)) * 111 * 1000 / 2
-    //   });
-
     google.maps.event.addListener(map, 'zoom_changed', getWeathers.bind (this, map, town.id, $loadingData, false));
     google.maps.event.addListener(map, 'idle', getWeathers.bind (this, map, town.id, $loadingData, false));
-
 
     $content.append ($(town.content));
     $describe.text (town.weather.describe);
