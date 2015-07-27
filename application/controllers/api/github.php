@@ -65,7 +65,7 @@ class Github extends Api_controller {
           return array (
               'id' => $weather->id,
               'temperature' => $weather->temperature,
-              'hour' => $weather->hour . '：00',
+              'hour' => $weather->hour . '時',
             );
         }, $weathers));
   }
