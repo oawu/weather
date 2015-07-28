@@ -12,7 +12,7 @@ $(function () {
   };
 
   if (!hash) {
-    console.error ('xxx');
+    window.location.assign ('index.html');
     return;
   }
 
