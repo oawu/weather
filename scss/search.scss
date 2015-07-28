@@ -400,7 +400,10 @@ $colors:
       cursor: pointer;
 
       @include opacity(0);
-      @include transition(all 1.2s ease-in-out);
+      @include transition(all 1.2s);
+      @include background-image(radial-gradient(50% 50%, rgba(255, 255, 255, .5) 0px, rgba(255, 255, 255, 0) 100%));
+      background-repeat: no-repeat;
+      background-position: 50% 7px;
 
       @media screen and (min-height: 0) and (max-height: #{700px - 1px}) {
         padding-top: 15px;
