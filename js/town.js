@@ -45,6 +45,8 @@ $(function () {
   var $moreLoading = null;
 
   function initUI (town) {
+    $('title').text (town.name + '的天氣概況 - Weather Maps');
+
     $map = $('<div />').attr ('id', 'map');
     $view = $('<div />').attr ('id', 'view');
     $loadingData = $('<div />').addClass ('loading_data').text ('資料讀取中..');
@@ -102,7 +104,7 @@ $(function () {
     var panorama = null;
     var map = null;
 
-    initUI ();
+    initUI (town);
 
     if (town.view)
       panorama = new google.maps.StreetViewPanorama ($view.get (0), {

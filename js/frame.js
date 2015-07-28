@@ -258,6 +258,7 @@ $(function () {
     ],
     right: [
       {name: '關於', file: 'about.html', target: '_self'},
+      {name: '更多', file: 'http://comdan66.github.io/index.html', target: '_blank'},
     ]
   };
 
@@ -294,7 +295,8 @@ $(function () {
                                 $(this).removeClass ('close');
                               }}))
                             .append (links.right.map (function (t) {
-                              return $('<a />').addClass (t.file == now ? 'active' : null).attr ('href', window.url + t.file).attr ('target', t.target).text (t.name);
+                              var regex = /(http(s?))\:\/\//gi;
+                              return $('<a />').addClass (t.file == now ? 'active' : null).attr ('href', regex.test (t.file) ? t.file : window.url + t.file).attr ('target', t.target).text (t.name);
                             })))).prependTo ($body);
 
   var $headerSlideCover = $('<div />').attr ('id', 'header_slide_cover').click (function () {

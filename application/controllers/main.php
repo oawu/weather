@@ -61,8 +61,9 @@ class Main extends Site_controller {
     // exit ();;
 
     $this->load->helper ('directory_helper');
-    foreach (directory_map (FCPATH . 'resource/image/weather/teresa_ori/') as $name) {
-      rename (FCPATH . 'resource/image/weather/teresa_ori/' . $name, FCPATH . 'resource/image/weather/teresa_ori/' . pathinfo ($name, PATHINFO_FILENAME) . '@2x.' . pathinfo ($name, PATHINFO_EXTENSION));
+    
+    foreach (directory_map (FCPATH . 'resource/image/weather/teresa2/') as $name) {
+      rename (FCPATH . 'resource/image/weather/teresa2/' . $name, FCPATH . 'resource/image/weather/teresa2/' . pathinfo ($name, PATHINFO_FILENAME) . '@2x.' . pathinfo ($name, PATHINFO_EXTENSION));
     }
 
   }
