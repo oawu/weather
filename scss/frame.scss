@@ -97,7 +97,7 @@ html {
   display: none;
 }
 
-$navbarHeight: 35px;
+$navbarHeight: 38px;
 $navbarMobileHeight: 40px;
 
 $rightSlideWidth: 250px;
@@ -274,7 +274,7 @@ body {
         padding-top: 7px;
         width: calc(100% - 100px);
         color: rgba(255, 255, 255, 1);
-        font-weight: bold;
+        font-weight: bolder;
         font-size: x-large;
         cursor: pointer;
         @include text-shadow(0 0 1px rgba(0, 0, 0, 1));
@@ -287,7 +287,7 @@ body {
         @include opacity(0);
       }
       .l, .r {
-        padding-top: 3px;
+        padding-top: 2px;
         width: calc(100% - #{$rightWidth});
         @include clearfix ();
 
@@ -299,6 +299,9 @@ body {
           display: inline-block;
           padding: 5px 15px;
           padding-bottom: 6px;
+          font-size: 20px;
+          color: rgba(255, 255, 255, 1);
+          @include text-shadow(0 0 1px rgba(0, 0, 0, .3));
 
           &.active, &:hover {
             color: rgba(255, 255, 255, 1);
