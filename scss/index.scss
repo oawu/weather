@@ -56,6 +56,7 @@
         border: 0;
         border: 1px dashed rgba(190, 191, 189, .5);
         background-color: rgba(255, 255, 255, .4);
+        cursor: pointer;
         @include transition(all .3s);
         @include border-radius(5px);
 
