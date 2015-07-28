@@ -31,11 +31,22 @@
 <br/>
 ## 功能
 
-| 追蹤關注各地天氣概況 | 取得本地位置的天氣概況 | 搜尋各鄉鎮的位置及天氣 |
-| - | - | - |
-| ![追蹤關注各地天氣概況](resource/image/readme/follow.png) | ![取得本地位置的天氣概況](resource/image/readme/position.png) | ![搜尋各鄉鎮的位置及天氣](resource/image/readme/search.png) |
-| 地圖、街景模式切換 | 天氣變化長條圖 | 記錄已讀過的鄉鎮資訊 |
-| ![地圖、街景模式切換](resource/image/readme/view.png) | ![天氣變化長條圖](resource/image/readme/weathers.png) | ![記錄已讀過的鄉鎮資訊](resource/image/readme/visited.png) |
+* 追蹤關注各地天氣概況  
+	![追蹤關注各地天氣概況](resource/image/readme/follow.png)	
+* 取得本地位置的天氣概況  
+  ![取得本地位置的天氣概況](resource/image/readme/position.png)
+
+* 搜尋各鄉鎮的位置及天氣  
+  ![搜尋各鄉鎮的位置及天氣](resource/image/readme/search.png)
+	
+* 地圖、街景模式切換  
+  ![地圖、街景模式切換](resource/image/readme/view.png)
+
+* 天氣變化長條圖  
+  ![天氣變化長條圖](resource/image/readme/weathers.png)
+
+* 記錄已讀過的鄉鎮資訊  
+  ![記錄已讀過的鄉鎮資訊](resource/image/readme/visited.png)
 
 
 <br/>
