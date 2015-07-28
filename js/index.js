@@ -60,8 +60,9 @@ $(function () {
         return $('<div />').addClass ('unit').append ($('<h2 />').text (t.title)).append ($('<a />').attr ('href', 'town.html#' + encodeURIComponent (t.info.id)).append ($('<div />').addClass ('l').append ($(t.info.content))).append ($('<div />').addClass ('r').append ($('<div />').addClass ('describe').text (t.info.weather.describe)).append ($('<div />').addClass ('sub_describe').append ($('<div />').addClass ('humidity').text ('溫濕度：' + t.info.weather.humidity + '%')).append ($('<div />').addClass ('rainfall').text ('降雨量：' + t.info.weather.rainfall + 'mm'))).append ($('<div />').addClass ('created_at').data ('time', t.info.weather.created_at).text (t.info.weather.created_at).timeago ()))).append (t.info.add ? $('<div />').addClass ('del').html ('&#10006;').data ('id', t.info.id).click (delUnit) : null);
       }));
 
-    $('<div />').addClass ('unit').addClass ('add').append (
-      Array.apply (null, Array (5)).map (function (_, i) { return $('<div />').text (i == 4 ? '新增關注追蹤地區！' : ''); })).click (addUnit).appendTo ($units);
+    if (typeof (Storage) !== 'undefined')
+      $('<div />').addClass ('unit').addClass ('add').append (
+        Array.apply (null, Array (5)).map (function (_, i) { return $('<div />').text (i == 4 ? '新增關注追蹤地區！' : ''); })).click (addUnit).appendTo ($units);
 
     if (specials.length > 0) {
       $('<div />').addClass ('line').append ($('<div />')).append ($('<div />').text ('特報')).append ($('<div />')).appendTo ($container);
