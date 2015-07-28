@@ -8,7 +8,7 @@ $(function () {
 
   var top = {
     h1: "OA's Weather Maps!",
-    html: "藉由 <b>Google Maps JavaScript API v3</b> 的地圖服務，以及<b>中央氣象局</b>網站的天氣預報所實作的<b>台灣 368 個鄉鎮</b>的<b>天氣地圖</b>！"
+    html: "想查詢每個地方的天氣嗎！？藉由 <b>Google Maps API</b> 的地圖服務，以及<b>中央氣象局</b>網站的天氣預報，讓你快速輕鬆的查詢台灣 368 個鄉鎮的天氣概況！"
   };
   var declare = {
     h2: "聲明",
@@ -27,12 +27,12 @@ $(function () {
       "全網站使用<a href='http://www.ibest.tw/page01.php' target='_blank'>響應式網站設計(RWD)</a>，所以手機也可以正常瀏覽。",
       "網站內容使用 <a href='https://developer.mozilla.org/zh-TW/docs/Using_geolocation' target='_blank'>navigator.geolocation</a> 物件取得前端 GPS 位置。",
       "搭配 <a href='https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage' target='_blank'>localStorage</a> 實作<a href='http://comdan66.github.io/weather/index.html' target='_blank'>追蹤天氣</a>、<a href='http://comdan66.github.io/weather/town.html#1' target='_blank'>已讀</a>、<a href='http://comdan66.github.io/weather/maps.html' target='_blank'>記錄上次地圖位置</a>.. 等功能。",
-      "<a href='http://comdan66.github.io/weather/search.html' target='_blank'>搜尋</a>功能則使用 <a href='https://developers.google.com/maps/documentation/geocoding/intro' target='_blank'>Google Maps Geocoding API</a> 將住址搜尋更加準確化。",
+      "<a href='http://comdan66.github.io/weather/search.html' target='_blank'>搜尋功能</a>則使用 <a href='https://developers.google.com/maps/documentation/geocoding/intro' target='_blank'>Google Maps Geocoding API</a> 將住址搜尋更加準確化。",
       "使用 <a href='https://developers.google.com/maps/documentation/staticmaps/intro' target='_blank'>Static Maps API</a> 以及 <a href='https://developers.google.com/maps/documentation/streetview/intro' target='_blank'>Street View Image API</a> 所提供的服務，擷取地點的地圖、街景截圖。",
       "感謝 <a href='http://zeusdesign.com.tw/' target='_blank'>宙思設計</a> 提供的可愛天氣小圖示。",
       "前端開發工具主要使用 <a href='http://gulpjs.com/' target='_blank'>Gulp</a>、<a href='http://compass-style.org/' target='_blank'>Compass</a> 以及 <a href='https://jquery.com/' target='_blank'>jQuery</a> 語言所建立，主要架構則使用 <a href='https://github.com/comdan66/f2e/' target='_blank'>OAF2E v1.2</a>。",
       "後端語言為 <a href='http://php.net/' target='_blank'>PHP</a>，使用的 Framework 為 <a href='https://github.com/comdan66/oaci' target='_blank'>OACI version 2.3</a>。",
-      "Demo 範例頁面: <a href='http://comdan66.github.io/weather/index.html' target='_blank'>http://comdan66.github.io/weather/index.html</a>！"
+      "Demo 範例頁面: <a href='http://comdan66.github.io/weather/index.html' target='_blank'>http://comdan66.github.io/weather/index.html</a>"
     ]
   };
   var feature = {
@@ -56,7 +56,8 @@ $(function () {
       "GitHub - <a href='https://github.com/comdan66/weather/' target='_blank'>Weather Maps</a>",
       "相關資源 - <a href='https://developers.google.com/maps/documentation/javascript/' target='_blank'>Google Maps JavaScript API v3</a>",
       "相關資源 - <a href='http://google-maps-utility-library-v3.googlecode.com/svn/tags/markerwithlabel/1.1.8/docs/examples.html' target='_blank'>MarkerWithLabel</a>",
-      "更新日期 - 2015/07/10",
+      "相關資源 - <a href='http://www.cwb.gov.tw/V7/index.htm' target='_blank'>中央氣象局</a>",
+      "更新日期 - 2015/07/29",
     ]
   };
 
