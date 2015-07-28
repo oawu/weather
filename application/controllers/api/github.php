@@ -71,12 +71,13 @@ class Github extends Api_controller {
         'id' => $town->id,
         'category' => $town->category->name,
         'name' => $town->name,
+        'postal_code' => $town->postal_code,
         'lat' => $town->latitude,
         'lng' => $town->longitude,
       ) : array ();
   }
   private function _town_temperatures ($town) {
-    if (!(($last = TownWeather::last (array ('select' => 'created_at'))) && ($last = $last->created_at->format ('Y-m-d H:00:00'))))
+    if (!(($last = TownWeather::last (array ('select' => 'created_at'))) && ($last = $last->created_at->format ('Y-m-d 00:00:00'))))
       return array ();
 
     $weathers = TownWeather::find_by_sql ('select id, temperature, HOUR(created_at) AS hour from (SELECT * FROM town_weathers WHERE town_weathers.town_id = ' . $town->id . ' ORDER BY id DESC) AS town_weathers WHERE created_at > "' . $last . '" GROUP BY HOUR(created_at) ORDER BY hour DESC LIMIT 0, 8;');
@@ -110,8 +111,6 @@ class Github extends Api_controller {
       array_push ($specials[$weather->special_status . '-' . $towns[$weather->town_id]->category->name]['towns'], array ('id' => $towns[$weather->town_id]->id, 'name' => $towns[$weather->town_id]->name));
     }
 
-    // $specials = array_values ($specials);
-
     $units = array ();
 
     if ($weather = TownWeather::find ('one', array ('order' => 'temperature DESC', 'conditions' => array ('created_at > ?', $last))))
@@ -143,6 +142,14 @@ class Github extends Api_controller {
       array_push ($units, array ('title' => '目前雨量最少', 'info' => array_merge (array (
                   'id' => $weather->town_id,
                 ), $this->_content_format (null, $weather), $this->_weather_format (null, $weather))));
+
+    if ($postal_codes = $this->input_post ('postal_codes'))
+      foreach ($postal_codes as $postal_code)
+        if (isset ($postal_code['id']) && ($town = Town::find ('one', array ('conditions' => array ('id = ?', $postal_code['id'])))))
+              array_push ($units, array ('title' => $town->name, 'info' => array_merge (array (
+                          'id' => $town->id,
+                          'add' => true,
+                        ), $this->_content_format ($town), $this->_weather_format ($town))));        
 
     return $this->output_json (array ('status' => true, 'specials' => array_values ($specials), 'units' => $units));
   }
@@ -210,11 +217,27 @@ class Github extends Api_controller {
       return $this->output_json (array ('status' => false));
   }
 
+  public function _get_postal_code_by_google ($address) {
+    $url = "https://maps.google.com/maps/api/geocode/json?sensor=false&address=" . urlencode ($address) . "&language=zh-TW&key=" . Cfg::setting ('google', ENVIRONMENT, 'server_key');
+    $resp_json = file_get_contents ($url);
+    $result = json_decode ($resp_json, true);
+
+    if (!(isset ($result['results']) && isset ($result['status']) && ($result['status'] == 'OK') && count ($result = $result['results']) && count ($result = $result[0]) && isset ($result['address_components'])))
+      return '';
+
+    $postal_code = '';
+    foreach ($result['address_components'] as $component)
+      if (in_array ('postal_code', $component['types']) && ($postal_code = $component['long_name']))
+        return $postal_code;
+  }
   public function get_weather_by_name () {
     $name = trim ($this->input_post ('name'));
 
     if (!$name)
       return $this->output_json (array ('status' => false));
+    
+    if (($postal_code = $this->_get_postal_code_by_google ($name)) && ($town = Town::find ('one', array ('conditions' => array ('postal_code = ?', $postal_code)))) && ($content = $this->_content_format ($town)))
+      return $this->output_json (array ('status' => true, 'weather' => array_merge ($this->_town_format ($town), $content)));
 
     $list = array ();
     $list['臺'] = '台';

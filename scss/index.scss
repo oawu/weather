@@ -6,12 +6,19 @@
 @import "_oa";
 
 #container {
-
   
+  .no_data {
+    @include alert();
+    margin-top: 50px;
+    margin-bottom: 50px;
+    padding: 20px;
+    line-height: 40px;
+    border: 1px solid rgba(255, 0, 0, .3);
+  }
   .units {
     @include clearfix();
 
-    a {
+    .unit {
       float: left;
       position: relative;
       display: inline-block;
@@ -19,8 +26,7 @@
       margin: 10px 0;
       border: 1px solid rgba(190, 191, 189, 1);
       background-color: rgba(255, 255, 255, 1);
-      text-decoration: none;
-      color: rgba(50, 50, 50, 0.8);
+      height: 177px;
       @include border-radius(3px);
       @include transition(box-shadow .3s);
       @include box-shadow(0 0 10px 2px rgba(213, 216, 221, 0.7));
@@ -33,7 +39,7 @@
       @media screen and (min-width: 800px) and (max-width: #{$mainWidth - 1px}) {
         width: calc((100% - 20px) / 2);
         &:not(:nth-child(2n)) {
-          + a {
+          + .unit {
             margin-left: 20px;
           }
         }
@@ -41,9 +47,151 @@
       @media screen and (min-width: #{$mainWidth}) {
         width: calc((100% - 40px) / 3);
         &:not(:nth-child(3n)) {
-          + a {
+          + .unit {
             margin-left: 20px;
           }
+        }
+      }
+      &.add {
+        border: 0;
+        border: 1px dashed rgba(190, 191, 189, .5);
+        background-color: rgba(255, 255, 255, .4);
+        @include transition(all .3s);
+        @include border-radius(5px);
+
+        &:before, &:after {
+          content: "";
+          position: absolute;
+          top: calc((100% - 6px) / 2 - 10px);
+          left: calc((100% - 70px) / 2);
+          display: inline-block;
+          width: 70px;
+          height: 6px;
+          background-color: rgba(140, 140, 140, 1);
+          @include border-radius(2px);
+          @include transition(all .3s);
+        }
+        
+        &:after {
+          top: calc((100% - 60px) / 2 - 10px);
+          left: calc((100% - 6px) / 2);
+          width: 6px;
+          height: 60px;
+        }
+
+        &:hover {
+          border: 2px dashed rgba(190, 191, 189, 1);
+          background-color: rgba(255, 255, 255, 1);
+
+          &:before, &:after {
+            background-color: rgba(162, 162, 162, 1);
+          }
+          &:before {
+            top: calc((100% - 12px) / 2 - 10px);
+            height: 12px;
+          }
+          
+          &:after {
+            left: calc((100% - 12px) / 2);
+            width: 12px;
+          }
+
+          > div {
+            border: 10px solid rgba(162, 162, 162, 1);
+
+            &:nth-child(1) {
+              top: -2px;
+              left: -2px;
+            }
+            &:nth-child(2) {
+              top: -2px;
+              right: -2px;
+            }
+            &:nth-child(3) {
+              bottom: -2px;
+              left: -2px;
+            }
+            &:nth-child(4) {
+              bottom: -2px;
+              right: -2px;
+            }
+            &:nth-child(5) {
+              color: rgba(50, 50, 50, 0.8);
+            }
+          }
+        }
+        > div {
+          position: absolute;
+          display: inline-block;
+          width: 50px;
+          height: 50px;
+          border: 5px solid rgba(142, 143, 140, 1);
+          @include transition(all .3s);
+
+          &:nth-child(1) {
+            top: -4px;
+            left: -4px;
+            border-right: 0;
+            border-bottom: 0;
+            @include border-top-left-radius(5px);
+          }
+          &:nth-child(2) {
+            top: -4px;
+            right: -4px;
+            border-left: 0;
+            border-bottom: 0;
+            @include border-top-right-radius(5px);
+          }
+          &:nth-child(3) {
+            bottom: -4px;
+            left: -4px;
+            border-right: 0;
+            border-top: 0;
+            @include border-bottom-left-radius(5px);
+          }
+          &:nth-child(4) {
+            bottom: -4px;
+            right: -4px;
+            border-left: 0;
+            border-top: 0;
+            @include border-bottom-right-radius(5px);
+          }
+          &:nth-child(5) {
+            bottom: 0;
+            left: 0;
+            border: 0;
+            width: 100%;
+            color: rgba(50, 50, 50, 0.4);
+            letter-spacing: 1px;
+            @include overflow-docx3();
+          }
+        }
+      }
+      .del {
+        position: absolute;
+        top: -10px;
+        right: -10px;
+        display: inline-block;
+        width: 30px;
+        height: 30px;
+        line-height: 28px;
+        color: rgba(255, 255, 255, 1);
+        border: 1px solid rgba(255, 0, 0, .3);
+        background-color: rgba(249, 174, 174, 1);
+        cursor: pointer;
+        @include border-radius(50%);
+        @include text-shadow(0 0 1px rgba(0, 0, 0, .5));
+        @include box-shadow(inset 1px 1px 1px rgba(255, 255, 255, .1), 1px 1px 1px rgba(39, 40, 34, .1));
+        @include transition(all .3s);
+
+        &:hover {
+          background-color: rgba(252, 125, 124, 1);
+          @include box-shadow(inset 1px 1px 1px rgba(255, 255, 255, .8), 1px 1px 1px rgba(39, 40, 34, .5));
+        }
+        &:active {
+          background-color: rgba(252, 125, 124, 1);
+          @include box-shadow(1px 1px 1px rgba(255, 255, 255, .8), inset 1px 1px 1px rgba(39, 40, 34, .5));
+          @include text-shadow(1px 1px 1px rgba(0, 0, 0, .5));
         }
       }
       h2 {
@@ -51,12 +199,17 @@
         padding: 10px;
         font-size: 22px;
         text-align: left;
+        height: 45px;
         border-bottom: 1px solid rgba(170, 171, 169, .4);
         background-color: rgba(246, 247, 248, 1);
         @include overflow-docx3();
         @include border-top-radius(3px);
       }
-      .content {
+      a {
+        text-decoration: none;
+        color: rgba(50, 50, 50, 0.8);
+        cursor: pointer;
+
         @media screen and (min-width: 0) and (max-width: #{$mediaMiniMobileWidth - 1px}) {
           @include split-left(100px, '.l', '.r');
         }
