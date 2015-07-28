@@ -63,11 +63,7 @@ $(function () {
                         }))).appendTo ($container);
         setTimeout (towns.bind (this, $noData.find ('a'), 0), 100);
         
-        window.mainLoading.fadeOut (function () {
-          $(this).hide (function () {
-            $(this).remove ();
-          });
-        });
+        window.closeLoading ();
       }
     })
     .fail (function (result) { ajaxError (result); })
@@ -99,11 +95,7 @@ $(function () {
     google.maps.event.addListener(map, 'zoom_changed', getWeathers.bind (this, map, markerWithLabel.id, $loadingData, false));
     google.maps.event.addListener(map, 'idle', getWeathers.bind (this, map, markerWithLabel.id, $loadingData, false));
     
-    window.mainLoading.fadeOut (function () {
-      $(this).hide (function () {
-        $(this).remove ();
-      });
-    });
+    window.closeLoading ();
   }
 
   if (hash.length)

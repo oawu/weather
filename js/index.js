@@ -74,12 +74,7 @@ $(function () {
       new Masonry ($specials.get (0), { itemSelector: '.special', columnWidth: 1, transitionDuration: '0.3s', visibleStyle: { opacity: 1, transform: 'none' }});
     }
 
-
-    window.mainLoading.fadeOut (function () {
-      $(this).hide (function () {
-        $(this).remove ();
-      });
-    });
+    window.closeLoading ();
   }
 
   $.ajax ({

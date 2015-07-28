@@ -233,11 +233,7 @@ $(function () {
     else
       $viewButton.remove ();
 
-    window.mainLoading.fadeOut (function () {
-      $(this).hide (function () {
-        $(this).remove ();
-      });
-    });
+    window.closeLoading ();
   }
 
   $.ajax ({

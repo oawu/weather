@@ -5,7 +5,7 @@
 
 @import "_oa";
 
-$logoWidth: 200px;
+$logoWidth: 250px;
 $tipWidth: 130px;
 
 $colors:
@@ -63,7 +63,7 @@ $colors:
         font-size: 30px;
         font-weight: bolder;
         color: rgba(100, 100, 100, 1);
-
+        padding-left: 20px;
         @include text-shadow(1px 1px 1px rgba(255, 255, 255, 1));
         vertical-align: bottom;
         
@@ -80,6 +80,7 @@ $colors:
         color: rgba(100, 100, 100, 1);
         font-size: 14px;
         padding-top: 5px;
+        padding-right: 10px;
         letter-spacing: 3px;
         @include box-shadow(inset 0 1px 1px rgba(255, 255, 255, .5));
       }
@@ -139,7 +140,7 @@ $colors:
         font-size: 30px;
         font-weight: bolder;
         color: rgba(100, 100, 100, 1);
-
+        padding-left: 20px;
         @include text-shadow(1px 1px 1px rgba(255, 255, 255, 1));
         vertical-align: bottom;
         
@@ -157,6 +158,7 @@ $colors:
         font-size: 14px;
         padding-top: 5px;
         letter-spacing: 3px;
+        padding-right: 10px;
         @include box-shadow(inset 0 1px 1px rgba(255, 255, 255, .5));
       }
     }
@@ -210,7 +212,7 @@ $colors:
         font-size: 30px;
         font-weight: bolder;
         color: rgba(100, 100, 100, 1);
-
+        padding-left: 20px;
         @include text-shadow(1px 1px 1px rgba(255, 255, 255, 1));
         vertical-align: bottom;
         
@@ -228,6 +230,7 @@ $colors:
         font-size: 14px;
         padding-top: 5px;
         letter-spacing: 3px;
+        padding-right: 10px;
         @include box-shadow(inset 0 1px 1px rgba(255, 255, 255, .5));
       }
     }

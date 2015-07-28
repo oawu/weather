@@ -47,12 +47,7 @@ $(function () {
     google.maps.event.addListener(_map, 'zoom_changed', getWeathers.bind (this, _map, 0, $loadingData));
     google.maps.event.addListener(_map, 'idle', getWeathers.bind (this, _map, 0, $loadingData));
 
-    window.mainLoading.fadeOut (function () {
-      $(this).hide (function () {
-        getWeathers (_map, 0, $loadingData);
-        $(this).remove ();
-      });
-    });
+    window.closeLoading ();
   }
 
   google.maps.event.addDomListener (window, 'load', initialize);
