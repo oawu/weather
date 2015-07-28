@@ -11,6 +11,14 @@ class Crontabs extends Site_controller {
     parent::__construct ();
   }
 
+  public function clean_all_cell () {
+    clean_cell ('*');
+  }
+  public function clean_all_github_cell () {
+    $log = CrontabLog::start ('清除 update_weather 完成後');
+    clean_cell ('github_cell', '*');
+    $log->finish ();
+  }
   public function clean_query () {
     $log = CrontabLog::start ('每 30 分鐘，清除 query logs');
     
@@ -26,6 +34,8 @@ class Crontabs extends Site_controller {
       clean_cell ('town_cell', 'update_weather', $town->id);
       $town->update_weather ();
     }
+
+    $this->clean_all_github_cell ();
 
     $log->finish ();
   }

@@ -29,7 +29,7 @@ class Github extends Api_controller {
                       )
                   )) : array ();
   }
-  private function _weather_view ($town) {
+  public function _weather_view ($town) {
     return $town && $town->view ? array ('view' => array (
                     'lat' => $town->view->latitude,
                     'lng' => $town->view->longitude,
@@ -38,7 +38,7 @@ class Github extends Api_controller {
                     'zoom' => $town->view->zoom,
                       )) : array ();
   }
-  private function _weather_format ($town = null, $weather = null) {
+  public function _weather_format ($town = null, $weather = null) {
     if (!($town || $weather))
       return array ();
 
@@ -49,7 +49,7 @@ class Github extends Api_controller {
     else
       return array ();
   }
-  private function _content_format ($town = null, $weather = null) {
+  public function _content_format ($town = null, $weather = null) {
     if (!($town || $weather))
       return array ();
     
@@ -66,7 +66,7 @@ class Github extends Api_controller {
     else
       return array ();
   }
-  private function _town_format ($town) {
+  public function _town_format ($town) {
     return $town ? array (
         'id' => $town->id,
         'category' => $town->category->name,
@@ -76,7 +76,7 @@ class Github extends Api_controller {
         'lng' => $town->longitude,
       ) : array ();
   }
-  private function _town_temperatures ($town) {
+  public function _town_temperatures ($town) {
     if (!(($last = TownWeather::last (array ('select' => 'created_at'))) && ($last = $last->created_at->format ('Y-m-d 00:00:00'))))
       return array ();
 
@@ -92,114 +92,33 @@ class Github extends Api_controller {
   }
 
   public function get_index_data () {
-    if (!(($last = TownWeather::last (array ('select' => 'created_at'))) && ($last = $last->created_at->format ('Y-m-d H:00:00'))))
+    if (!($cache = render_cell ('github_cell', 'index_specials', $this)))
       return $this->output_json (array ('status' => false));
-
-    $weathers = TownWeather::find ('all', array ('conditions' => array ('created_at > ? AND special_icon != ? AND special_status != ? AND special_describe != ?', $last, '', '', '')));
-    $town_ids = array_unique (column_array ($weathers, 'town_id'));
-
-    $towns = array ();
-    if ($town_ids)
-      foreach (Town::find ('all', array ('include' => array ('category'), 'select' => 'id, name, town_category_id', 'conditions' => array ('id IN (?)', $town_ids))) as $town)
-        $towns[$town->id] = $town;
-
-    $specials = array ();
-    foreach ($weathers as $weather) {
-      if (!isset ($specials[$weather->special_status . '-' . $towns[$weather->town_id]->category->name]))
-        $specials[$weather->special_status . '-' . $towns[$weather->town_id]->category->name] = array ('special' => array_merge (array ('title' => $towns[$weather->town_id]->category->name . ' - ' . $weather->special_status), $weather->special_to_array ()), 'towns' => array ());
-
-      array_push ($specials[$weather->special_status . '-' . $towns[$weather->town_id]->category->name]['towns'], array ('id' => $towns[$weather->town_id]->id, 'name' => $towns[$weather->town_id]->name));
-    }
-
-    $units = array ();
-
-    if ($weather = TownWeather::find ('one', array ('order' => 'temperature DESC', 'conditions' => array ('created_at > ?', $last))))
-      array_push ($units, array ('title' => '目前最高溫', 'info' => array_merge (array (
-                  'id' => $weather->town_id,
-                ), $this->_content_format (null, $weather), $this->_weather_format (null, $weather))));
-
-    if ($weather = TownWeather::find ('one', array ('order' => 'temperature ASC', 'conditions' => array ('created_at > ?', $last))))
-      array_push ($units, array ('title' => '目前最低溫', 'info' => array_merge (array (
-                  'id' => $weather->town_id,
-                ), $this->_content_format (null, $weather), $this->_weather_format (null, $weather))));
-
-    if ($weather = TownWeather::find ('one', array ('order' => 'humidity DESC', 'conditions' => array ('created_at > ?', $last))))
-      array_push ($units, array ('title' => '目前濕度最高', 'info' => array_merge (array (
-                  'id' => $weather->town_id,
-                ), $this->_content_format (null, $weather), $this->_weather_format (null, $weather))));
-
-    if ($weather = TownWeather::find ('one', array ('order' => 'humidity ASC', 'conditions' => array ('created_at > ?', $last))))
-      array_push ($units, array ('title' => '目前濕度最低', 'info' => array_merge (array (
-                  'id' => $weather->town_id,
-                ), $this->_content_format (null, $weather), $this->_weather_format (null, $weather))));
-
-    if ($weather = TownWeather::find ('one', array ('order' => 'rainfall DESC', 'conditions' => array ('created_at > ?', $last))))
-      array_push ($units, array ('title' => '目前雨量最多', 'info' => array_merge (array (
-                  'id' => $weather->town_id,
-                ), $this->_content_format (null, $weather), $this->_weather_format (null, $weather))));
-
-    if ($weather = TownWeather::find ('one', array ('order' => 'rainfall ASC', 'conditions' => array ('created_at > ? AND rainfall > ?', $last, 0))))
-      array_push ($units, array ('title' => '目前雨量最少', 'info' => array_merge (array (
-                  'id' => $weather->town_id,
-                ), $this->_content_format (null, $weather), $this->_weather_format (null, $weather))));
 
     if ($postal_codes = $this->input_post ('postal_codes'))
       foreach ($postal_codes as $postal_code)
         if (isset ($postal_code['id']) && ($town = Town::find ('one', array ('conditions' => array ('id = ?', $postal_code['id'])))))
-              array_push ($units, array ('title' => $town->name, 'info' => array_merge (array (
+              array_push ($cache['units'], array ('title' => $town->name, 'info' => array_merge (array (
                           'id' => $town->id,
                           'add' => true,
                         ), $this->_content_format ($town), $this->_weather_format ($town))));        
 
-    return $this->output_json (array ('status' => true, 'specials' => array_values ($specials), 'units' => $units));
+    return $this->output_json (array ('status' => true, 'specials' => $cache['specials'], 'units' => $cache['units']));
   }
   public function get_more_town () {
     $id = trim ($this->input_post ('id'));
 
-    if (!($id && ($town = Town::find_by_id ($id, array ('select' => 'id, town_category_id')))))
+    if (!($towns = render_cell ('github_cell', 'get_more', $id)))
       return $this->output_json (array ('status' => false));
-
-    $towns = Town::find ('all', array ('include' => array ('view'), 'limit' => 12, 'order' => 'RAND()', 'conditions' => array ('town_category_id = ? AND id != ?', $town->town_category_id, $town->id)));
-    
-
-    if (count ($towns) < 12)
-      $towns = array_merge ($towns, Town::find ('all', array ('include' => array ('view'), 'limit' => 12 - count ($towns), 'order' => 'RAND()', 'conditions' => count ($towns) ? array ('id NOT IN (?) AND id != ?', column_array ($towns, 'id'), $town->id) : array ('id != ?', $town->id))));
-    
-    $towns = array_map (function ($town) {
-      return array (
-          'id' => $town->id,
-          'src' => $town->view ? $town->view->pic->url ('200x200c') : $town->pic->url ('200x200c'),
-          'name' => $town->name
-        );
-    }, $towns);
 
     return $this->output_json (array ('status' => true, 'towns' => $towns));
   }
   public function get_town () {
     $key = trim ($this->input_post ('key'));
 
-    if (!$key)
+    if (!($town = render_cell ('github_cell', 'get_town', $key, $this)))
       return $this->output_json (array ('status' => false));
 
-    $conditions = is_numeric ($key) ? array ('id = ?', $key) : array ('name LIKE CONCAT("%", ? ,"%")', $key);
-    $town = Town::find ('one', array ('conditions' => $conditions));
-
-    if (!($town && $town->update_weather ()))
-      return $this->output_json (array ('status' => false));
-
-    if (!($content = $this->_content_format ($town)))
-      return $this->output_json (array ('status' => false));
-      
-    if (!($weather = $this->_weather_format ($town)))
-      return $this->output_json (array ('status' => false));
-    
-    $town = array_filter (array_merge (array (
-        'id' => $town->id,
-        'lat' => $town->latitude,
-        'lng' => $town->longitude,
-        'name' => $town->name,
-        'category' => $town->category->name,
-      ), $content, $weather, $this->_weather_view ($town), $this->_town_temperatures ($town))); 
     return $this->output_json (array ('status' => true, 'town' => $town));
   }
   public function get_weather_content_by_postal_code () {
