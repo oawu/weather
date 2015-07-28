@@ -38,6 +38,54 @@ if (ENVIRONMENT == 'dev') {
   ga('send', 'pageview');
 }
 
+function initLocalInfo (postal_code, isTrue, callback, errorCallback) {
+  $.ajax ({
+    url: window.api.getWeatherContentByPostalCodeUrl,
+    data: { postal_code: postal_code },
+    async: true, cache: false, dataType: 'json', type: 'POST',
+    beforeSend: function () {}
+  })
+  .done (function (result) {
+    if (result.status) {
+        if (isTrue)
+          setStorage ('weather_maps_last_postal_code', {code: postal_code, result: result, category: result.town.category, name: result.town.name, t: new Date ().getTime ()});
+        if (callback)
+          callback (result);
+    }
+    else
+      if (errorCallback)
+        errorCallback ();
+  })
+  .fail (function (result) { ajaxError (result); })
+  .complete (function (result) {});
+}
+
+function getLocalInfo (callback, errorCallback) {
+  var now = new Date ().getTime ();
+  var postal_code = getStorage ('weather_maps_last_postal_code');
+
+  if (postal_code && (now - postal_code.t < 60 * 60 * 1000)) {
+    if (callback)
+      callback (postal_code.result);
+  } else
+    navigator.geolocation.getCurrentPosition (function (position) {
+      new google.maps.Geocoder ().geocode ({'latLng': new google.maps.LatLng (position.coords.latitude, position.coords.longitude)}, function (result, status) {
+        var postal_code = [];
+        if ((status == google.maps.GeocoderStatus.OK) && result.length && (result = result[0]))
+          postal_code = result.address_components.map (function (t) { return t.types.length && ($.inArray ('postal_code', t.types) !== -1) ? t.long_name : null; }).filter (function (t) { return t; });
+        
+        postal_code = postal_code.length ? postal_code[0] : '';
+    
+        if (postal_code === '')
+          initLocalInfo (100, false, callback, errorCallback);
+        else {
+          initLocalInfo (postal_code, true, callback, errorCallback);
+        }
+      });
+    }, function () {
+      initLocalInfo (100, false, callback, errorCallback);
+    });
+}
 function initWeatherFeature (t, map, hasAction) {
   var markerWithLabel = new MarkerWithLabel ({
                           id: t.id,

@@ -116,46 +116,9 @@ $(function () {
   else
     initNoData ();
 
-
-  function initWeather (postal_code) {
-    $.ajax ({
-      url: window.api.getWeatherContentByPostalCodeUrl,
-      data: { postal_code: postal_code },
-      async: true, cache: false, dataType: 'json', type: 'POST',
-      beforeSend: function () {}
-    })
-    .done (function (result) {
-      if (result.status)
-        $weather.empty ().append ($(result.weather));
-      else
-        $search.addClass ('no_weather');
-    })
-    .fail (function (result) { ajaxError (result); })
-    .complete (function (result) {});
-  }
-
-
-  var now = new Date ().getTime ();
-  var postal_code = getStorage ('weather_maps_last_postal_code');
-  if (postal_code && (now - postal_code.t < 60 * 60 * 1000))
-    initWeather (postal_code.code);
-  else
-    navigator.geolocation.getCurrentPosition (function (position) {
-      new google.maps.Geocoder ().geocode ({'latLng': new google.maps.LatLng (position.coords.latitude, position.coords.longitude)}, function (result, status) {
-        var postal_code = [];
-        if ((status == google.maps.GeocoderStatus.OK) && result.length && (result = result[0]))
-          postal_code = result.address_components.map (function (t) { return t.types.length && ($.inArray ('postal_code', t.types) !== -1) ? t.long_name : null; }).filter (function (t) { return t; });
-        
-        postal_code = postal_code.length ? postal_code[0] : '';
-    
-        if (postal_code === '')
-          initWeather (100);
-        else {
-          setStorage ('weather_maps_last_postal_code', {code: postal_code, t: now});
-          initWeather (postal_code);
-        }
-      });
-    }, function () {
-      initWeather (100);
-    });
+  getLocalInfo (function (result) {
+    $weather.empty ().append ($(result.weather));
+  }, function () {
+    $search.addClass ('no_weather');
+  });
 });

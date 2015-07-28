@@ -4,6 +4,9 @@
  */
 
 $(function () {
+  var townCategory = '雲林縣';
+  var townName = '北港鎮';
+
   var $container = $('#container');
 
   function initError () {
@@ -20,7 +23,13 @@ $(function () {
     location.reload ();
   }
   function addUnit () {
-    var name = prompt ('輸入您想追蹤的地點：', '淡水').trim ();
+    var name = prompt ('輸入您想追蹤的地點：', townCategory + ' ' + townName);
+    
+    if (!name)
+      return;
+    else
+      name = name.trim ();
+    
     if (name.length) {
       $.ajax ({
         url: window.api.getWeatherByNameUrl,
@@ -76,6 +85,11 @@ $(function () {
 
     window.closeLoading ();
   }
+  
+  getLocalInfo (function (result) {
+    townCategory = result.town.category;
+    townName = result.town.name;
+  });
 
   $.ajax ({
     url: window.api.getIndexData,
@@ -91,6 +105,4 @@ $(function () {
   })
   .fail (function (result) { ajaxError (result); })
   .complete (function (result) {});
-
-
 });

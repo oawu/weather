@@ -212,7 +212,7 @@ class Github extends Api_controller {
       return $this->output_json (array ('status' => false));
    
     if ($content = $this->_content_format ($town))
-      return $this->output_json (array ('status' => true, 'weather' => $content['content']));
+      return $this->output_json (array ('status' => true, 'town' => $this->_town_format ($town), 'weather' => $content['content']));
     else
       return $this->output_json (array ('status' => false));
   }
