@@ -110,6 +110,10 @@
       @include a(rgba(50, 50, 50, 0.7), rgba(50, 50, 50, 0.9), false);
       font-size: 22px;
       cursor: pointer;
+
+      &.fancybox_view {
+        font-size: 16px;
+      }
     }
     .pic {
       cursor: pointer;

@@ -46,7 +46,7 @@ $(function () {
         width: '100%',
         maxWidth: '1200',
         afterClose: function () {
-          // location.reload ();
+          location.reload ();
         }
     });
   });

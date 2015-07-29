@@ -37,7 +37,7 @@
                 <img src='<?php echo $town->view->pic->url ('50x50c');?>' data-id='<?php echo $town->id;?>' class='fancybox_view pic'/>
               <?php
               } else { ?>
-                未設定街景
+                <a data-id='<?php echo $town->id;?>' class='fancybox_view'>未設定街景</a>
               <?php
               }
               ?>
