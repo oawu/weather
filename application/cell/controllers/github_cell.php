@@ -105,7 +105,7 @@ class Github_cell extends Cell_Controller {
                   'id' => $weather->town_id,
                 ), $that->_content_format (null, $weather), $that->_weather_format (null, $weather))));
 
-    if ($weather = TownWeather::find ('one', array ('order' => 'rainfall DESC', 'conditions' => array ('created_at > ?', $last))))
+    if ($weather = TownWeather::find ('one', array ('order' => 'rainfall DESC', 'conditions' => array ('created_at > ? AND rainfall > ?', $last, 0))))
       array_push ($units, array ('title' => '目前雨量最多', 'info' => array_merge (array (
                   'id' => $weather->town_id,
                 ), $that->_content_format (null, $weather), $that->_weather_format (null, $weather))));
