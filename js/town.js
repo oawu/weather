@@ -160,10 +160,11 @@ $(function () {
       $times.append (town.weathers.map (function (t) {
         return $('<div />').addClass ('time').text (t.hour);
       }));
-      $tempers.append (town.weathers.map (function (t) {
-        var min = 20;
-        var max = 40;
-        return $('<div />').addClass ('temper').data ('height', 'calc((100% - 10px) * ' + (t.temperature - min) / (max - min) + ')').append ($('<div />').text (t.temperature + '°c')).append ($('<div />'));
+      
+      var max = town.weathers.max ('temperature');
+      var min = (town.weathers.min ('temperature') * 3 - max) / 2;
+      $tempers.append (town.weathers.column ('temperature').map (function (t) {
+        return $('<div />').addClass ('temper').data ('height', 'calc((100% - 10px) * ' + (t - min) / (max - min) + ')').append ($('<div />').text (t + '°c')).append ($('<div />'));
       }));
     } else {
       $details.remove ();
@@ -204,8 +205,8 @@ $(function () {
             ids = ids.filter (function (t) { return now - t.t < 1 * 86400 * 1000; });
 
             var obj = [{id: town.id, t: now}];
-            ids = ids.diff (obj);
-            var add = obj.diff (ids);
+            ids = ids.diff (obj, 'id');
+            var add = obj.diff (ids, 'id');
             ids = ids.concat (add);
             setStorage ('weather_maps_viewed', ids);
 

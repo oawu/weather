@@ -157,8 +157,8 @@ function getWeathers (map, townId, $loadingData, notSaveLast) {
             };
           });
 
-          var deletes = map.markers.diff (markers);
-          var adds = markers.diff (map.markers);
+          var deletes = map.markers.diff (markers, 'id');
+          var adds = markers.diff (map.markers, 'id');
           var delete_ids = deletes.map (function (t) { t.markerWithLabel.setMap (null); return t.id; });
           var add_ids = adds.map (function (t) { t.markerWithLabel.setMap (map); return t.id; });
 
@@ -200,8 +200,17 @@ function getLastPosition (key) {
     return;
 }
 
-Array.prototype.diff = function (a) {
-  return this.filter (function (i) { return a.map (function (t) { return t.id; }).indexOf (i.id) < 0; });
+Array.prototype.column = function (k) {
+  return this.map (function (t) { return k ? eval ("t." + k) : t; });
+};
+Array.prototype.diff = function (a, k) {
+  return this.filter (function (i) { return a.column (k).indexOf (eval ("i." + k)) < 0; });
+};
+Array.prototype.max = function (k) {
+  return Math.max.apply (null, this.column (k));
+};
+Array.prototype.min = function (k) {
+  return Math.min.apply (null, this.column (k));
 };
 
 function getUnit (will, now) {

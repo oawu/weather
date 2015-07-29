@@ -47,8 +47,8 @@ $(function () {
         var postal_codes = getStorage ('weather_maps_follow_postal_codes');
         if (!postal_codes) postal_codes = [];
         var obj = [{id: result.weather.id}];
-        postal_codes = postal_codes.diff (obj);
-        var add = obj.diff (postal_codes);
+        postal_codes = postal_codes.diff (obj, 'id');
+        var add = obj.diff (postal_codes, 'id');
         postal_codes = postal_codes.concat (add);
         setStorage ('weather_maps_follow_postal_codes', postal_codes);
         location.reload ();
