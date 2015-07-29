@@ -264,7 +264,7 @@ $(function () {
 
   var footInfos = [
     "Weather Maps © 2015",
-    "如有相關問題歡迎與<a href='https://www.facebook.com/' target='_blank'>作者</a>討論。",
+    "如有相關問題歡迎與<a href='https://www.facebook.com/comdan66' target='_blank'>作者</a>討論。",
   ];
 
   var sideLinks = links.left.concat (links.right);
