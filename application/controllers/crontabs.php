@@ -43,7 +43,7 @@ class Crontabs extends Site_controller {
     if (md5 ($psw) != '6d499b8cebdc1464c46cc22a201036bd')
       return ;
 
-    foreach (Town::all () as $town) {
+    foreach (Town::all (array ('order' => 'RAND()')) as $town) {
       clean_cell ('town_cell', 'update_weather', $town->id);
       $town->update_weather ();
     }
