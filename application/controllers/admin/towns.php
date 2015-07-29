@@ -101,7 +101,7 @@ class Towns extends Admin_controller {
     $pitch = identity ()->get_session ('pitch', true);
     $zoom = identity ()->get_session ('zoom', true);
 
-    $this->add_hidden (array ('id' => 'marker', 'data-lat' => $town->latitude, 'data-lng' => $town->longitude, 'value' => $town->id))
+    $this->add_hidden (array ('id' => 'marker', 'data-lat' => $town->latitude, 'data-lng' => $town->longitude, 'data-name' => $town->name, 'data-postal_code' => $town->postal_code, 'value' => $town->id))
          ->load_view (array (
         'town' => $town,
         'view' => $town->view,

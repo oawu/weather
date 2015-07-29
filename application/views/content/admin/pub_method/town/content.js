@@ -10,6 +10,9 @@ $(function () {
   var $marker = $('#marker');
   var $loadingData = $('#loading_data');
   var $zoom = $('#zoom');
+  
+  var $name = $('#name');
+  var $postal_code = $('#postal_code');
 
   var _map = null;
 
@@ -33,9 +36,12 @@ $(function () {
 
     marker.setMap (_map);
 
+    $name.text ($marker.data ('name'));
+    $postal_code.text ($marker.data ('postal_code'));
+
     google.maps.event.addListener (marker, 'dragend', function () {
       if (enableUpdateTown)
-        updateTown (_map, $marker.val (), marker.position);
+        updateTown (_map, $marker.val (), _marker.position, $name, $postal_code);
     });
 
     google.maps.event.addListener(_map, 'zoom_changed', getTowns.bind (this, _map, $marker.val (), $loadingData, true, $zoom));

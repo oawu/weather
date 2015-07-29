@@ -28,7 +28,7 @@
       map.is_update_view = false;
     });
   }
-  function updateTown (map, id, position) {
+  function updateTown (map, id, position, $name, $postal_code) {
     if (map.is_update_town)
       return;
 
@@ -47,6 +47,12 @@
 
         name = name.length ? name[0] : '';
         postal_code = postal_code.length ? postal_code[0] : '';
+        
+        if ($name)
+          $name.text (name);
+
+        if ($postal_code)
+          $postal_code.text (postal_code);
 
         $.ajax ({
           url: $('#update_town_position_url').val (),

@@ -4,8 +4,8 @@
  */
 
 $(function () {
-  var enableUpdateTown = false;
-  var enableUpdateView = false;
+  var enableUpdateTown = true;
+  var enableUpdateView = true;
 
   var $map = $('#map');
   var $view = $('#view');
@@ -13,6 +13,9 @@ $(function () {
   var $panorama = $('#panorama');
   var $mapLoadingData = $('#loading_data');
   var $viewLoadingData = $('#viewLoadingData');
+  
+  var $name = $('#name');
+  var $postal_code = $('#postal_code');
 
   var _map = null;
   var _marker = null;
@@ -53,9 +56,12 @@ $(function () {
 
     _marker.setMap (_map);
 
+    $name.text ($marker.data ('name'));
+    $postal_code.text ($marker.data ('postal_code'));
+
     google.maps.event.addListener (_marker, 'dragend', function () {
       if (enableUpdateTown)
-        updateTown (_map, $marker.val (), _marker.position);
+        updateTown (_map, $marker.val (), _marker.position, $name, $postal_code);
     });
 
     new google.maps.StreetViewService ().getPanoramaByLocation (_panorama.position, 50, function (data, status) {

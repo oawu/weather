@@ -15,6 +15,9 @@ $(function () {
   var $pitch = $('#pitch');
   var $zoom = $('#zoom');
 
+  var $name = $('#name');
+  var $postal_code = $('#postal_code');
+
   var $mapLoadingData = $('.map .loading_data');
   var $viewLoadingData = $('.view .loading_data').addClass ('show');
 
@@ -57,8 +60,11 @@ $(function () {
 
     _marker.setMap (_map);
 
+    $name.text ($marker.data ('name'));
+    $postal_code.text ($marker.data ('postal_code'));
+    
     google.maps.event.addListener (_marker, 'dragend', function () {
-      updateTown (_map, $marker.val (), _marker.position);
+        updateTown (_map, $marker.val (), _marker.position, $name, $postal_code);
     });
 
     new google.maps.StreetViewService ().getPanoramaByLocation (_panorama.position, 50, function (data, status) {

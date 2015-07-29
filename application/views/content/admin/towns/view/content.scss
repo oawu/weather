@@ -58,6 +58,25 @@
         @include opacity(1);
       }
     }
+    #name, #postal_code {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      display: inline-block;
+      padding: 5px;
+      width: 150px;
+      text-align: center;
+      font-size: medium;
+      font-weight: bold;
+      border-top: 1px solid rgba(39, 40, 34, .3);
+      background-color: rgba(255, 255, 255, .8);
+      @include border-radius(2px);
+      @include transition(all .5s cubic-bezier(0.560, 1.095, 0.710, 0.980));
+      @include box-shadow(0 0 15px 1px rgba(0, 0, 0, 0.2));
+    }
+    #postal_code {
+      top: 50px;
+    }
   }
   .view {
     .loading_data {

@@ -21,7 +21,7 @@ class Pub_method extends Admin_controller {
     if ($town->view)
       $this->add_hidden (array ('id' => 'panorama', 'data-lat' => $town->view->latitude, 'data-lng' => $town->view->longitude, 'data-heading' => $town->view->heading, 'data-pitch' => $town->view->pitch, 'data-zoom' => $town->view->zoom, 'value' => $town->id));
 
-    $this->add_hidden (array ('id' => 'marker', 'data-lat' => $town->latitude, 'data-lng' => $town->longitude, 'value' => $town->id))
+    $this->add_hidden (array ('id' => 'marker', 'data-lat' => $town->latitude, 'data-lng' => $town->longitude, 'data-name' => $town->name, 'data-postal_code' => $town->postal_code, 'value' => $town->id))
          ->load_view (array (
             'town' => $town
           ));
@@ -30,7 +30,7 @@ class Pub_method extends Admin_controller {
     if (!($town = Town::find ('one', array ('conditions' => array ('id = ?', $id)))))
       return show_404 ();
 
-    $this->add_hidden (array ('id' => 'marker', 'data-lat' => $town->latitude, 'data-lng' => $town->longitude, 'value' => $town->id))
+    $this->add_hidden (array ('id' => 'marker', 'data-lat' => $town->latitude, 'data-lng' => $town->longitude, 'data-name' => $town->name, 'data-postal_code' => $town->postal_code, 'value' => $town->id))
          ->load_view (array (
             'town' => $town
           ));

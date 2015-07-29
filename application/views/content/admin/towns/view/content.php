@@ -54,6 +54,8 @@
                 <i></i><i></i><i></i><i></i>
                 <div id='map'></div>
                 <div class='loading_data'>資料讀取中...</div>
+                <div id='name'></div>
+                <div id='postal_code'></div>
               </div>
               <div class='view'>
                 <i></i><i></i><i></i><i></i>
