@@ -17,6 +17,7 @@ $(function () {
   }
 
   var $container = $('#container');
+  var hasClickPanorama = false;
 
   var $infos = null;
   var $info = null;
@@ -225,15 +226,24 @@ $(function () {
         $mapPanel.removeAttr ('style');
     }).resize ();
 
-    if (panorama)
+    if (panorama) {
       $viewButton.click (function () {
+        hasClickPanorama = true;
         if ($mapPanel.hasClass ('panorama'))
           $mapPanel.removeClass ('panorama');
         else
           $mapPanel.addClass ('panorama');
       });
-    else
+      if (!hasClickPanorama)
+        setTimeout (function () {
+          if (hasClickPanorama)
+            return;
+          else
+            $viewButton.click ();
+        }, 2000);
+    } else {
       $viewButton.remove ();
+    }
 
     window.closeLoading ();
   }
