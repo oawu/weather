@@ -30,7 +30,7 @@ $(function () {
       "<a href='http://comdan66.github.io/weather/search.html' target='_blank'>搜尋功能</a>則使用 <a href='https://developers.google.com/maps/documentation/geocoding/intro' target='_blank'>Google Maps Geocoding API</a> 將住址搜尋更加準確化。",
       "使用 <a href='https://developers.google.com/maps/documentation/staticmaps/intro' target='_blank'>Static Maps API</a> 以及 <a href='https://developers.google.com/maps/documentation/streetview/intro' target='_blank'>Street View Image API</a> 所提供的服務，擷取地點的地圖、街景截圖。",
       "感謝 <a href='http://zeusdesign.com.tw/' target='_blank'>宙思設計</a> 提供的可愛天氣小圖示。",
-      "前端開發工具主要使用 <a href='http://gulpjs.com/' target='_blank'>Gulp</a>、<a href='http://compass-style.org/' target='_blank'>Compass</a> 以及 <a href='https://jquery.com/' target='_blank'>jQuery</a> 語言所建立，主要架構則使用 <a href='https://github.com/comdan66/f2e/' target='_blank'>OAF2E v1.2</a>。",
+      "前端開發工具主要使用 <a href='http://gulpjs.com/' target='_blank'>Gulp</a>、<a href='http://compass-style.org/' target='_blank'>Compass</a> 以及 <a href='https://jquery.com/' target='_blank'>jQuery</a> 語言所建立，主要架構則使用 <a href='https://github.com/comdan66/oaf2e/' target='_blank'>OAF2E v1.2</a>。",
       "後端語言為 <a href='http://php.net/' target='_blank'>PHP</a>，使用的 Framework 為 <a href='https://github.com/comdan66/oaci' target='_blank'>OACI version 2.3</a>。",
       "Demo 範例頁面: <a href='http://comdan66.github.io/weather/index.html' target='_blank'>http://comdan66.github.io/weather/index.html</a>"
     ]
