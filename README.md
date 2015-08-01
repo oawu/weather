@@ -23,7 +23,7 @@
 * [搜尋功能](http://comdan66.github.io/weather/search.html)則使用 [Google Maps Geocoding API](https://developers.google.com/maps/documentation/geocoding/intro) 將住址搜尋更加準確化。
 * 使用 [Static Maps API](https://developers.google.com/maps/documentation/staticmaps/intro) 以及 [Street View Image API](https://developers.google.com/maps/documentation/streetview/intro) 所提供的服務，擷取地點的地圖、街景截圖。
 * 感謝 [宙思設計](http://zeusdesign.com.tw/) 提供的可愛天氣小圖示。
-* 前端開發工具主要使用 [Gulp](http://gulpjs.com/)、[Compass](http://compass-style.org/) 以及 [jQuery](https://jquery.com/) 語言所建立，主要架構則使用 [OAF2E v1.2](https://github.com/comdan66/f2e/)。
+* 前端開發工具主要使用 [Gulp](http://gulpjs.com/)、[Compass](http://compass-style.org/) 以及 [jQuery](https://jquery.com/) 語言所建立，主要架構則使用 [OAF2E v1.2](https://github.com/comdan66/oaf2e/)。
 * 後端語言為 [PHP](http://php.net/)，使用的 Framework 為 [OACI version 2.3](https://github.com/comdan66/oaci)。
 * Demo 範例頁面: [http://comdan66.github.io/weather/index.html](http://comdan66.github.io/weather/index.html)
 
