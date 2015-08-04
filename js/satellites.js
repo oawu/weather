@@ -5,7 +5,7 @@
 $(function () {
   var $satellites = $('#satellites');
   var timer = null;
-  var changeTime = 500;
+  var changeTime = 700;
   
   function changeSatellite (index, length) {
     var $first = $satellites.find ('img').last ().clone ();
@@ -24,10 +24,10 @@ $(function () {
       return $('<img />').attr ('src', t.src).attr ('alt', t.text);
     })).attr ('data-text', $.timeago (imgs[imgs.length - 1].text)).attr ('data-time', imgs[imgs.length - 1].text);
 
-    $satellites.imagesLoaded (function () {
-      timer = setTimeout (changeSatellite.bind (this, 0, imgs.length), changeTime);
-      window.closeLoading ();
-    });
+    // $satellites.imagesLoaded (function () {
+    timer = setTimeout (changeSatellite.bind (this, 0, imgs.length), changeTime);
+    window.closeLoading ();
+    // });
   }
 
   $.ajax ({
