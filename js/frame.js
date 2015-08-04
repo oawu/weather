@@ -3,8 +3,8 @@
  * @copyright   Copyright (c) 2015 OA Wu Design
  */
 
-// var ENVIRONMENT = 'dev';
-var ENVIRONMENT = 'production';
+var ENVIRONMENT = 'dev';
+// var ENVIRONMENT = 'production';
 
 if (ENVIRONMENT == 'dev') {
   window.url = 'http://dev.comdan66.github.io/weather/';
