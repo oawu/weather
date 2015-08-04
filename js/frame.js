@@ -14,6 +14,7 @@ if (ENVIRONMENT == 'dev') {
     getIndexData: 'http://dev.weather.ioa.tw/api/github/get_index_data/',
     getWeathersUrl: 'http://dev.weather.ioa.tw/api/github/get_weathers/',
     getMoreTownsUrl: 'http://dev.weather.ioa.tw/api/github/get_more_town/',
+    getSatellitesUrl: 'http://dev.weather.ioa.tw/api/github/get_satellites/',
     getWeatherByNameUrl: 'http://dev.weather.ioa.tw/api/github/get_weather_by_name/',
     getWeatherContentByPostalCodeUrl: 'http://dev.weather.ioa.tw/api/github/get_weather_content_by_postal_code/',
   };
@@ -25,6 +26,7 @@ if (ENVIRONMENT == 'dev') {
     getIndexData: 'http://weather.ioa.tw/api/github/get_index_data/',
     getWeathersUrl: 'http://weather.ioa.tw/api/github/get_weathers/',
     getMoreTownsUrl: 'http://weather.ioa.tw/api/github/get_more_town/',
+    getSatellitesUrl: 'http://weather.ioa.tw/api/github/get_satellites/',
     getWeatherByNameUrl: 'http://weather.ioa.tw/api/github/get_weather_by_name/',
     getWeatherContentByPostalCodeUrl: 'http://weather.ioa.tw/api/github/get_weather_content_by_postal_code/',
   };
@@ -264,6 +266,7 @@ $(function () {
       {name: '首頁', file: 'index.html', target: '_self'},
       {name: '搜尋', file: 'search.html', target: '_self'},
       {name: '地圖', file: 'maps.html', target: '_self'},
+      {name: '衛星雲圖', file: 'satellites.html', target: '_self'},
     ],
     right: [
       {name: '關於', file: 'about.html', target: '_self'},
