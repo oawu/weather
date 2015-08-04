@@ -5,7 +5,7 @@
 $(function () {
   var $satellites = $('#satellites');
   var timer = null;
-  var changeTime = 400;
+  var changeTime = 700;
   
   function changeSatellite (index, length) {
     var $first = $satellites.find ('img').last ().clone ();
