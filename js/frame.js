@@ -3,8 +3,8 @@
  * @copyright   Copyright (c) 2015 OA Wu Design
  */
 
-// var ENVIRONMENT = 'dev';
-var ENVIRONMENT = 'production';
+var ENVIRONMENT = 'dev';
+// var ENVIRONMENT = 'production';
 
 if (ENVIRONMENT == 'dev') {
   window.url = 'http://dev.comdan66.github.io/weather/';
@@ -75,9 +75,9 @@ function getLocalInfo (callback, errorCallback) {
         var postal_code = [];
         if ((status == google.maps.GeocoderStatus.OK) && result.length && (result = result[0]))
           postal_code = result.address_components.map (function (t) { return t.types.length && ($.inArray ('postal_code', t.types) !== -1) ? t.long_name : null; }).filter (function (t) { return t; });
-        
+
         postal_code = postal_code.length ? postal_code[0] : '';
-    
+
         if (postal_code === '')
           initLocalInfo (100, false, callback, errorCallback);
         else {
@@ -131,7 +131,7 @@ function getWeathers (map, townId, $loadingData, notSaveLast) {
 
     if(!map.markers)
       map.markers = [];
-    
+
     if ($loadingData)
       $loadingData.addClass ('show');
     map.isGetWeathers = true;
@@ -150,7 +150,7 @@ function getWeathers (map, townId, $loadingData, notSaveLast) {
       beforeSend: function () {}
     })
     .done (function (result) {
-      
+
         if (result.status) {
           var markers = result.weathers.map (function (t) {
             return {
@@ -290,7 +290,7 @@ $(function () {
   var $body = $('body');
   var overflow = $body.css ('overflow');
   var $option = null;
-  
+
   var $header = $('<div />').attr ('id', 'header').append ($('<div />').addClass ('header_container')
                             .append ($('<div />').addClass ('l').append ($('<a />').addClass ('home').addClass ('icon-home').attr ('href', window.url + 'index.html').attr ('target', '_self')).append (links.left.map (function (t) {
                               return $('<a />').addClass (t.file == now ? 'active' : null).attr ('href', window.url + t.file).attr ('target', t.target).text (t.name);
