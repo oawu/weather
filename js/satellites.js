@@ -3,7 +3,8 @@
  * @copyright   Copyright (c) 2015 OA Wu Design
  */
 $(function () {
-  var $satellites = $('#satellites');
+  var $container = $('#container');
+  var $satellites = null;
   var timer = null;
   var changeTime = 500;
 
@@ -32,6 +33,8 @@ $(function () {
   }
 
   function initUI (imgs) {
+    $satellites = $('<div />').addClass ('satellites').appendTo ($container);
+
     var $imgs = $satellites.append (imgs.reverse ().map (function (t, i) {
       return $('<img />').attr ('src', t.src + '?t=' + new Date ().getTime ()).attr ('alt', t.text);
     })).attr ('data-text', $.timeago (imgs[imgs.length - 1].text)).attr ('data-time', imgs[imgs.length - 1].text).find ('img');
