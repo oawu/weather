@@ -11,7 +11,7 @@ $(function () {
   function changeSatellite (index, length) {
     var $first = $satellites.find ('img').first ().clone ();
     $satellites.append ($first).find ('img').first ().fadeOut (changeTime / 3 * 2, function () {
-      $satellites.attr ('data-text', $.timeago ($(this).next ().attr ('alt'))).attr ('data-time', $(this).prev ().attr ('alt'));
+      $satellites.attr ('data-text', $.timeago ($(this).next ().attr ('alt'))).attr ('data-time', $(this).next ().attr ('alt'));
       $(this).remove ();
     });
 
