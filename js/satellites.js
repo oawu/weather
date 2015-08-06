@@ -33,7 +33,7 @@ $(function () {
   }
 
   function initUI (imgs) {
-    $satellites = $('<div />').addClass ('satellites').appendTo ($container);
+    $satellites = $('<div />').addClass ('satellites').appendTo ($container).attr ('data-text', '').attr ('data-time', '');
 
     var $imgs = $satellites.append (imgs.reverse ().map (function (t, i) {
       return $('<img />').attr ('src', t.src + '?t=' + new Date ().getTime ()).attr ('alt', t.text);
