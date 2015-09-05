@@ -266,7 +266,6 @@ $(function () {
       {name: '首頁', file: 'index.html', target: '_self'},
       {name: '搜尋', file: 'search.html', target: '_self'},
       {name: '地圖', file: 'maps.html', target: '_self'},
-      {name: '衛星雲圖', file: 'satellites.html', target: '_self'},
     ],
     right: [
       {name: '關於', file: 'about.html', target: '_self'},
