@@ -635,7 +635,7 @@ class Step {
       $sourceDir = rtrim ($sourceDir, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR;
 
       while (false !== ($file = readdir ($fp))) {
-        if (!trim ($file, '.') || (($hidden == false) && ($file[0] == '.')) || is_link ($file) || ($file == 'cmd'))
+        if (!trim ($file, '.') || (($hidden == false) && ($file[0] == '.')) || is_link ($file) || ($file == 'cmd') || ($file == 'towns'))
           continue;
 
         if ((($directoryDepth < 1) || ($new_depth > 0)) && @is_dir ($sourceDir . $file))
