@@ -66,11 +66,7 @@
 ![天氣地圖](img/readme/10.png)  
 ▲ 藉由 Step 物件，分步驟地將天氣更新，寫入 API，產生 HTML，上傳 S3，達成部署更新天氣的步驟！<br />
 
-![天氣地圖](img/readme/09.png)  
-▲ 前端部分因為會隨著天氣更新而產生新的 HTML 檔案，這部份剛好可以針對此架構加強 SEO 的調整優化，其中在產生 HTML、JavaScript 時，會進行 minify 與 uglify，css 則是使用了 Compass 編譯 Scss，最後再依個別 HTML Merge css、JavaScript。
-<br />
-
-![天氣地圖](img/readme/11.png)  
+![天氣地圖](img/readme/12.png)  
 ▲ 基本上流程是 定義基本常數、取得最新的天氣資訊、寫入 API Json 檔案、產生相關的 HTML 檔案、列出 S3 上檔案、比對新舊檔案、刪除、上傳 S3、完成。
 <br />
 <br />

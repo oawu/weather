@@ -145,19 +145,14 @@
           <p>前端功能中有使用到 <a href='https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage' target='_blank'>LocalStorage</a> 作為暫存的機制，利用這項前端瀏覽器的功能，我將它拿來記錄使用者瀏覽過的鄉鎮，同時也可以拿來做為收藏鄉鎮的功能。在地圖上更可以藉由讀取 LocalStorage 來實作記錄上次的地圖位置，而上一段所提到的 navigator.geolocation 取得客戶端 GPS 位置，也可以利用 LocalStorage 來實作 Cache 的機制，而這些功能程式碼我都放置在 <b>/weather/js/public.js</b> 內，各位若有興趣歡迎<a href='https://github.com/comdan66/weather/blob/master/js/public.js' target='_blank'>點開</a>來看喔！</p>
 
           <div class='pics'>
-            <div class='pictures n3'>
+            <div class='pictures n2'>
               <figure href='<?php echo URL_README . '#&gid=1&pid=' . ++$i . '&id=0';?>'>
                 <img alt="主程式架構 - <?php echo ALT;?>" src="<?php echo URL . 'img/readme/10.png';?>" />
                 <figcaption data-description='藉由 Step 物件，分步驟地將天氣更新，寫入 API，產生 HTML，上傳 S3，達成部署更新天氣的步驟！'>主程式架構</figcaption>
               </figure>
-
-              <figure href='<?php echo URL_README . '#&gid=1&pid=' . ++$i . '&id=0';?>'>
-                <img alt="使用 php 編譯出各鄉鎮天氣 Json 檔案以及各鄉鎮 HTML - <?php echo ALT;?>" src="<?php echo URL . 'img/readme/09.png';?>" />
-                <figcaption data-description='前端部分因為會隨著天氣更新而產生新的 HTML 檔案，這部份剛好可以針對此架構加強 SEO 的調整優化，其中在產生 HTML、JavaScript 時，會進行 minify 與 uglify，css 則是使用了 Compass 編譯 Scss，最後再依個別 HTML Merge css、JavaScript。'>使用 php 編譯出各鄉鎮天氣 Json 檔案以及各鄉鎮 HTML</figcaption>
-              </figure>
               
               <figure href='<?php echo URL_README . '#&gid=1&pid=' . ++$i . '&id=0';?>'>
-                <img alt="整體流程，編譯 API、HTML，上傳 S3 - <?php echo ALT;?>" src="<?php echo URL . 'img/readme/11.png';?>" />
+                <img alt="整體流程，編譯 API、HTML，上傳 S3 - <?php echo ALT;?>" src="<?php echo URL . 'img/readme/12.png';?>" />
                 <figcaption data-description='基本上流程是 定義基本常數、取得最新的天氣資訊、寫入 API Json 檔案、產生相關的 HTML 檔案、列出 S3 上檔案、比對新舊檔案、刪除、上傳 S3、完成。'>整體流程，編譯 API、HTML，上傳 S3</figcaption>
               </figure>
 
