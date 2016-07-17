@@ -1,7 +1,7 @@
 {
-  "name": "gulp",
-  "version": "3.8.9",
-  "description": "F2E",
+  "name": "Weather Maps",
+  "version": "0.0.0",
+  "description": "藉由 Google Maps API 的地圖服務，以及中央氣象局的天氣預報，讓你快速輕鬆的查詢台灣 368 個鄉鎮的天氣概況！使用中央氣象局網站公告的氣象預報資訊作為資料來源，每 20 分鐘更新最新天氣概況，分別顯示溫濕度、日出落時間、特別預報..等功能。",
   "author": "OA Wu",
   "email": "comdan66@gmail",
   "devDependencies": {
@@ -9,6 +9,7 @@
     "gulp-livereload": "^2.1.1",
     "gulp-uglify": "^0.3.1",
     "gulp-html-minifier": "^0.1.6",
-    "del": "^0.1.0"
+    "del": "^0.1.0",
+    "gulp-apidoc": "0.2.0"
   }
 }

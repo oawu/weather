@@ -1,18 +1,21 @@
 /**
  * @author      OA Wu <comdan66@gmail.com>
- * @copyright   Copyright (c) 2015 OA Wu Design
+ * @copyright   Copyright (c) 2016 OA Wu Design
  */
 
 @import "functions/_oa-input";
-@import "functions/_oa-button";
 @import "functions/_oa-hyperlink";
 @import "functions/_oa-alert";
 @import "functions/_oa-load";
 @import "functions/_oa-table";
 @import "functions/_oa-textarea";
-@import "functions/_oa-paper";
-@import "functions/_oa-checkbox";
-@import "functions/_oa-icon";
+
+@import "functions/_oa-material";
+
+@mixin icomoon-font ($family: 'icomoon') {
+  @content;
+  font-family: $family,'Helvetica Neue',Helvetica,Arial,'Hiragino Maru Gothic ProN','メイリオ','ヒラギノ丸ゴ ProN W4','微軟正黑體',Meiryo,'Droid Sans';
+}
 
 @mixin font-smoothing ($val: antialiased) {
   -moz-osx-font-smoothing: $val;

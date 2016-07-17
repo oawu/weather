@@ -5,11 +5,11 @@ require 'compass/import-once/activate'
 
 http_path = "/weather"
 
-fonts_dir = "resource/font"
-fonts_path = "../resource/font"
+fonts_dir = "font"
+fonts_path = "../font"
 
-images_dir = "resource/image"
-images_path = "../resource/image"
+images_dir = "img"
+images_path = "../img"
 
 css_dir = "../css"
 sass_dir = "../scss"
