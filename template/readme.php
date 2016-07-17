@@ -15,13 +15,13 @@
     <meta property="og:url" content="<?php echo URL_README;?>" />
     <meta property="og:title" content="<?php echo $title;?>" />
     <meta property="og:description" content="<?php echo mb_strimwidth (preg_replace ("/\s+/u", "", $description), 0, 300, '…','UTF-8');?>" />
-    <meta property="fb:admins" content="<?php echo URL_FB_ADMIN_ID;?>" />
-    <meta property="fb:app_id" content="<?php echo URL_FB_APP_ID;?>" />
+    <meta property="fb:admins" content="<?php echo FB_ADMIN_ID;?>" />
+    <meta property="fb:app_id" content="<?php echo FB_APP_ID;?>" />
     <meta property="og:locale" content="zh_TW" />
     <meta property="og:locale:alternate" content="en_US" />
     <meta property="og:type" content="article" />
-    <meta property="article:author" content="<?php echo URL_OA_FB;?>" />
-    <meta property="article:publisher" content="<?php echo URL_OA_FB;?>" />
+    <meta property="article:author" content="<?php echo OA_FB_URL;?>" />
+    <meta property="article:publisher" content="<?php echo OA_FB_URL;?>" />
     <meta property="article:modified_time" content="<?php echo date ('c');?>" />
     <meta property="article:published_time" content="<?php echo date ('c');?>" />
     <meta property="og:image" content="<?php echo URL_OG_README;?>" alt="<?php echo $title;?>" />
@@ -52,8 +52,8 @@
         'datePublished' => date ('c'),
         'dateModified' => date ('c'),
         'author' => array (
-            '@type' => 'Person', 'name' => OA, 'url' => URL_OA,
-            'image' => array ('@type' => 'ImageObject', 'url' => avatar_url (URL_OA_FB_UID, 300, 300), 'height' => 300, 'width' => 300)
+            '@type' => 'Person', 'name' => OA, 'url' => OA_URL,
+            'image' => array ('@type' => 'ImageObject', 'url' => avatar_url (OA_FB_UID, 300, 300), 'height' => 300, 'width' => 300)
           ),
         'publisher' => array (
             '@type' => 'Organization', 'name' => TITLE,
@@ -93,7 +93,7 @@
           <ul>
             <li>GitHub：<a href='https://github.com/comdan66/weather' target='_blank'>https://github.com/comdan66/weather</a></li>
             <li>Demo：<a href='http://works.ioa.tw/weather/' target='_blank'>http://works.ioa.tw/weather/</a></li>
-            <li>更多作品：<a href='<?php echo URL_OA;?>' target='_blank'><?php echo URL_OA;?></a></li>
+            <li>更多作品：<a href='<?php echo OA_URL;?>' target='_blank'><?php echo OA_URL;?></a></li>
             <li>API 文件：<a href='<?php echo URL_API_DOC;?>' target='_blank'><?php echo URL_API_DOC;?></a></li>
           </ul>
         </section>
@@ -195,7 +195,7 @@
           <br/>
           <br/>
           <br/>
-          <p>最後！既然做成 S3 架構也有了 API 服務，既然取之於網路，那就一樣分享於網路，所幸我就連 <a href='<?php echo URL_API_DOC;?>' target='_blank'>apiDoc</a> 一起建立，如此一來大家就可以一起使用我的資源，在我還沒有關閉我的服務之前，大家都可以使用喔！以上就是我的天氣地圖 Weather Maps 的架構改版心得，若大家想看更多有關於我的作品，歡迎至<a href='<?php echo URL_OA;?>' target='_blank'>我的個人網頁</a>逛逛！然後各位若喜歡此專案的話，可以到我的 <a href='https://github.com/comdan66/weather' class='github' target='_blank'><i class='icon-g'></i> GitHub</a> 上幫我按個喜歡喔！</p>
+          <p>最後！既然做成 S3 架構也有了 API 服務，既然取之於網路，那就一樣分享於網路，所幸我就連 <a href='<?php echo URL_API_DOC;?>' target='_blank'>apiDoc</a> 一起建立，如此一來大家就可以一起使用我的資源，在我還沒有關閉我的服務之前，大家都可以使用喔！以上就是我的天氣地圖 Weather Maps 的架構改版心得，若大家想看更多有關於我的作品，歡迎至<a href='<?php echo OA_URL;?>' target='_blank'>我的個人網頁</a>逛逛！然後各位若喜歡此專案的話，可以到我的 <a href='https://github.com/comdan66/weather' class='github' target='_blank'><i class='icon-g'></i> GitHub</a> 上幫我按個喜歡喔！</p>
         </section>
       </article>
 

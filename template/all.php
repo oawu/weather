@@ -15,13 +15,13 @@
     <meta property="og:url" content="<?php echo URL_ALL;?>" />
     <meta property="og:title" content="<?php echo $title;?>" />
     <meta property="og:description" content="<?php echo mb_strimwidth (preg_replace ("/\s+/u", "", $description), 0, 300, '…','UTF-8');?>" />
-    <meta property="fb:admins" content="<?php echo URL_FB_ADMIN_ID;?>" />
-    <meta property="fb:app_id" content="<?php echo URL_FB_APP_ID;?>" />
+    <meta property="fb:admins" content="<?php echo FB_ADMIN_ID;?>" />
+    <meta property="fb:app_id" content="<?php echo FB_APP_ID;?>" />
     <meta property="og:locale" content="zh_TW" />
     <meta property="og:locale:alternate" content="en_US" />
     <meta property="og:type" content="article" />
-    <meta property="article:author" content="<?php echo URL_OA_FB;?>" />
-    <meta property="article:publisher" content="<?php echo URL_OA_FB;?>" />
+    <meta property="article:author" content="<?php echo OA_FB_URL;?>" />
+    <meta property="article:publisher" content="<?php echo OA_FB_URL;?>" />
     <meta property="article:modified_time" content="<?php echo date ('c');?>" />
     <meta property="article:published_time" content="<?php echo date ('c');?>" />
     <meta property="og:image" content="<?php echo URL_OG_ALL;?>" alt="<?php echo $title;?>" />

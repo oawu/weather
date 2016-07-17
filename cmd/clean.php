@@ -11,7 +11,6 @@ define ('PATH_CMD', PATH . 'cmd' . DIRECTORY_SEPARATOR);
 define ('PATH_CMD_LIBS', PATH_CMD . 'libs' . DIRECTORY_SEPARATOR);
 
 include_once PATH_CMD_LIBS . 'defines' . PHP;
-include_once PATH_CMD_LIBS . 'functions' . PHP;
 include_once PATH_CMD_LIBS . 'Step' . PHP;
 
 Step::start ();

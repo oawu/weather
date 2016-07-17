@@ -14,10 +14,10 @@
 
   <span>其他功能</span>
   <ul>
-    <li><a class='icon-u' href='<?php echo URL_OA;?>' target='_blank'>開發人員</a></li>
+    <li><a class='icon-u' href='<?php echo OA_URL;?>' target='_blank'>開發人員</a></li>
     <li><a class='icon-d<?php echo $active == URL_README ? ' a' : '';?>' href='<?php echo URL_README;?>'>製作說明</a></li>
     <li><a class='icon-r' href='http://www.cwb.gov.tw/' target='_blank'>資料來源</a></li>
-    <li><a class='icon-g' href='<?php echo URL_GITHUB;?>' target='_blank'>GitHub</a></li>
+    <li><a class='icon-g' href='<?php echo GITHUB_URL;?>' target='_blank'>GitHub</a></li>
   </ul>
 </aside>
 <div class='cover'></div>

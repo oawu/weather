@@ -12,7 +12,7 @@
     <span><?php echo isset ($title) && $title ? $title : '';?></span>
     <span>
       <a class='icon-s' id='share' title='分享至 Facebook'></a>
-      <a href='<?php echo URL_OA;?>' class='icon-u' title='網站作者' target='_blank'></a>
+      <a href='<?php echo OA_URL;?>' class='icon-u' title='網站作者' target='_blank'></a>
     </span>
   </div>
 </header>

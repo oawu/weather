@@ -37,14 +37,14 @@ define ('PATH_TEMPLATE', PATH . 'template' . DIRECTORY_SEPARATOR);
 
 define ('NAME', ($temps = array_filter (explode (DIRECTORY_SEPARATOR, PATH))) ? end ($temps) : '');
 
-
 define ('OA', '吳政賢');
-define ('URL_OA', 'http://www.ioa.tw/');
-define ('URL_OA_FB', 'https://www.facebook.com/comdan66/');
-define ('URL_OA_FB_UID', '100000100541088');
-define ('URL_GITHUB', 'https://github.com/comdan66/weather/');
-define ('URL_FB_APP_ID', '199589883770118');
-define ('URL_FB_ADMIN_ID', URL_OA_FB_UID);
+define ('OA_URL', 'http://www.ioa.tw/');
+define ('OA_FB_URL', 'https://www.facebook.com/comdan66/');
+define ('OA_FB_UID', '100000100541088');
+define ('FB_APP_ID', '199589883770118');
+define ('FB_ADMIN_ID', OA_FB_UID);
+
+define ('GITHUB_URL', 'https://github.com/comdan66/weather/');
 
 define ('TITLE', '天氣地圖 Weather Maps');
 define ('KEYWORDS', '天氣地圖 Weather Maps, 台灣天氣, Taiwan Weather, 在地天氣, 即時天氣, 台灣, Taiwan, Weather');
