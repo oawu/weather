@@ -393,7 +393,7 @@ class Step {
         Step::mergeArrayRecursive (Step::directoryMap ($uploadDir['path']), $files, $uploadDir['path']);
         $files = array_filter ($files, function ($file) use ($uploadDir) { return in_array (pathinfo ($file, PATHINFO_EXTENSION), $uploadDir['formats']); });
         Step::progress ('列出即將上傳所有檔案');
-        return array_map (function ($file) { return array ('path' => $file, 'md5' => md5_file ($file), 'uri' => preg_replace ('/^(\.\.\/)/', '', $file)); }, $files);
+        return array_map (function ($file) { return array ('path' => $file, 'md5' => md5_file ($file), 'uri' => preg_replace ('/^(' . preg_replace ('/\//', '\/', PATH) . ')/', '', $file)); }, $files);
       }, $uploadDirs));
 
     Step::progress ('列出即將上傳所有檔案', '完成！');
