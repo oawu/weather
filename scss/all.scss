@@ -1,0 +1,554 @@
+/**
+ * @author      OA Wu <comdan66@gmail.com>
+ * @copyright   Copyright (c) 2016 OA Wu Design
+ */
+
+@import "_oa";
+
+$mh: 200px;
+$nh: 180px;
+#container {
+  margin-top: $headerHeight;
+  padding-top: 20px;
+
+  article {
+    display: block !important;
+    max-width: $mainWidth;
+    margin: 0 auto;
+
+    text-align: left;
+    + article {
+      margin-top: 20px;
+    }
+
+    &, > * {
+      display: inline-block;
+      width: 100%;
+    }
+    header {
+      position: relative;
+      height: 40px;
+      line-height: 42px;
+
+      a {
+        display: inline-block;
+        line-height: 40px - 2px;
+        font-size: 30px;
+        letter-spacing: 3px;
+        padding-left: 20px;
+        text-decoration: none;
+        color: rgba(50, 50, 50, 0.8);
+
+        @media screen and (min-width: 0) and (max-width: #{630px - 1px}) {
+          padding-left: 10px;
+        }
+      }
+    }
+    section {
+      @include clearfix();
+      padding: 10px;
+      @media screen and (min-width: 0) and (max-width: #{630px - 1px}) {
+        padding: 5px;
+      }
+
+      > a {
+        position: relative;
+        float: left;
+        border: 1px solid rgba(255, 255, 255, 1.00);
+        @include box-shadow(0 0 1px rgba(0, 0, 0, .80));
+        @include border-radius(2px);
+        @include transition(box-shadow .3s);
+        overflow: hidden;
+
+        &.follow {
+          &:before {
+            @include icomoon-font('icomoon') {
+              content: "\e9da";
+              position: absolute;
+              bottom: 10px;
+              right: 10px;
+              z-index: 3;
+              color: rgba(250, 132, 98, 1.00);
+              @include box-shadow(0 0 1px rgba(0, 0, 0, .80), 0 0 10px rgba(0, 0, 0, .15));
+            }
+          }
+        }
+        &:hover {
+          figcaption {
+            background-color: rgba(0, 0, 0, .25);
+            &:after {
+              @include opacity(1);
+              filter: progid:DXImageTransform.Microsoft.Alpha(enabled=false) !important;
+              opacity: 1 !important;
+            }
+          }
+          @include box-shadow(0 0 1px rgba(0, 0, 0, .80), 0 0 10px rgba(0, 0, 0, .15));
+        }
+
+        figure {
+          position: relative;
+          margin: 0;
+          display: inline-block;
+          width: 100%;
+          height: 100%;
+          overflow: hidden;
+          @include border-radius(2px);
+
+          figcaption, &:before, &:after {
+            position: absolute;
+            width: 100%;
+            left: 41px;
+            display: inline-block;
+            padding: 5px;
+            color: rgba(255, 255, 255, 1.00);
+            font-size: 12px;
+            height: 28px;
+            line-height: 28px - 2px;
+            z-index: 2;
+            text-align: left;
+            @include overflow-docx3();
+            @include text-shadow(0 0 1px rgba(0, 0, 0, .30));
+          }
+          &:before {
+            content: attr(data-describe)' • 'attr(data-temperature);
+            bottom: 23px;
+          }
+          &:after {
+            content: '濕 ' attr(data-humidity) ' • 雨 ' attr(data-rainfall);
+            bottom: 5px;
+          }
+          &.viewed {
+            figcaption {
+              &:after {
+                @include icomoon-font('icomoon') {
+                  content: "\ea10";
+                  color: rgba(184, 233, 64, 1.00);
+                  position: absolute;
+                  top: 5px;
+                  left: 5px;
+                  display: inline-block;
+                  width: 25px;
+                  height: 25px;
+                  line-height: 25px - 2px;
+                  font-weight: bold;
+                  @include text-shadow(0 0 1px rgba(0, 0, 0, .30), 0 0 3px rgba(0, 0, 0, .30));
+                  @include opacity(.75);
+                  @include transition(opacity .3s);
+                }
+              }
+            }
+          }
+
+          img {
+            width: 100%;
+          }
+
+          figcaption {
+            top: 0;
+            left: 0;
+            bottom: auto;
+            height: 100%;
+            padding: 5px;
+            padding-right: 10px;
+            z-index: 1;
+            background-color: rgba(0, 0, 0, .35);
+            text-align: right;
+            font-size: 18px;
+            @include border-radius(2px);
+            @include transition(background-color .3s);
+
+            &:before {
+              position: absolute;
+              left: 4px;
+              bottom: 5px;
+              display: inline-block;
+              width: 40px;
+              height: 40px;
+              line-height: 42px;
+              font-size: 33px;
+              text-align: center;
+              // background-color: rgba(0, 0, 255, 0.2);
+            }
+          }
+        }
+      }
+    }
+  }
+}
+section {
+  a {
+    @media screen and (min-width: 0) and (max-width: #{530px - 1px}) {
+      width: calc(100% / 1 - 5px * 2);
+      height: #{$nh};
+      margin: 5px;
+    }
+    @media screen and (min-width: 530px) and (max-width: #{630px - 1px}) {
+      width: calc(100% / 2 - 5px * 2);
+      height: #{$nh};
+      margin: 5px;
+      &:nth-child(4n + 1) {
+        height: ($nh + 5px) * 2;
+      }
+      &:nth-child(4n + 4) {
+        width: calc(100% - 5px * 2);
+      }
+      &:nth-child(37) {
+        width: calc(100% / 2 - 5px * 2);
+        height: #{$nh};
+      }
+    }
+    @media screen and (min-width: 630px) and (max-width: #{830px - 1px}) {
+      width: calc(100% / 2 - 10px * 2);
+      height: #{$nh};
+      &:nth-child(4n + 1) {
+        height: ($nh + 10px) * 2;
+      }
+      &:nth-child(4n + 4) {
+        width: calc(100% - 10px * 2);
+      }
+      &:nth-child(37) {
+        width: calc(100% / 2 - 10px * 2);
+        height: #{$nh};
+      }
+      margin: 10px;
+    }
+    @media screen and (min-width: 830px) and (max-width: #{1100px - 1px}) {
+      width: calc(100% / 3 - 10px * 2);
+      height: #{$nh};
+      &:nth-child(-n+2), &:nth-child(7), &:nth-child(8) {
+        width: calc(100% / 2 - 10px * 2);
+        height: $mh;
+      }
+      &:nth-child(3), &:nth-child(13), &:nth-child(25), &:nth-child(35) {
+        height: ($nh + 10px) * 2;
+      }
+      &:nth-child(6), &:nth-child(9), &:nth-child(12), &:nth-child(18), &:nth-child(21), &:nth-child(30), &:nth-child(36) {
+        width: calc((100% / 3 - 10px) * 2);
+      }
+      margin: 10px;
+    }
+    @media screen and (min-width: 1100px) {
+      width: calc(100% / 5 - 10px * 2);
+      height: $mh;
+      margin: 10px;
+      &:nth-child(1), &:nth-child(15), &:nth-child(30), &:nth-child(31) {
+        height: ($mh + 10px) * 2;
+      }
+      &:nth-child(7), &:nth-child(24) {
+        height: ($mh + 10px) * 2;
+        width: calc((100% / 5 - 10px) * 2);
+      }
+      &:nth-child(2), &:nth-child(3), &:nth-child(5), &:nth-child(9), &:nth-child(10), &:nth-child(13), &:nth-child(14), &:nth-child(17), &:nth-child(19), &:nth-child(20), &:nth-child(21), &:nth-child(22), &:nth-child(28), &:nth-child(33), &:nth-child(34), &:nth-child(36), &:nth-child(38) {
+        width: calc((100% / 5 - 10px) * 2);
+      }
+    }
+  }
+  &.n37 {
+    a {
+      @media screen and (min-width: 530px) and (max-width: #{630px - 1px}) {
+        &:nth-child(36) {
+          width: calc(100% / 2 - 5px * 2);
+        }
+      }
+      @media screen and (min-width: 630px) and (max-width: #{830px - 1px}) {
+        &:nth-child(36) {
+          width: calc(100% / 2 - 10px * 2);
+        }
+      }
+      @media screen and (min-width: 830px) and (max-width: #{1100px - 1px}) {
+        &:nth-child(33), &:nth-child(34) {
+          width: calc((100% / 3 - 10px) * 2);
+        }
+        &:nth-child(35), &:nth-child(36) {
+          width: calc(100% / 3 - 10px * 2);
+          height: #{$nh};
+        }
+        &:nth-child(36), &:nth-child(37) {
+          width: calc(100% / 2 - 10px * 2);
+          height: #{$nh};
+        }
+      }
+      @media screen and (min-width: 1100px) {
+        &:nth-child(37) {
+          width: calc((100% / 5 - 10px) * 3 + 10px);
+        }
+      }
+    }
+  }
+  &.n33 {
+    a {
+      @media screen and (min-width: 530px) and (max-width: #{630px - 1px}) {
+        &:nth-child(32), &:nth-child(33) {
+          width: calc(100% / 2 - 5px * 2);
+          height: #{$nh};
+        }
+      }
+      @media screen and (min-width: 630px) and (max-width: #{830px - 1px}) {
+        &:nth-child(32), &:nth-child(33) {
+          width: calc(100% / 2 - 10px * 2);
+          height: #{$nh};
+        }
+      }
+      @media screen and (min-width: 830px) and (max-width: #{1100px - 1px}) {
+        &:nth-child(33) {
+          width: calc((100% / 3 - 10px) * 2);
+        }
+      }
+      @media screen and (min-width: 1100px) {
+        &:nth-child(30), &:nth-child(31) {
+          height: $mh;
+        }
+      }
+    }
+  }
+  &.n29 {
+    a {
+      @media screen and (min-width: 530px) and (max-width: #{630px - 1px}) {
+        &:nth-child(28), &:nth-child(29) {
+          width: calc(100% / 2 - 5px * 2);
+          height: #{$nh};
+        }
+      }
+      @media screen and (min-width: 630px) and (max-width: #{830px - 1px}) {
+        &:nth-child(28), &:nth-child(29) {
+          width: calc(100% / 2 - 10px * 2);
+          height: #{$nh};
+        }
+      }
+    }
+  }
+  &.n26 {
+    a {
+      @media screen and (min-width: 530px) and (max-width: #{830px - 1px}) {
+        &:nth-child(25) {
+          height: #{$nh};
+        }
+      }
+      @media screen and (min-width: 830px) and (max-width: #{1100px - 1px}) {
+        &:nth-child(25) {
+          height: #{$nh};
+        }
+        &:nth-child(26) {
+          width: calc((100% / 3 - 10px) * 2);
+        }
+      }
+      @media screen and (min-width: 1100px) {
+        &:nth-child(24) {
+          height: $mh;
+        }
+        &:nth-child(26) {
+          width: calc((100% / 5 - 10px) * 2);
+        }
+      }
+    }
+  }
+  &.n20 {
+    a {
+      @media screen and (min-width: 830px) and (max-width: #{1100px - 1px}) {
+        &:nth-child(18) {
+          width: calc(100% / 3 - 10px * 2);
+        }
+      }
+    }
+  }
+  &.n18 {
+    a {
+      @media screen and (min-width: 530px) and (max-width: #{830px - 1px}) {
+        &:nth-child(17) {
+          height: #{$nh};
+        }
+      }
+      @media screen and (min-width: 830px) and (max-width: #{1100px - 1px}) {
+        &:nth-child(14) {
+          width: calc((100% / 3 - 10px) * 2);
+        }
+      }
+      @media screen and (min-width: 1100px) {
+        &:nth-child(15) {
+          height: $mh;
+        }
+      }
+    }
+  }
+  &.n16 {
+    a {
+      @media screen and (min-width: 830px) and (max-width: #{1100px - 1px}) {
+        &:nth-child(14) {
+          width: calc((100% / 3 - 10px) * 2);
+        }
+      }
+      @media screen and (min-width: 1100px) {
+        &:nth-child(13), &:nth-child(14) {
+          width: calc(100% / 5 - 10px * 2);
+        }
+        &:nth-child(15) {
+          height: $mh;
+        }
+      }
+    }
+  }
+  &.n13 {
+    a {
+      @media screen and (min-width: 530px) and (max-width: #{630px - 1px}) {
+        &:nth-child(12), &:nth-child(13) {
+          width: calc(100% / 2 - 5px * 2);
+          height: #{$nh};
+        }
+      }
+      @media screen and (min-width: 630px) and (max-width: #{830px - 1px}) {
+        &:nth-child(12), &:nth-child(13) {
+          width: calc(100% / 2 - 10px * 2);
+          height: #{$nh};
+        }
+      }
+      @media screen and (min-width: 830px) and (max-width: #{1100px - 1px}) {
+        &:nth-child(12), &:nth-child(13) {
+          width: calc(100% / 3 - 10px * 2);
+        }
+        &:nth-child(13) {
+          height: #{$nh};
+        }
+      }
+      @media screen and (min-width: 1100px) {
+        &:nth-child(9), &:nth-child(10), &:nth-child(13) {
+          width: calc(100% / 5 - 10px * 2);
+        }
+      }
+    }
+  }
+  &.n12 {
+    a {
+      @media screen and (min-width: 1100px) {
+        &:nth-child(10) {
+          width: calc(100% / 5 - 10px * 2);
+        }
+      }
+    }
+  }
+  &.n7 {
+    a {
+      @media screen and (min-width: 830px) and (max-width: #{1100px - 1px}) {
+        &:nth-child(6), &:nth-child(7) {
+          width: calc(100% / 3 - 10px * 2);
+          height: #{$nh};
+        }
+      }
+      @media screen and (min-width: 1100px) {
+        &:nth-child(5), &:nth-child(7) {
+          width: calc(100% / 5 - 10px * 2);
+          height: $mh;
+        }
+      }
+    }
+  }
+  &.n6 {
+    a {
+      
+      @media screen and (min-width: 530px) and (max-width: #{630px - 1px}) {
+        &:nth-child(5) {
+          width: calc(100% / 2 - 5px * 2);
+          height: #{$nh};
+        }
+      }
+      @media screen and (min-width: 630px) and (max-width: #{830px - 1px}) {
+        &:nth-child(5) {
+          width: calc(100% / 2 - 10px * 2);
+          height: #{$nh};
+        }
+      }
+    }
+  }
+  &.n4 {
+    a {
+      @media screen and (min-width: 830px) and (max-width: #{1100px - 1px}) {
+        width: calc(100% / 3 - 10px * 2);
+        height: #{$nh};
+        &:nth-child(4) {
+          width: calc(100% - 10px * 2);
+          height: $mh;
+        }
+      }
+      @media screen and (min-width: 1100px) {
+        &:nth-child(1) {
+          width: calc((100% / 5 - 10px * 2) * 2);
+          height: ($mh + 10px) * 2;
+        }
+        &:nth-child(3) {
+          width: calc(100% / 5);
+        }
+        &:nth-child(4) {
+          width: calc((100% / 5) * 3);
+        }
+      }
+    }
+  }
+  &.n3 {
+    a {
+      @media screen and (min-width: 830px) and (max-width: #{1100px - 1px}) {
+        width: calc(100% / 3 - 10px * 2);
+        height: #{$nh};
+      }
+      @media screen and (min-width: 1100px) {
+        height: #{$nh};
+      }
+    }
+  }
+  &.n2 {
+    a {
+      @media screen and (min-width: 530px) and (max-width: #{630px - 1px}) {
+        width: calc(100% / 2 - 5px * 2);
+        height: #{$nh};
+      }
+      @media screen and (min-width: 630px) and (max-width: #{830px - 1px}) {
+        width: calc(100% / 2 - 10px * 2);
+        height: #{$nh};
+      }
+      @media screen and (min-width: 830px) and (max-width: #{1100px - 1px}) {
+        width: calc(100% / 2 - 10px * 2);
+        height: $mh;
+      }
+      @media screen and (min-width: 1100px) {
+        width: calc(100% / 2 - 10px * 2);
+        height: $mh;
+      }
+    }
+  }
+}
+#top {
+  display: none;
+  width: 70px;
+  height: 70px;
+  position: fixed;
+  bottom: 15px;
+  z-index: 9;
+  @include scale(1);
+  @include opacity(1);
+  @include animation(button .7s);
+ 
+  @media screen and (min-width: 0px) and (max-width: #{$mainWidth + 70px * 3 + 20px - 1px}) {
+    right: 10px;
+  }
+  @media screen and (min-width: $mainWidth + 70px * 3 + 20px) {
+    right: calc(50% - #{$mainWidth / 2} - 90px);
+  }
+  &:before {
+    @include icomoon-font('icomoon') {
+      content: "\e316";
+      position: absolute;
+      left: 0;
+      top: 0;
+      display: inline-block;
+      width: 100%;
+      height: 100%;
+      font-size: 50px;
+      line-height: 70px - 2px;
+      color: rgba(255, 255, 255, 1.00);
+      z-index: 2;
+      background-color: rgba(250, 132, 98, 1.00);
+      cursor: pointer;
+      @include box-shadow(0 1px 10px rgba(0, 0, 0, .20), inset 1px 1px 1px rgba(255, 255, 255, .200));
+      @include border-radius(50%);
+      @include transition(all .3s);
+    }
+  }
+}

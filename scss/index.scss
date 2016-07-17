@@ -1,501 +1,717 @@
 /**
  * @author      OA Wu <comdan66@gmail.com>
- * @copyright   Copyright (c) 2015 OA Wu Design
+ * @copyright   Copyright (c) 2016 OA Wu Design
  */
 
 @import "_oa";
 
 #container {
+  margin-top: $headerHeight;
+}
+.questions {
+  position: relative;
+  margin-top: 70px;
+  border-top: 1px solid rgba(0, 0, 0, .20);
+  padding-top: 45px;
+
+
+  @media screen and (min-width: 0px) and (max-width: #{$mainWidth + 20px - 1px}) {
+    width: calc(100% - 20px);
+    margin: 0 10px;
+    margin-top: 70px;
+  }
+  @media screen and (min-width: 0px) and (max-width: #{700px - 1px}) {
+    padding-top: 45px;
+  }
+  display: inline-block;
+  width: 100%;
+  max-width: $mainWidth;
+  @include clearfix();
   
-  .no_data {
-    @include alert();
-    margin-top: 50px;
-    margin-bottom: 50px;
-    padding: 20px;
-    line-height: 40px;
-    border: 1px solid rgba(255, 0, 0, .3);
-  }
-  .units {
-    @include clearfix();
-
-    .unit {
-      float: left;
-      position: relative;
-      display: inline-block;
-      width: 300px;
+  @media screen and (min-width: 0px) and (max-width: #{700px - 1px}) {
+    article {
+      width: calc(100% - 1px);
       margin: 10px 0;
-      border: 1px solid rgba(190, 191, 189, 1);
-      background-color: rgba(255, 255, 255, 1);
-      height: 177px;
-      @include border-radius(3px);
-      @include transition(box-shadow .3s);
-      @include box-shadow(0 0 10px 2px rgba(213, 216, 221, 0.7));
-      &:hover {
-        @include box-shadow(0 0 14px 2px rgba(213, 216, 221, 1), 0 0 2px rgba(39, 40, 34, .5));
-      }
-      @media screen and (min-width: 0) and (max-width: #{800px - 1px}) {
-        width: 100%;
-      }
-      @media screen and (min-width: 800px) and (max-width: #{$mainWidth - 1px}) {
-        width: calc((100% - 20px) / 2);
-        &:not(:nth-child(2n)) {
-          + .unit {
-            margin-left: 20px;
-          }
-        }
-      }
-      @media screen and (min-width: #{$mainWidth}) {
-        width: calc((100% - 40px) / 3);
-        &:not(:nth-child(3n)) {
-          + .unit {
-            margin-left: 20px;
-          }
-        }
-      }
-      &.add {
-        border: 0;
-        border: 1px dashed rgba(190, 191, 189, .5);
-        background-color: rgba(255, 255, 255, .4);
-        cursor: pointer;
-        @include transition(all .3s);
-        @include border-radius(5px);
-
-        &:before, &:after {
-          content: "";
-          position: absolute;
-          top: calc((100% - 6px) / 2 - 10px);
-          left: calc((100% - 70px) / 2);
-          display: inline-block;
-          width: 70px;
-          height: 6px;
-          background-color: rgba(140, 140, 140, 1);
-          @include border-radius(2px);
-          @include transition(all .3s);
-        }
-        
-        &:after {
-          top: calc((100% - 60px) / 2 - 10px);
-          left: calc((100% - 6px) / 2);
-          width: 6px;
-          height: 60px;
-        }
-
-        &:hover {
-          border: 2px dashed rgba(190, 191, 189, 1);
-          background-color: rgba(255, 255, 255, 1);
-
-          &:before, &:after {
-            background-color: rgba(162, 162, 162, 1);
-          }
-          &:before {
-            top: calc((100% - 12px) / 2 - 10px);
-            height: 12px;
-          }
-          
-          &:after {
-            left: calc((100% - 12px) / 2);
-            width: 12px;
-          }
-
-          > div {
-            border: 10px solid rgba(162, 162, 162, 1);
-
-            &:nth-child(1) {
-              top: -2px;
-              left: -2px;
-            }
-            &:nth-child(2) {
-              top: -2px;
-              right: -2px;
-            }
-            &:nth-child(3) {
-              bottom: -2px;
-              left: -2px;
-            }
-            &:nth-child(4) {
-              bottom: -2px;
-              right: -2px;
-            }
-            &:nth-child(5) {
-              color: rgba(50, 50, 50, 0.8);
-            }
-          }
-        }
-        > div {
-          position: absolute;
-          display: inline-block;
-          width: 50px;
-          height: 50px;
-          border: 5px solid rgba(142, 143, 140, 1);
-          @include transition(all .3s);
-
-          &:nth-child(1) {
-            top: -4px;
-            left: -4px;
-            border-right: 0;
-            border-bottom: 0;
-            @include border-top-left-radius(5px);
-          }
-          &:nth-child(2) {
-            top: -4px;
-            right: -4px;
-            border-left: 0;
-            border-bottom: 0;
-            @include border-top-right-radius(5px);
-          }
-          &:nth-child(3) {
-            bottom: -4px;
-            left: -4px;
-            border-right: 0;
-            border-top: 0;
-            @include border-bottom-left-radius(5px);
-          }
-          &:nth-child(4) {
-            bottom: -4px;
-            right: -4px;
-            border-left: 0;
-            border-top: 0;
-            @include border-bottom-right-radius(5px);
-          }
-          &:nth-child(5) {
-            bottom: 0;
-            left: 0;
-            border: 0;
-            width: 100%;
-            color: rgba(50, 50, 50, 0.4);
-            letter-spacing: 1px;
-            @include overflow-docx3();
-          }
-        }
-      }
-      .del {
-        position: absolute;
-        top: -10px;
-        right: -10px;
-        display: inline-block;
-        width: 30px;
-        height: 30px;
-        line-height: 28px;
-        color: rgba(255, 255, 255, 1);
-        border: 1px solid rgba(255, 0, 0, .3);
-        background-color: rgba(249, 174, 174, 1);
-        cursor: pointer;
-        @include border-radius(50%);
-        @include text-shadow(0 0 1px rgba(0, 0, 0, .5));
-        @include box-shadow(inset 1px 1px 1px rgba(255, 255, 255, .1), 1px 1px 1px rgba(39, 40, 34, .1));
-        @include transition(all .3s);
-
-        &:hover {
-          background-color: rgba(252, 125, 124, 1);
-          @include box-shadow(inset 1px 1px 1px rgba(255, 255, 255, .8), 1px 1px 1px rgba(39, 40, 34, .5));
-        }
-        &:active {
-          background-color: rgba(252, 125, 124, 1);
-          @include box-shadow(1px 1px 1px rgba(255, 255, 255, .8), inset 1px 1px 1px rgba(39, 40, 34, .5));
-          @include text-shadow(1px 1px 1px rgba(0, 0, 0, .5));
-        }
-      }
-      h2 {
-        margin: 0;
-        padding: 10px;
-        font-size: 22px;
-        text-align: left;
-        height: 45px;
-        border-bottom: 1px solid rgba(170, 171, 169, .4);
-        background-color: rgba(246, 247, 248, 1);
-        @include overflow-docx3();
-        @include border-top-radius(3px);
-      }
-      a {
-        text-decoration: none;
-        color: rgba(50, 50, 50, 0.8);
-        cursor: pointer;
-
-        @media screen and (min-width: 0) and (max-width: #{$mediaMiniMobileWidth - 1px}) {
-          @include split-left(100px, '.l', '.r');
-        }
-        @media screen and (min-width: #{$mediaMiniMobileWidth}) {
-          @include split-left(120px, '.l', '.r');
-        }
-        .l, .r {
-          height: 130px;
-        }
-        .l {
-          .icon {
-            position: absolute;
-            top: -5px;
-            left: calc((100% - 110px) / 2);
-            width: 110px;
-            height: 90px;
-            @media screen and (min-width: 0) and (max-width: #{$mediaMiniMobileWidth - 1px}) {
-              left: calc((100% - 100px) / 2);
-              width: 100px;
-              height: 80px;
-            }
-            display: inline-block;
-
-            img {
-              width: 100%;
-              height: 100%;
-            }
-          }
-          .bottom {
-            position: absolute;
-            bottom: -10px;
-            left: 0;
-            display: inline-block;
-            width: 100%;
-            height: 55px;
-            line-height: 35px;
-            text-align: center;
-            font-size: large;
-            font-weight: bolder;
-            color: rgba(100, 100, 100, 1);
-
-            @include overflow-docx3();
-            @include text-shadow(1px 1px 1px rgba(255, 255, 255, .5));
-            @include background-image(radial-gradient(50% 50%, rgba(39, 40, 34, .2) 0px, rgba(0, 0, 0, 0) 100%));
-            background-repeat: no-repeat;
-            background-position: 50% 50%;
-          }
-          .temperature {
-            position: absolute;
-            top: -5px;
-            right: 0;
-            display: inline-block;
-            padding: 3px 5px;
-            max-width: 100%;
-            font-size: 14px;
-            font-weight: bold;
-            color: rgba(255, 255, 255, 1);
-            border: 1px solid rgba(255, 0, 0, .3);
-            background-color: rgba(248, 131, 97, 1);
-
-            @include opacity(.9);
-            @include overflow-docx3();
-            @include border-radius(20px);
-            @include text-shadow(0 0 1px rgba(0, 0, 0, .5));
-            @include box-shadow(0 0 5px 1px rgba(0, 0, 0, 0.3));
-          }
-        }
-        .r {
-          @media screen and (min-width: 0) and (max-width: #{$mediaMiniMobileWidth - 1px}) {
-            width: calc(100% - 100px);
-          }
-          @media screen and (min-width: #{$mediaMiniMobileWidth}) {
-            width: calc(100% - 130px);
-          }
-          min-height: 80px;
-          position: relative;
-          border-left: 1px solid rgba(216, 217, 216, 1);
-          text-align: left;
-          padding: 10px;
-          padding-bottom: 25px;
-          background-color: rgba(255, 255, 255, 1);
-          @include border-bottom-right-radius(3px);
-          
-          $arrowWidth: 9px;
-          &:after, &:before {
-            right: 100%;
-            top: 50px;
-            border: solid transparent;
-            content: " ";
-            height: 0;
-            width: 0;
-            position: absolute;
-            pointer-events: none;
-          }
-
-          &:after {
-            border-color: rgba(136, 183, 213, 0);
-            border-right-color: rgba(255, 255, 255, 1);
-            border-width: $arrowWidth - 1;
-            margin-top: 0 - ($arrowWidth - 1);
-          }
-          &:before {
-            border-color: rgba(194, 225, 245, 0);
-            border-right-color: rgba(170, 171, 169, .7);
-            border-width: $arrowWidth;
-            margin-top: 0 - $arrowWidth;
-          }
-
-          .describe {
-            padding: 10px;
-            word-break: break-all;
-            letter-spacing: 1px;
-            font-size: 18px;
-            text-align: center;
-            @include overflow-docx3();
-          }
-          .sub_describe {
-            margin-top: 10px;
-            border-top: 3px solid rgba(39, 40, 34, .1);
-            padding: 0 10px;
-            padding-top: 15px;
-            font-size: 15px;
-            @media screen and (min-width: 0) and (max-width: #{$mediaMiniMobileWidth - 1px}) {
-              font-size: 12px;
-            }
-            @include split-left(50%, '.humidity', '.rainfall');
-            .humidity, .rainfall {
-              @include overflow-docx3();
-            }
-          }
-          .created_at {
-            position: absolute;
-            bottom: 10px;
-            left: 0;
-            display: inline-block;
-            width: 100%;
-            font-size: 12px;
-            text-align: right;
-            padding-right: 10px;
-            color: rgba(50, 50, 50, 0.6);
-          }
-        }
-      }
-    }
-  }
-  .line {
-    display: block;
-    margin-top: 20px;
-    margin-bottom: 10px;
-    @include clearfix();
-    
-    $width: 68px;
-    > div {
-      float: left;
-      display: inline-block;
-
-      &:first-child, &:last-child {
-        width: calc(50% - #{$width / 2});
-        height: 2px;
-        background: rgba(190, 190, 190, .3);
-        margin-top: 16px;
-      }
-      &:not(:first-child):not(:last-child) {
-        width: $width;
-        padding: 3px;
-        font-size: 22px;
-        color: rgba(50, 50, 50, 0.5);
-        font-weight: bolder;
-        border: 2px solid rgba(190, 190, 190, .6);
-        background-color: rgba(150, 150, 150, .25);
-        @include border-radius(30px);
-        @include text-shadow(1px 1px 1px rgba(255, 255, 255, 1));
-      }
     }
   }
 
-  .specials {
-    position: relative;
+  @media screen and (min-width: 700px) and (max-width: #{1000px - 1px}) {
+    article {
+      width: calc(100% / 2 - 10px * 2 - 1px);
+      margin: 10px;
+    }
+  }
+  @media screen and (min-width: 1000px) {
+    article {
+      width: calc(100% / 3 - 10px * 2 - 1px);
+      margin: 10px;
+    }
+  }
+
+  &:before {
+    content: '地方小知識';
+    position: absolute;
     display: inline-block;
-    margin: 0 auto;
-    margin-top: 10px;
-    max-width: 100%;
-    width: 100%;
-
-    @for $i from 1 through 17 {
-      @media screen and (min-width: #{($i - 1) * 50px + 120px}) and (max-width: ($i * 50px) + 120px - 1px) {
-        $specialWidth: ($i - 1) * 50px + 80px;
-        $specialHorizontalMargin: 20px;
-        width: $specialWidth + $specialHorizontalMargin;
-
-        .special {
-          width: $specialWidth;
-          margin: $specialHorizontalMargin / 2;
+    width: 200px;
+    left: calc(50% - 200px / 2);
+    top: -(35px / 2);
+    padding: 5px;
+    height: 35px;
+    // line-height: 35px - 2px;
+    // border: 1px solid rgba(255, 0, 0, .3);
+    background-color: rgba(255, 255, 255, 1.00);
+    @include border-radius(35px / 2);
+    border: 1px solid rgba(187, 187, 187, 1);
+    // @include box-shadow(0 0 1px rgba(0,rgba(187, 187, 187, .8); 0, 0, .80));
+  }
+  article {
+    float: left;
+    display: inline-block;
+    background-color: rgba(255, 255, 255, 1.00);
+    text-align: left;
+    overflow: hidden;
+    border: 1px solid rgba(187, 187, 187, .8);
+    @include border-radius(2px);
+    @include box-shadow(0 0 5px rgba(0, 0, 0, .05));
+    // @include box-shadow(0 0 1px rgba(0, 0, 0, .80));
+  
+    > header {
+      padding: 5px 10px;
+      background-color: rgba(245, 245, 245, 1.00);
+      border-bottom: 1px solid rgba(215, 215, 215, 1.00);
+      font-size: 23px;
+      letter-spacing: 2px;
+      @include border-top-radius(2px);
+    }
+    section {
+      padding: 10px 20px;
+      p {
+        b {
+          display: inline-block;
+          font-weight: normal;
+          margin: 0 2px;
+          color: rgba(250, 132, 98, 1.00);
         }
       }
     }
-
-    @media screen and (min-width: 969px) and (max-width: #{1035px - 1px}) {
-      $specialWidth: 440px;
-      $specialHorizontalMargin: 20px;
-      width: ($specialWidth + $specialHorizontalMargin) * 2;
-
-      .special {
-        width: $specialWidth;
-        margin: $specialHorizontalMargin / 2;
-      }
-    }
-    @media screen and (min-width: 1035px) and (max-width: #{1215px - 1px}) {
-      $specialWidth: 480px;
-      $specialHorizontalMargin: 20px;
-      width: ($specialWidth + $specialHorizontalMargin) * 2;
-
-      .special {
-        width: $specialWidth;
-        margin: $specialHorizontalMargin / 2;
-      }
-    }
-    @media screen and (min-width: 1215px) {
-      $specialWidth: 380px;
-      $specialHorizontalMargin: 20px;
-      width: ($specialWidth + $specialHorizontalMargin) * 3;
-
-      .special {
-        width: $specialWidth;
-        margin: $specialHorizontalMargin / 2;
-      }
-    }
-    .special {
-      position: relative;
+    a {
+      border-top: 1px dashed rgba(225, 225, 225, 1.00);
       display: inline-block;
-      border: 1px solid rgba(190, 191, 189, 1);
-      background-color: rgba(255, 255, 255, 1);
-      @include border-radius(3px);
-      @include box-shadow(0 0 10px 2px rgba(213, 216, 221, 0.7));
+      width: 100%;
 
 
-      h2 {
-        border-bottom: 3px solid rgba(39, 40, 34, .1);
-        text-align: left;
-        margin: 0;
-        padding: 10px;
-        padding-bottom: 12px;
-        font-weight: bold;
-        background-color: rgba(246, 247, 248, 1);
-        @include overflow-docx3();
-        @include border-top-radius(3px);
-        @include text-shadow(1px 1px 1px rgba(255, 255, 255, .5));
+      font-family: 'Helvetica Neue',Helvetica,Arial,'Hiragino Maru Gothic ProN','メイリオ','ヒラギノ丸ゴ ProN W4','微軟正黑體',Meiryo,'Droid Sans';
+      font-size: 15px;
+      margin: 0;
+      text-align: center;
+      text-decoration: none;
+      padding: 8px 10px;
+      @include border-bottom-radius(2px);
+      color: rgba(105, 139, 180, 1.00);
+
+      &:hover {
+        color: rgba(12, 65, 109, .85);
       }
-      .towns {
-        padding: 5px;
-        padding-bottom: 0;
+    }
+    time {
+      border-top: 1px dashed rgba(225, 225, 225, 1.00);
+      display: inline-block;
+      width: 100%;
+
+      font-family: 'Helvetica Neue',Helvetica,Arial,'Hiragino Maru Gothic ProN','メイリオ','ヒラギノ丸ゴ ProN W4','微軟正黑體',Meiryo,'Droid Sans';
+      font-size: 13px;
+      margin: 0;
+      color: rgba(120, 120, 120, 1);
+      text-align: right;
+      padding: 5px 10px;
+      @include border-bottom-radius(2px);
+    }
+  }
+}
+.specials {
+  display: inline-block;
+  width: 100%;
+  max-width: $mainWidth;
+  @include clearfix();
+
+  @media screen and (min-width: 0px) and (max-width: #{700px - 1px}) {
+    article {
+      width: calc(100% - 1px);
+      margin: 10px 0;
+    }
+  }
+
+  @media screen and (min-width: 700px) and (max-width: #{1000px - 1px}) {
+    article {
+      width: calc(100% / 2 - 10px * 2 - 1px);
+      margin: 10px;
+    }
+  }
+  @media screen and (min-width: 1000px) {
+    article {
+      width: calc(100% / 3 - 10px * 2 - 1px);
+      margin: 10px;
+    }
+  }
+  &.n2 {
+    @media screen and (min-width: 0px) and (max-width: #{700px - 1px}) {
+      article {
+        width: calc(100% - 1px);
+        margin: 10px 0;
+      }
+    }
+    @media screen and (min-width: 700px) {
+      article {
+        width: calc(100% / 2 - 10px * 2 - 1px);
+        margin: 10px;
+      }
+    }
+  }
+  &.n1 {
+    article {
+      width: calc(100% - 1px);
+      margin: 10px 0;
+    }
+  }
+
+  @media screen and (min-width: 0px) and (max-width: #{$mainWidth + 20px - 1px}) {
+    width: calc(100% - 20px);
+    margin: 0 10px;
+    margin-top: 70px;
+  }
+  @media screen and (min-width: $mainWidth) {
+    margin: 0 auto;
+    margin-top: 70px;
+  }
+  position: relative;
+  margin-top: 70px;
+  border-top: 1px solid rgba(0, 0, 0, .20);
+  padding-top: 45px;
+  &:before {
+    content: '氣象特報';
+    position: absolute;
+    display: inline-block;
+    width: 200px;
+    left: calc(50% - 200px / 2);
+    top: -(35px / 2);
+    padding: 5px;
+    height: 35px;
+    // line-height: 35px - 2px;
+    // border: 1px solid rgba(255, 0, 0, .3);
+    background-color: rgba(255, 255, 255, 1.00);
+    @include border-radius(35px / 2);
+    border: 1px solid rgba(187, 187, 187, 1);
+
+    // @include box-shadow(0 0 1px rgba(0, 0, 0, .80));
+  }
+  article {
+    float: left;
+    display: inline-block;
+    background-color: rgba(255, 255, 255, 1.00);
+    text-align: left;
+    overflow: hidden;
+    border: 1px solid rgba(187, 187, 187, .8);
+    @include box-shadow(0 0 5px rgba(0, 0, 0, .05));
+    // @include box-shadow(0 0 1px rgba(0, 0, 0, .80));
+    @include border-radius(2px);
+
+    // + article {
+    //   margin-top: 20px;
+    // }
+    > header {
+      padding: 5px 10px;
+      background-color: rgba(245, 245, 245, 1.00);
+      border-bottom: 1px solid rgba(215, 215, 215, 1.00);
+      font-size: 23px;
+      letter-spacing: 2px;
+      @include border-top-radius(2px);
+    }
+    .desc {
+      padding: 5px 20px;
+      p {
         @include clearfix();
-        a {
+        
+        span {
           float: left;
           display: inline-block;
-          padding: 2px 10px;
-          border: 1px solid rgba(200, 200, 200, 1);
+          width: 45px;
+          height: 45px;
+          background-color: rgba(255, 255, 255, 1.00);
+          border: 2px solid rgba(250, 132, 98, .800);
           margin: 5px;
+          margin-top: 10px;
+          margin-right: 20px;
+          padding: 5px;
+          @include border-radius(50%);
+
+          img {
+            width: 100%;  
+          }  
+        }
+        &:last-child {
+          // margin-bottom: 0;
+        }
+      }
+    }
+    .cate {
+      display: inline-block;
+      width: 100%;
+      padding: 25px;
+      padding-top: 0;
+      padding-bottom: 10px;
+      @include clearfix();
+
+      + .cate {
+        margin-top: 5px;
+      }
+      > * {
+        float: left;
+        display: inline-block;
+        font-size: 14px;
+        padding: 1px 5px;
+        margin: 1px;
+        overflow: hidden;
+        @include border-radius(3px);
+      }
+      header {
+        padding: 0;
+        a {
+          display: inline-block;
+          padding: 1px 5px;
           text-decoration: none;
-          color: rgba(50, 50, 50, 0.8);
-          @include border-radius(3px);
+          border: 1px solid rgba(250, 132, 98, 1.00);
+          color: rgba(176, 93, 69, 1.00);
           @include transition(all .3s);
+          @include border-radius(3px);
+          font-size: 14px;
+          line-height: 21px;
           
           &:hover {
-            color: rgba(50, 50, 50, 1);
-            border: 1px solid rgba(180, 180, 180, 1);
-            @include box-shadow(0 0 10px 2px rgba(213, 216, 221, 0.7));
+            background-color: rgba(248, 131, 99, 1.00);
+            color: rgba(255, 255, 255, 1.00);
+            border-color: transparent;
           }
         }
       }
-      .describe {
-        padding: 10px 25px;
-        text-align: left;
-        line-height: 22px;
-        img {
-          float: left;
-          margin-right: 10px;
+      > a {
+        border: 1px solid rgba(180, 180, 180, 1.00);
+        text-decoration: none;
+        color: rgba(100, 100, 100, 1.00);
+        @include transition(all .3s);
+        font-size: 14px;
+        line-height: 21px;
+
+        &:hover {
+          background-color: rgba(100, 100, 100, 1.00);
+          color: rgba(255, 255, 255, 1.00);
+          border-color: transparent;
         }
       }
-      .at {
-        text-align: right;
-        padding-right: 10px;
-        padding-bottom: 10px;
-        font-size: 14px;
-        color: rgba(50, 50, 50, 0.5);
+    }
+    time {
+      border-top: 1px dashed rgba(225, 225, 225, 1.00);
+      display: inline-block;
+      width: 100%;
+
+      font-family: 'Helvetica Neue',Helvetica,Arial,'Hiragino Maru Gothic ProN','メイリオ','ヒラギノ丸ゴ ProN W4','微軟正黑體',Meiryo,'Droid Sans';
+      font-size: 13px;
+      margin: 0;
+      color: rgba(120, 120, 120, 1);
+      text-align: right;
+      padding: 7px 10px;
+      @include border-bottom-radius(2px);
+    }
+
+  }
+}
+
+#weathers {
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  width: 1px;
+  height: 1px;
+  @include opacity(0);
+  
+  a {
+    @include opacity(0);
+  }
+}
+.towns {
+  display: inline-block;
+  margin: 0 auto;
+  width: 100%;
+  max-width: $mainWidth;
+  @include clearfix();
+  padding-top: 25px;
+  @media screen and (min-width: 0px) and (max-width: #{$mainWidth + 20px - 1px}) {
+    width: calc(100% - 20px);
+    margin: 0 10px;
+  }
+  @media screen and (min-width: 0px) and (max-width: #{700px - 1px}) {
+    padding-top: 15px;
+  }
+
+  > div {
+    position: relative;
+    display: inline-block;
+    float: left;
+    height: 310px;
+    @include border-radius(3px);
+    @media screen and (min-width: 0px) and (max-width: #{400px - 1px}) {
+      height: 280px;
+    }
+    @media screen and (min-width: 0px) and (max-width: #{700px - 1px}) {
+      margin: 0;
+      width: 100%;
+      
+      &:nth-child(n + 2) {
+        margin-top: 25px;
+      }
+    }
+
+    @media screen and (min-width: 700px) and (max-width: #{1000px - 1px}) {
+      margin: 0;
+      width: calc(100% / 2 - 25px * (2 - 1) / 2);
+      &:not(:nth-child(2n + 1)) {
+        margin-left: 25px;
+      }
+      &:nth-child(n + 3) {
+        margin-top: 25px;
+      }
+    }
+    @media screen and (min-width: 1000px) {
+      width: calc(100% / 3 - 25px * (3 - 1) / 3);
+      &:not(:nth-child(3n + 1)) {
+        margin-left: 25px;
+      }
+      &:nth-child(n + 4) {
+        margin-top: 25px;
+      }
+    }
+  }
+  > div:not(:last-child) {
+    color: rgba(95, 95, 95, 1.00);
+    background-color: rgba(255, 255, 255, 1.00);
+    border: 1px solid rgba(187, 187, 187, .8);
+    @include border-top-radius(4px);
+    @include transition(box-shadow .3s);
+    @include box-shadow(0 0 5px rgba(0, 0, 0, .15));
+
+    &:hover {
+      @include box-shadow(0 0 5px rgba(0, 0, 0, .25));
+    }
+
+    figure {
+      display: inline-block;
+      margin: 0;
+    }
+    > a {
+      display: inline-block;
+      width: 100%;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    > a:nth-child(1) {
+      position: relative;
+      width: 100%;
+      @include border-top-radius(3px);
+      @media screen and (min-width: 0px) and (max-width: #{400px - 1px}) {
+        height: 125px;
+      }
+      @media screen and (min-width: 400px) {
+        height: 155px;
+      }
+      overflow: hidden;
+
+      img {
+        width: 100%;
+      }
+      div {
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        display: inline-block;
+        width: 100%;
+        color: rgba(255, 255, 255, 1.00);
+        padding: 5px;
+        padding-top: 10px;
+        font-size: 20px;
+        text-align: left;
+        @include background-image(linear-gradient(rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, .6) 100%));
+      }
+    }
+    > a:nth-child(2) {
+      padding: 10px;
+      color: rgba(91, 91, 91, 1.00);
+      @include clearfix();
+      @include border-bottom-radius(3px);
+
+      > * {
+        display: inline-block;
+        height: 135px;
+      }
+      > figure {
+        position: relative;
+        float: left;
+        width: 120px;
+        + * {
+          width: calc(100% - 120px);
+        }
+        &:after {
+          content: attr(data-temperature) '°c';
+          position: absolute;
+          top: 5px;
+          right: 5px;
+          display: inline-block;
+          min-width: 44px;
+          height: 25px;
+          line-height: 25px - 1px;
+          padding: 0 8px;
+          font-size: 14px;
+          border: 1px solid rgba(249, 108, 87, 1.00);
+          text-align: center;
+          background-color: rgba(247, 143, 113, 1.00);
+          color: rgba(255, 255, 255, 1.00);
+
+          @include clearfix();
+          @include border-radius(13px);
+          @include box-shadow(0 0 5px rgba(0, 0, 0, .20))
+        }
+        img {
+          width: 100%;
+        }
+        figcaption {
+          position: absolute;
+          left: 0;
+          bottom: -5px;
+          display: inline-block;
+          width: 100%;
+          text-align: center;
+          padding: 0 5px;
+          height: 40px;
+          line-height: 35px - 2px - 10px;
+          color: rgba(100, 100, 100, 1);
+          @include text-shadow(1px 1px 1px rgba(255, 255, 255, .5));
+          @include overflow-docx3();
+          @include background-image(radial-gradient(50% 50%, rgba(39, 40, 34, .2) 0px, rgba(0, 0, 0, 0) 100%));
+          background-repeat: no-repeat;
+          background-position: 50% 100%;
+        }
+        @media screen and (min-width: 1000px) and (max-width: #{1200px - 1px}) {
+          width: 100px;
+          + * {
+            width: calc(100% - 100px);
+          }
+        }
+        @media screen and (min-width: 700px) and (max-width: #{800px - 1px}) {
+          width: 100px;
+          + * {
+            width: calc(100% - 100px);
+          }
+        }
+        @media screen and (min-width: 0px) and (max-width: #{400px - 1px}) {
+          width: 100px;
+          + * {
+            width: calc(100% - 100px);
+          }
+        }
+        @media screen and (min-width: 0px) and (max-width: #{350px - 1px}) {
+          width: 85px;
+          padding-right: 10px;
+          + * {
+            width: calc(100% - 85px);
+          }
+          img {
+            margin-top: 15px;
+          }
+          figcaption {
+            bottom: 0;
+          }
+        }
+      }
+      > div {
+        float: right;
+        padding-left: 10px;
+        border-left: 1px solid rgba(215, 215, 215, 1.00);
+        @include clearfix();
+
+        > * {
+          float: left;
+          display: inline-block;
+          width: 100%;
+          text-align: center;
+        }
+        > span {
+          font-size: 20px;
+          letter-spacing: 1px;
+          padding-bottom: 10px;
+          margin-top: 10px;
+          margin-bottom: 15px;
+          border-bottom: 3px solid rgba(233, 234, 233, 1.00);
+        }
+        div {
+          width: 50%;
+          font-size: 15px;
+          line-height: 30px;
+          
+          span {
+            display: inline-block;
+            @include clearfix();
+
+            p {
+              float: left;
+              display: inline-block;
+              margin: 0;
+              font-size: 10px;
+
+              color: rgba(110, 110, 110, 1.00);
+              &:last-child {
+                margin-top: -1px;
+                font-size: 16px;
+                color: rgba(80, 80, 80, 1.00);
+              }
+            }  
+          }          
+        }
+        time {
+          margin-top: 15px;
+          padding-top: 5px;
+          font-size: 10px;
+          text-align: right;
+          color: rgba(135, 135, 135, 1.00);
+        }
+      }
+    }
+    > a:nth-child(3) {
+      position: absolute;
+      right: -10px;
+      top: -10px;
+      width: 30px;
+      height: 30px;
+      line-height: 30px;
+      background-color: rgba(249, 174, 174, 1.00);
+      // border: 1px solid rgba(255, 0, 0, 0.3);
+
+      color: #fff;
+      background-color: #f9aeae;
+      @include border-radius(50%);
+  
+      @include text-shadow(0 0 1px rgba(0, 0, 0, 0.5));
+      @include box-shadow(0 0 1px rgba(255, 0, 0, 1), inset 1px 1px 1px rgba(255, 255, 255, 0.1), 1px 1px 1px rgba(39, 40, 34, 0.1));
+      @include transition(box-shadow .3s);
+
+      &:hover {
+        @include box-shadow(0 0 1px rgba(255, 0, 0, 1), inset 1px 1px 1px rgba(255, 255, 255, 0.8), 1px 1px 1px rgba(39, 40, 34, 0.5));
+      }
+      &:active {
+        background-color: #fc7d7c;
+        @include text-shadow(1px 1px 1px rgba(0, 0, 0, 0.5));
+        @include box-shadow(0 0 1px rgba(255, 0, 0, 1), 1px 1px 1px rgba(255, 255, 255, 0.8), inset 1px 1px 1px rgba(39, 40, 34, 0.5));
+      }
+    }
+  }
+  #add {
+    cursor: pointer;
+    background-color: rgba(255, 255, 255, 0.4);
+    border: 1px dashed rgba(204, 204, 204, 1.00);
+    @include transition(border .4s);
+    
+    i, span, &:before, &:after {
+      position: absolute;
+      display: inline-block;
+    }
+    i {
+      width: 100px;
+      height: 100px;
+      $w: 6px;
+      border: $w solid rgba(140, 140, 140, 1.00);
+      @include border-radius(3px);
+      @include transition(all .3s);
+      
+      &:nth-child(-n + 2) { top: -$w; border-bottom: 0; }
+      &:nth-child(n + #{2 + 1}) { bottom: -$w; border-top: 0; }
+      &:nth-child(odd) { left: -$w; border-right: 0; }
+      &:nth-child(even) { right: -$w; border-left: 0; }
+    }
+
+    $l: 100px;
+    $h: 6px;
+    $t: 100px;
+    span {
+      width: 200px;
+      top: $t + $l + 5px;
+      left: calc(50% - 200px / 2);
+      color: rgba(50, 50, 50, 0.4);
+      letter-spacing: 2px;
+      @include transition(color .3s);
+    }
+
+    &:before, &:after {
+      content: '';
+      background-color: rgba(140, 140, 140, 1.00);
+      @include border-radius(2px);
+      @include transition(all .3s);
+    }
+    &:before {
+      top: $t;
+      left: calc(50% - #{$h} / 2);
+      width: $h;
+      height: $l * 4 / 5;
+    }
+    &:after {
+      top: $t + $l * 4 / 5 / 2 - $h / 2;
+      left: calc(50% - #{$l} / 2);
+      width: $l;
+      height: $h;
+    }
+    &:hover {
+      border-width: 3px;
+      background-color: rgba(255, 255, 255, 0.6);
+
+      $h: 10px;
+      span {
+        color: rgba(50, 50, 50, 0.8);
+      }
+      &:before {
+        left: calc(50% - #{$h} / 2);
+        width: $h;
+      }
+      &:after {
+        top: $t + $l * 4 / 5 / 2 - $h / 2;
+        height: $h;
+      }
+      i {
+        border-width: 10px;
+        border-color: rgba(162, 162, 162, 1.00);
+        &:nth-child(-n + 2) { top: -3px; }
+        &:nth-child(n + #{2 + 1}) { bottom: -3px; }
+        &:nth-child(odd) { left: -3px; }
+        &:nth-child(even) { right: -3px; }
+      }
+    }
+    @media screen and (min-width: 0px) and (max-width: #{400px - 1px}) {
+      height: 200px;
+      $t: 30px;
+
+      i {
+        height: 60px;
+        width: 60px;
+      }
+      span {
+        top: $t + $l + 5px;
+      }
+      &:before {
+        top: $t;
+      }
+      &:after {
+        top: $t + $l * 4 / 5 / 2 - $h / 2;
+      }
+      &:hover {
+        &:after {
+          top: $t + $l * 4 / 5 / 2 - $h / 2;
+        }
       }
     }
   }

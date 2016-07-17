@@ -1,0 +1,543 @@
+/**
+ * @author      OA Wu <comdan66@gmail.com>
+ * @copyright   Copyright (c) 2016 OA Wu Design
+ */
+
+@import "_oa";
+
+@include font-face("icomoon", font-files("icomoon/icomoon.eot", "icomoon/icomoon.woff", "icomoon/icomoon.ttf", "icomoon/icomoon.svg"));
+[class^="icon-"], [class*=" icon-"] { &:before {font-family: 'icomoon', Comfortaa,'Helvetica Neue',Helvetica,Arial,'Hiragino Maru Gothic ProN','メイリオ','ヒラギノ丸ゴ ProN W4','微軟正黑體',Meiryo,'Droid Sans';speak: none; font-style: normal; font-weight: normal; font-variant: normal; text-transform: none; @include font-smoothing(antialiased);}}
+
+
+.icon-w01:before {
+    content: "\e902";
+}
+.icon-c:before {
+    content: "\e901";
+}
+.icon-z:before {
+    content: "\e905";
+}
+.icon-r:before {
+    content: "\e92e";
+}
+.icon-hr:before {
+    content: "\e9da";
+}
+.icon-t:before {
+    content: "\ea10";
+}
+.icon-o:before {
+    content: "\e903";
+}
+.icon-w13:before {
+    content: "\e933";
+}
+.icon-up:before {
+    content: "\e316";
+}
+.icon-x:before {
+    content: "\e101";
+}
+.icon-a:before {
+    content: "\e114";
+}
+.icon-m:before {
+    content: "\e120";
+}
+.icon-d:before {
+    content: "\e906";
+}
+.icon-p:before {
+    content: "\e904";
+}
+.icon-w02:before {
+    content: "\e938";
+}
+.icon-w03:before {
+    content: "\e939";
+}
+.icon-w07:before {
+    content: "\e93a";
+}
+.icon-w11:before {
+    content: "\e93b";
+}
+.icon-w04:before {
+    content: "\e93f";
+}
+.icon-w08:before {
+    content: "\e940";
+}
+.icon-w10:before {
+    content: "\e94b";
+}
+.icon-w09:before {
+    content: "\e94c";
+}
+.icon-w12:before {
+    content: "\e94d";
+}
+.icon-su:before {
+    content: "\e972";
+}
+.icon-sd:before {
+    content: "\e978";
+}
+.icon-w05:before {
+    content: "\e982";
+}
+.icon-w06:before {
+    content: "\e983";
+}
+.icon-w14:before {
+    content: "\e989";
+}
+.icon-a0:before {
+    content: "\e99c";
+}
+.icon-a1:before {
+    content: "\e99e";
+}
+.icon-a2:before {
+    content: "\e9a0";
+}
+.icon-a3:before {
+    content: "\e9a2";
+}
+.icon-a4:before {
+    content: "\e9a4";
+}
+.icon-a5:before {
+    content: "\e9a6";
+}
+.icon-u:before {
+    content: "\e900";
+}
+.icon-h:before {
+    content: "\e986";
+}
+.icon-g:before {
+    content: "\f00a";
+}
+.icon-s:before {
+    content: "\f064";
+}
+
+* {
+  &, &:after, &:before {
+    vertical-align: top;
+    @include box-sizing(border-box);
+    @include selection(rgba(150, 200, 255, 1), rgba(255, 255, 255, 1));
+    @include font-smoothing(antialiased);
+  }
+}
+
+html {
+  height: 100%;
+
+  body {
+    position: relative;
+    display: inline-block;
+    text-align: center;
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    font-size: medium;
+    font-family: Comfortaa,'Helvetica Neue',Helvetica,Arial,'Hiragino Maru Gothic ProN','メイリオ','ヒラギノ丸ゴ ProN W4','微軟正黑體',Meiryo,'Droid Sans';
+    background: rgba(255, 255, 255, 1.00);
+    color: rgba(50, 50, 50, 0.8);
+
+    background: $mainBackgroundColor $mainBackgroundImage;
+    @include font-smoothing(antialiased);
+ 
+    @media screen and (min-width: 0px) and (max-width: #{$mediaMobileWidth - 1px}) {
+      &.s {
+        > aside {
+          left: 0;
+          @include opacity(1);
+
+          + .cover {
+            right: 0;
+            @include opacity(1);
+          }
+        }
+      }
+    }
+  }
+}
+
+._scope {
+  display: none;
+}
+$leftMenuWidth: 150px;
+
+body > aside {
+  position: fixed;
+  left: -210px;
+  top: 0;
+  display: inline-block;
+  width: 210px;
+  height: 100%;
+  z-index: 999;
+  background: $mainBackgroundColor $mainBackgroundImage;
+  @include box-shadow(0 0 5px 1px rgba(39, 40, 34, .3), 1px 0 1px rgba(39, 40, 34, .3));
+  @include opacity(0);
+  @include transition(left .3s, opacity .3s);
+  @media screen and (min-width: $mediaMobileWidth) {
+    display: none;
+  }
+
+  header {
+    background-color: rgba(250, 132, 98, 1.00);
+    padding: 15px 0;
+    border-bottom: 1px solid rgba(176, 93, 69, 1.00);
+
+    span {
+      display: inline-block;
+      width: 100%;
+      color: rgba(255, 255, 255, 1.00);
+      &:first-child {
+        font-size: 30px;
+        letter-spacing: 3px;
+        font-weight: bold;
+        @include text-shadow(0 0 1px rgba(0, 0, 0, .35));
+      }
+      &:last-child {
+        font-size: 15px;
+      }
+    }
+  }
+  > span {
+    display: inline-block;
+    width: 100%;
+    text-align: left;
+    font-size: 13px;
+    margin-top: 5px;
+    padding: 5px;
+    color: rgba(50, 50, 50, 0.6);
+    @include overflow-docx3();
+  }
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    background-color: rgba(255, 255, 255, 1.00);
+    @include box-shadow(0 0 1px rgba(0, 0, 0, .80));
+
+    li {
+      a {
+        position: relative;
+        text-align: left;
+        display: inline-block;
+        width: 100%;
+        padding: 10px 5px;
+        padding-left: 45px;
+        text-decoration: none;
+        color: rgba(50, 50, 50, 0.8);
+        @include overflow-docx3();
+
+        &.a {
+          color: rgba(176, 93, 69, 1.00);
+          padding-left: 45px - 3px;
+          border-left: 3px solid rgba(176, 93, 69, 1.00);
+          &:before {
+            left: -(3px / 2);
+          }
+        }
+        &:before {
+          position: absolute;
+          left: 0;
+          top: 0;
+          display: inline-block;
+          width: 45px;
+          height: 100%;
+          padding-top: 15px;
+          text-align: center;
+          color: rgba(50, 50, 50, 0.5);
+        }
+      }
+      + li {
+        a {
+          &:after {
+            content: '';
+            position: absolute;
+            left: 40px;
+            top: 0;
+            display: inline-block;
+            width: calc(100% - 40px);
+            height: 1px;
+            background-color: rgba(0, 0, 0, .15);
+          }
+        }
+      }
+    }
+  }
+  + .cover {
+    position: fixed;
+    top: 0;
+    right: -100%;
+
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+    
+    background-color: rgba(39, 40, 34, .5);
+    z-index: 995;
+    cursor: pointer;
+    
+    @include opacity(0);
+    @include transition(all .3s);
+    @include transition(right .3s, opacity .3s);
+
+    @media screen and (min-width: $mediaMobileWidth) {
+      display: none;
+    }
+  }
+}
+body > header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: inline-block;
+  width: 100%;
+  height: $headerHeight;
+  background-color: $mainColor;
+  border-top: 5px solid rgba(0, 0, 0, .300);
+  border-bottom: 1px solid rgba(0, 0, 0, 0);
+  z-index: 99;
+  @include box-shadow(0 0 1px rgba(0, 0, 0, .50));
+
+  + * {
+    margin-top: $headerHeight;
+  }
+
+  > div {
+    display: inline-block;
+    max-width: $mainWidth;
+    height: $headerHeight - 6px;
+    width: 100%;
+    margin: 0 auto;
+    @include clearfix();
+
+    > * {
+      height: $headerHeight - 6px;
+      line-height: $headerHeight - 1px;
+      color: rgba(250, 250, 250, 1.00);
+    }
+    a {
+      text-decoration: none;
+      color: rgba(250, 250, 250, 1.00);
+    }
+    > *:first-child {
+      float: left;
+      display: none;
+      width: 40px;
+      height: $headerHeight - 6px;
+      cursor: pointer;
+      @include text-shadow(0 0 1px rgba(0, 0, 0, .40));
+
+      &:before {
+        display: inline-block;
+        width: 100%;
+        height: 100%;
+        color: rgba(250, 250, 250, 1.00);
+        font-size: 30px;
+        line-height: $headerHeight - 5px;
+      }
+    }
+    > *:not(:first-child):not(:last-child) {
+      position: relative;
+      float: left;
+      display: inline-block;
+      line-height: $headerHeight - 6px;
+      font-weight: normal;
+      margin: 0 auto;
+      font-size: 22px;
+      text-align: left;
+      padding: 0 10px;
+      text-decoration: none;
+      color: rgba(250, 250, 250, .90);
+      @include text-shadow(0 0 1px rgba(0, 0, 0, .10));
+      + a {
+        @media screen and (min-width: $mediaMobileWidth) {
+          margin-left: 5px;
+        }
+      }
+
+      &:hover {
+        color: rgba(250, 250, 250, 1);
+        &:after {
+          @include opacity(.4);
+        }
+      }
+      &:before {
+        display: inline-block;
+        color: rgba(250, 250, 250, .700);
+        font-size: 15px;
+        line-height: $headerHeight - 2px - 5px;
+        margin-right: 3px;
+        @media screen and (min-width: 0px) and (max-width: #{$mediaMobileWidth - 1px}) {
+          display: none;
+        }
+      }
+      &:after {
+        content: '';
+        position: absolute;
+        bottom: -1px;
+        left: 0;
+        display: inline-block;
+        width: 100%;
+        height: 6px;
+        background-color: rgba(254, 224, 215, 1.00);
+        background: rgba(255, 255, 255, 1.00);
+        border: 1px solid rgba(226, 119, 88, 1.00);
+        border-bottom: 0;
+        @include border-top-radius(2px);
+        @include opacity(0);
+        @include transition(opacity .3s);
+      }
+      &.a {
+        color: rgba(250, 250, 250, 1);
+        &:after {
+          @include opacity(1);
+        }
+      }
+    }
+    > span {
+      display: none !important;
+    }
+    > span:last-child {
+      display: inline-block !important;
+      float: right;
+      width: $headerRightWidth;
+      height: $headerHeight - 6px;
+      @include clearfix();
+      
+      a {
+        float: right;
+        display: inline-block;
+        width: 35px;
+        height: $headerHeight - 6px - 5px * 2;
+        font-size: 20px;
+        margin: 5px;
+        text-decoration: none;
+        cursor: pointer;
+        color: rgba(254, 224, 215, 1.00);
+        @include transition(color .3s);
+        @include text-shadow(0 0 1px rgba(0, 0, 0, .40));
+        
+
+        &:before {
+          display: inline-block;
+          width: 100%;
+          height: $headerHeight - 6px - 5px * 2;
+          line-height: $headerHeight - 6px - 5px * 2;
+        }
+        &:hover {
+          color: rgba(255, 255, 255, 1);
+        }
+      }
+    }
+  }
+
+  @media screen and (min-width: 0px) and (max-width: #{$mediaMobileWidth - 1px}) {
+    > div {
+      > *:first-child {
+        display: inline-block;
+      }
+      > *:not(:first-child):not(:last-child) {
+        // position: relative;
+        // width: calc(100% - #{$headerRightWidth + 40px});
+        display: none;
+        &.a {
+          display: inline-block;
+          max-width: calc(100% - #{$headerRightWidth + 40px});
+          @include overflow-docx3();
+
+          &:after {
+            content: none;
+          }
+        }
+      }
+      > span {
+        display: inline-block !important;
+      }
+    }
+  }
+}
+
+body > footer {
+  margin: 0 auto;
+  padding: 50px 0;
+  @include clearfix();
+
+  @media screen and (min-width: 0px) and (max-width: #{$mediaMiniMobileWidth - 1px}) {
+    padding-top: 50px;
+    $footerWidth: 250px;
+    > div {
+      &:first-child, &:last-child {
+        width: calc(50% - #{$footerWidth / 2});
+      }
+      &:not(:first-child):not(:last-child) {
+        font-size: 14px;
+        width: $footerWidth;
+      }
+    }
+  }
+  @media screen and (min-width: $mediaMiniMobileWidth) {
+    padding-top: 100px;
+    $footerWidth: 280px;
+    > div {
+      &:first-child, &:last-child {
+        width: calc(50% - #{$footerWidth / 2});
+      }
+      &:not(:first-child):not(:last-child) {
+        width: $footerWidth;
+      }
+    }
+  }
+
+  > div {
+    float: left;
+    height: 100%;
+
+    &:first-child, &:last-child {
+      display: inline-block;
+      background-color: rgba(202, 200, 199, 1);
+      height: 1px;
+      margin-top: 20px;
+    }
+    &:not(:first-child):not(:last-child) {
+      display: inline-block;
+
+      > div {
+        &:first-child {
+          letter-spacing: 1px;
+          color: rgba(120, 120, 120, 1);
+          font-weight: bold;
+          span {
+            letter-spacing: 0;
+            display: inline-block;
+            font-size: 10px;
+            line-height: 25px;
+          }
+        }
+        &:last-child {
+          letter-spacing: 2px;
+          margin-top: 5px;
+          color: rgba(105, 105, 105, 1);
+          
+          a {
+            @include a;
+          }
+        }
+      }
+    }
+  }
+}
+
+body > #container {
+  // border: 1px solid rgba(255, 0, 0, .3);
+  // padding-top: 10px;
+}

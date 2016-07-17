@@ -1,6 +1,6 @@
 /**
  * @author      OA Wu <comdan66@gmail.com>
- * @copyright   Copyright (c) 2015 OA Wu Design
+ * @copyright   Copyright (c) 2016 OA Wu Design
  */
 
 $(function () {
@@ -8,117 +8,80 @@ $(function () {
   window.onhashchange = function () {
     location.reload ();
   };
-  var _timer = null
-  $container = $('#container');
 
-  var $input = $('<input />').addClass ('search').attr ('type', 'text').attr ('placeholder', '快來搜尋一下天氣吧！').val (decodeURIComponent (hash)).keyup (function (e) {
-    if ((e.keyCode == 13) && $(this).val ().trim ().length)
-      window.location.hash = encodeURIComponent ($(this).val ().trim ());
+  window.vars.$container = $('#container');
+  window.vars.$weather = $('#weather');
+
+  window.fns.location.get (function (code) {
+    $tmp = window.vars.$mapsA.filter ('[data-code="' + code + '"]');
+    if (!$tmp.length) return false;
+    var val = $tmp.data ('val');
+
+    window.vars.$weather.append ($('<figure />').attr ('data-temperature', val.t).append ($('<img />').attr ('src', val.m)).append ($('<figcaption />').text (val.n)));
+    window.vars.$weather.parent ().addClass ('show');
   });
-  var $button = $('<button />').addClass ('go_search').text ('搜尋').click (function () {
-    if ($input.val ().trim ().length)
-      window.location.hash = encodeURIComponent ($input.val ().trim ());
-  });
-  
-  var $weather = $('<div />').addClass ('r').append (
-        $('<div />').addClass ('loading'));
 
-  var $search = $('<div />').attr ('id', 'search').append (
-                  $('<a />').attr ('href', window.url + 'index.html').addClass ('l').append (
-                    $('<div />').addClass ('logo').append (
-                      $('<span />').text ('Weather'))).append (
-                    $('<div />').addClass ('title').text ('Maps'))).append (
-                  $('<div />').addClass ('c').append (
-                    $input).append (
-                    $button)).append (
-                    $weather).prependTo ($container);
-
+  window.vars.townsTimer = null;
   function towns ($a, i) {
     var $tags = $a.slice (i, i + 5).removeClass ('back').addClass ('start');
-    clearTimeout (_timer);
+    clearTimeout (window.vars.townsTimer);
 
-    _timer = setTimeout (function () {
+    window.vars.townsTimer = setTimeout (function () {
       $tags.addClass ('end');
       setTimeout (towns.bind (this, $a, (i + 5) % 10), 100);
-      setTimeout (function () {
-        $tags.addClass ('back').removeClass ('start end');
-      }, 1500);
+      setTimeout (function () { $tags.addClass ('back').removeClass ('start end'); }, 1500);
     }, 5000);
   }
-  function initNoData () {
-    $.ajax ({
-      url: window.api.getTownsUrl,
-      data: { },
-      async: true, cache: false, dataType: 'json', type: 'GET',
-      beforeSend: function () {}
-    })
-    .done (function (result) {
-      if (result.status) {
-        var $noData = $('<div />').attr ('id', 'no_data').addClass ('show').append (
-                        $('<div />').addClass ('title').text ('您可以試著搜尋..')).append (
-                        $('<div />').addClass ('towns').append (result.towns.map (function (t) {
-                          return $('<a />').text (t.name).click (function () {
-                            window.location.hash = encodeURIComponent ($(this).text ());
-                          });
-                        }))).appendTo ($container);
-        setTimeout (towns.bind (this, $noData.find ('a'), 0), 100);
+  towns ($('#towns a'), 0);
+  
+  window.vars.$search = $('#search').val (decodeURIComponent (hash));
+  window.vars.geocoder = null;
+
+  function showMap (id) {
+    var weather = null;
+
+    for (var i = 0; i < window.vars.weathers.length; i++)
+      if (window.vars.weathers[i].i == id && (weather = window.vars.weathers[i]))
+        break;
+
+    window.vars.$container.addClass ('maps');
+    google.maps.event.trigger (window.vars.maps, 'resize');
+    setTimeout (function () {
+      google.maps.event.trigger (weather.marker, 'click');
+    }, 500);
+  }
+
+  function search () {
+    var val = window.vars.$search.val ().trim ();
+    val = val.split (/\s+/).map (function (t) { return t.trim (); }).filter (function (t) { return t.length; });
+    if (val.length <= 0) return ;
+    val.reverse ();
+
+    var a = null;
+    for (var i = 0; i < val.length; i++) if ((a = window.vars.$mapsA.filter ('[title*="' + val[i] + '"]')).length) break;
+
+    if (a.length > 0) {
+      showMap (a.data ('val').i);
+    } else {
+      if (!window.vars.geocoder) window.vars.geocoder = new google.maps.Geocoder ();
+      window.vars.geocoder.geocode ({"address": val.join (' ') }, function (r, s) {
         
-        window.closeLoading ();
-      }
-    })
-    .fail (function (result) { ajaxError (result); })
-    .complete (function (result) {});
+        if (!((s == google.maps.GeocoderStatus.OK) && (r.length > 0) && (r = r[0]) && (r = r['address_components']))) return false;
+        var postal_code = 0;
+        for (var i = 0; i < r.length; i++) if (($.inArray ('postal_code', r[i]['types']) != -1) && (postal_code = r[i]['long_name'])) break;
+        if (!postal_code) return false;
+        a = window.vars.$mapsA.filter ('[data-code="' + postal_code + '"]');
+        if (a.length > 0) showMap (a.data ('val').i);
+      });
+    }
   }
-  function initMap (result) {
-    $map = $('<div />').attr ('id', 'map');
-    $loadingData = $('<div />').addClass ('loading_data').text ('資料讀取中..');
-
-    $('<div />').addClass ('map').append (
-      Array.apply (null, Array (4)).map (function (_, i) { return $('<i />'); })).append (
-      $map).append (
-      $loadingData).appendTo ($container);
-
-    var map = new google.maps.Map ($map.get (0), {
-                zoom: 14,
-                zoomControl: true,
-                scrollwheel: true,
-                scaleControl: true,
-                mapTypeControl: false,
-                navigationControl: true,
-                streetViewControl: false,
-                disableDoubleClickZoom: true
-              });
-    var markerWithLabel = initWeatherFeature (result, map, true);
-    map.setCenter (markerWithLabel.position);
-    markerWithLabel.setMap (map);
-
-    google.maps.event.addListener(map, 'zoom_changed', getWeathers.bind (this, map, markerWithLabel.id, $loadingData, false));
-    google.maps.event.addListener(map, 'idle', getWeathers.bind (this, map, markerWithLabel.id, $loadingData, false));
-    
-    window.closeLoading ();
-  }
-
-  if (hash.length)
-    $.ajax ({
-      url: window.api.getWeatherByNameUrl,
-      data: { name: hash },
-      async: true, cache: false, dataType: 'json', type: 'POST',
-      beforeSend: function () {}
-    })
-    .done (function (result) {
-      if (result.status)
-        initMap (result.weather);
-      else
-        initNoData ();
-    })
-    .fail (function (result) { ajaxError (result); })
-    .complete (function (result) {});
-  else
-    initNoData ();
-
-  getLocalInfo (function (result) {
-    $weather.empty ().append ($(result.weather));
-  }, function () {
-    $search.addClass ('no_weather');
+  window.vars.$search.keyup (function (e) {
+    if (e.keyCode != 13) return false;
+    window.location.hash = encodeURIComponent ($(this).val ().trim ());
+  });
+  $('#search + i').click (function () { window.location.hash = encodeURIComponent (window.vars.$search.val ().trim ()); });
+  
+  google.maps.event.addDomListener (window, 'load', function () {
+    if (hash.length) search ();
   });
 });
