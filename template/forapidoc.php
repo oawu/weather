@@ -115,7 +115,7 @@
    */
 
   /**
-   * @api {get} http://works.ioa.tw/weather/api/weather/:id.json 05_取得指定鄉鎮天氣
+   * @api {get} http://works.ioa.tw/weather/api/weathers/:id.json 05_取得指定鄉鎮天氣
    * @apiGroup Weather API
    *
    * @apiParam {Number}     id                     鄉鎮 ID
