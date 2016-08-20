@@ -93,7 +93,7 @@ $(function () {
     },
     has: function (id) {
       var setStorage = this.get ();
-      setStorage = setStorage.filter (function (u) { return u == id });
+      setStorage = setStorage.filter (function (u) { return u == id; });
       return setStorage.length ? true : false;
     },
     add: function (id) {
@@ -104,7 +104,7 @@ $(function () {
     },
     del: function (id) {
       var setStorage = this.get ();
-      setStorage = setStorage.filter (function (u) { return u != id });
+      setStorage = setStorage.filter (function (u) { return u != id; });
       setStorage = $.unique (setStorage);
       this.set (setStorage);
     }
