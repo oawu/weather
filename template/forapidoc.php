@@ -1,5 +1,5 @@
   /**
-   * @api {get} http://works.ioa.tw/weather/api/all.json 01_取得所有縣市鄉鎮
+   * @api {get} https://works.ioa.tw/weather/api/all.json 01_取得所有縣市鄉鎮
    * @apiGroup Weather API
    *
    *
@@ -26,7 +26,7 @@
    */
 
   /**
-   * @api {get} http://works.ioa.tw/weather/api/cates/:id.json 02_取得指定縣市所有鄉鎮
+   * @api {get} https://works.ioa.tw/weather/api/cates/:id.json 02_取得指定縣市所有鄉鎮
    * @apiGroup Weather API
    *
    * @apiParam {Number}     id                 縣市 ID
@@ -65,7 +65,7 @@
    */
 
   /**
-   * @api {get} http://works.ioa.tw/weather/api/towns/:id.json 03_取得指定鄉鎮資訊
+   * @api {get} https://works.ioa.tw/weather/api/towns/:id.json 03_取得指定鄉鎮資訊
    * @apiGroup Weather API
    *
    * @apiParam {Number}     id                 鄉鎮 ID
@@ -97,12 +97,12 @@
    *             "id": "1",
    *             "name": "台北市"
    *         },
-   *         "img": "http://works.ioa.tw/weather/img/towns/1/1/v.jpg"
+   *         "img": "https://works.ioa.tw/weather/img/towns/1/1/v.jpg"
    *     }
    */
 
   /**
-   * @api {get} http://works.ioa.tw/weather/api/url.json 04_取得網址路徑
+   * @api {get} https://works.ioa.tw/weather/api/url.json 04_取得網址路徑
    * @apiGroup Weather API
    *
    * @apiSuccess {String}   img            天氣、特別預報 圖檔路徑
@@ -110,12 +110,12 @@
    * @apiSuccessExample {json} Success Response:
    *     HTTP/1.1 200 OK
    *     {
-   *         "img": "http://works.ioa.tw/weather/img/weathers/zeusdesign/"
+   *         "img": "https://works.ioa.tw/weather/img/weathers/zeusdesign/"
    *     }
    */
 
   /**
-   * @api {get} http://works.ioa.tw/weather/api/weathers/:id.json 05_取得指定鄉鎮天氣
+   * @api {get} https://works.ioa.tw/weather/api/weathers/:id.json 05_取得指定鄉鎮天氣
    * @apiGroup Weather API
    *
    * @apiParam {Number}     id                     鄉鎮 ID
