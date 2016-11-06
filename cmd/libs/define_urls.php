@@ -15,7 +15,7 @@ define ('URL_ALL', URL . 'all' . HTML);
 define ('URL_TOWNS', URL . 'towns/');
 define ('URL_SITEMAP', URL . 'sitemap/');
 
-define ('URL_API_DOC', URL . 'api/doc/');
+define ('URL_API_DOC', URL . 'api/doc/index.html');
 
 define ('URL_IMG', URL . 'img/');
 define ('URL_IMG_WEATHERS', URL_IMG . 'weathers/' . IMG_TMEME . '/');
