@@ -92,7 +92,7 @@
         <section>
           <ul>
             <li>GitHub：<a href='https://github.com/comdan66/weather' target='_blank'>https://github.com/comdan66/weather</a></li>
-            <li>Demo：<a href='http://works.ioa.tw/weather/index.html' target='_blank'>http://works.ioa.tw/weather/index.html</a></li>
+            <li>Demo：<a href='https://works.ioa.tw/weather/index.html' target='_blank'>https://works.ioa.tw/weather/index.html</a></li>
             <li>更多作品：<a href='<?php echo OA_URL;?>' target='_blank'><?php echo OA_URL;?></a></li>
             <li>API 文件：<a href='<?php echo URL_API_DOC;?>' target='_blank'><?php echo URL_API_DOC;?></a></li>
           </ul>
