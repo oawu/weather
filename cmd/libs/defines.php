@@ -12,7 +12,7 @@ date_default_timezone_set ('Asia/Taipei');
 
 define ('TIME', date ('Ymd_His'));
 define ('IMG_TMEME', 'zeusdesign');
-define ('PROTOCOL', "http://");
+define ('PROTOCOL', "https://");
 
 define ('JS', '.js');
 define ('CSS', '.css');
