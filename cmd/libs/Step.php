@@ -122,7 +122,7 @@ class Step {
   public static function writeAllApi () {
     Step::newLine ('-', '更新 all API');
 
-    $all = array_values (array_map (function ($cate) { return array ('id' => $cate['id'], 'name' => $cate['name'], 'towns' => array_map (function ($town) { return array ('id' => $town['id'], 'name' => $town['name']); }, $cate['towns'])); }, Step::$cates));
+    $all = array_values (array_map (function ($cate) { return array ('id' => $cate['id'], 'name' => $cate['name'], 'towns' => array_map (function ($town) { return array ('id' => $town['id'], 'name' => $town['name'], 'postal' => $town['postal']); }, $cate['towns'])); }, Step::$cates));
 
     if (!write_file (PATH_API . 'all' . JSON, json_encode ($all))) Step::error ();
 
