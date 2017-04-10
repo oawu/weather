@@ -118,42 +118,45 @@
    * @api {get} https://works.ioa.tw/weather/api/weathers/:id.json 05_取得指定鄉鎮天氣
    * @apiGroup Weather API
    *
-   * @apiParam {Number}     id                     鄉鎮 ID
+   * @apiParam {Number}     id                      鄉鎮 ID
    *
-   * @apiSuccess {String}   img                    天氣圖檔名稱
-   * @apiSuccess {String}   desc                   敘述
-   * @apiSuccess {Number}   temperature            溫度
-   * @apiSuccess {Number}   humidity               濕度
-   * @apiSuccess {Number}   rainfall               雨量
-   * @apiSuccess {Number}   sunrise                日出時間
-   * @apiSuccess {Number}   sunset                 日落時間
-   * @apiSuccess {DateTime} at                     更新時間
+   * @apiSuccess {String}   img                     天氣圖檔名稱
+   * @apiSuccess {String}   desc                    敘述
+   * @apiSuccess {Number}   temperature             溫度
+   * @apiSuccess {Number}   felt_air_temp           體感溫度
+   * @apiSuccess {Number}   humidity                濕度
+   * @apiSuccess {Number}   rainfall                雨量
+   * @apiSuccess {String}   sunrise                 日出時間
+   * @apiSuccess {String}   sunset                  日落時間
+   * @apiSuccess {DateTime} at                      更新時間
    *
-   * @apiSuccess {Array}    specials               特別預報
-   * @apiSuccess {String}   specials.title         特別預報 標題
-   * @apiSuccess {String}   specials.status        特別預報 狀態
-   * @apiSuccess {String}   specials.desc          特別預報 敘述
-   * @apiSuccess {DateTime} specials.at            特別預報 發佈時間
-   * @apiSuccess {String}   specials.img           特別預報 天氣圖檔名稱
+   * @apiSuccess {Array}    specials                特別預報
+   * @apiSuccess {String}   specials.title          特別預報 標題
+   * @apiSuccess {String}   specials.status         特別預報 狀態
+   * @apiSuccess {String}   specials.desc           特別預報 敘述
+   * @apiSuccess {DateTime} specials.at             特別預報 發佈時間
+   * @apiSuccess {String}   specials.img            特別預報 天氣圖檔名稱
    *
-   * @apiSuccess {Array}    histories              天氣歷史紀錄(包含當下最多 12 筆)
-   * @apiSuccess {String}   histories.img          天氣歷史紀錄 天氣圖檔名稱
-   * @apiSuccess {String}   histories.desc         天氣歷史紀錄 敘述
-   * @apiSuccess {Number}   histories.temperature  天氣歷史紀錄 溫度
-   * @apiSuccess {Number}   histories.humidity     天氣歷史紀錄 濕度
-   * @apiSuccess {Number}   histories.rainfall     天氣歷史紀錄 雨量
-   * @apiSuccess {Number}   histories.sunrise      天氣歷史紀錄 日出時間
-   * @apiSuccess {Number}   histories.sunset       天氣歷史紀錄 日落時間
-   * @apiSuccess {DateTime} histories.at           天氣歷史紀錄 更新時間
+   * @apiSuccess {Array}    histories               天氣歷史紀錄(包含當下最多 12 筆)
+   * @apiSuccess {String}   histories.img           天氣歷史紀錄 天氣圖檔名稱
+   * @apiSuccess {String}   histories.desc          天氣歷史紀錄 敘述
+   * @apiSuccess {Number}   histories.temperature   天氣歷史紀錄 溫度
+   * @apiSuccess {Number}   histories.felt_air_temp 天氣歷史紀錄 體感溫度
+   * @apiSuccess {Number}   histories.humidity      天氣歷史紀錄 濕度
+   * @apiSuccess {Number}   histories.rainfall      天氣歷史紀錄 雨量
+   * @apiSuccess {String}   histories.sunrise       天氣歷史紀錄 日出時間
+   * @apiSuccess {String}   histories.sunset        天氣歷史紀錄 日落時間
+   * @apiSuccess {DateTime} histories.at            天氣歷史紀錄 更新時間
    *
    * @apiSuccessExample {json} Success Response:
    *     HTTP/1.1 200 OK
    *     {
    *         "img": "36@2x.png",
    *         "desc": "午後短暫雷陣雨",
-   *         "temperature": "27",
-   *         "humidity": "92",
-   *         "rainfall": "5.0",
+   *         "temperature": 27,
+   *         "felt_air_temp": 25,
+   *         "humidity": 92,
+   *         "rainfall": 5.0,
    *         "sunrise": "05:12",
    *         "sunset": "18:47",
    *         "at": "2016-07-11 14:28:27",
@@ -170,9 +173,10 @@
    *             {
    *                 "img": "36@2x.png",
    *                 "desc": "午後短暫雷陣雨",
-   *                 "temperature": "27",
-   *                 "humidity": "92",
-   *                 "rainfall": "5.0",
+   *                 "temperature": 27,
+   *                 "felt_air_temp": 25,
+   *                 "humidity": 92,
+   *                 "rainfall": 5.0,
    *                 "sunrise": "05:12",
    *                 "sunset": "18:47",
    *                 "at": "2016-07-11 14:27:07"

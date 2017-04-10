@@ -38,20 +38,25 @@ class Weather {
     $img = pq ('.icon img', $php_query);
     $describe = pq ('.icon-text-1', $php_query);
     $degree = pq ('.degree', $php_query);
+    $felt_air_temperature = pq ('.degree .AT', $php_query);
     $humidity = pq ('.humidity', $php_query);
     $rainfall = pq ('.rainfall', $php_query);
     $sunrise = pq ('.sunrise', $php_query);
     $sunset = pq ('.sunset', $php_query);
  
-    if (!(count ($img) && count ($describe) && count ($degree) && count ($humidity) && count ($rainfall) && count ($sunrise) && count ($sunset) && ($img_name = pathinfo ($img->attr ('src'), PATHINFO_BASENAME)) && ($img_url = $cwb_url . $img->attr ('src'))))
+    $i = strpos ($degree->html (), '<');
+    if (!(count ($img) && count ($describe) && count ($degree) && $i && ($degree = substr ($degree->html (), 0, $i)) && count ($felt_air_temperature) && count ($humidity) && count ($rainfall) && count ($sunrise) && count ($sunset) && ($img_name = pathinfo ($img->attr ('src'), PATHINFO_BASENAME)) && ($img_url = $cwb_url . $img->attr ('src'))))
       return '分析原始碼內容錯誤';
 
     $weather = array (
         'img' => file_exists ($file_paths = PATH_IMG_WEATHERS . $img_name) || download ($img_url, $file_paths) ? $img_name : '',
         'desc' => trim ($describe->text ()),
-        'temperature' => parse_number ($degree->text ()),
-        'humidity' => parse_number ($humidity->parent ()->text ()),
-        'rainfall' => parse_number ($rainfall->parent ()->text ()),
+        
+        'temperature' => floatval (parse_number ($degree)),
+        'felt_air_temp' => floatval (parse_number ($felt_air_temperature->text ())),
+        'humidity' => floatval (parse_number ($humidity->parent ()->text ())),
+        'rainfall' => floatval (parse_number ($rainfall->parent ()->text ())),
+        
         'sunrise' => trim ($sunrise->parent ()->text ()),
         'sunset' => trim ($sunset->parent ()->text ()),
         'at' => date ('Y-m-d H:i:s'),
@@ -82,3 +87,4 @@ class Weather {
     return json_decode ($last_weather, true);
   }
 }
+
