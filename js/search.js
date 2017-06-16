@@ -82,6 +82,8 @@ $(function () {
   $('#search + i').click (function () { window.location.hash = encodeURIComponent (window.vars.$search.val ().trim ()); });
   
   google.maps.event.addDomListener (window, 'load', function () {
-    if (hash.length) search ();
+    if (!hash.length) return;
+      search ();
+      ga ('send', 'event', 'search', 'key', hash);
   });
 });
