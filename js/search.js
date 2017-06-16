@@ -84,6 +84,6 @@ $(function () {
   google.maps.event.addDomListener (window, 'load', function () {
     if (!hash.length) return;
       search ();
-      ga ('send', 'event', 'search', 'key', hash);
+      ga ('send', 'event', 'search', 'key', decodeURIComponent(hash));
   });
 });
