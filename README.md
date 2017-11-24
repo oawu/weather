@@ -10,11 +10,17 @@
 * 網頁內容資料主要參考[中央氣象局網站](http://www.cwb.gov.tw/)所公佈之內容建置，其內容預報僅供參考，更多詳細氣像概況可至中央氣象局查詢，一切天氣資訊以氣象局為準喔！
 
 <br />
+
 ## 作品分享
-* GitHub： [comdan66](https://github.com/comdan66/weather/)
-* Demo：   [works.ioa.tw/weather](https://works.ioa.tw/weather/index.html)
-* 更多作品：[ioa.tw](https://www.ioa.tw/)
-* API文件：[works.ioa.tw/weather/api/doc](https://works.ioa.tw/weather/api/doc/index.html)
+
+- GitHub： [comdan66](https://github.com/comdan66/weather/)
+
+- Demo：   [works.ioa.tw/weather](https://works.ioa.tw/weather/index.html)
+
+- 更多作品：[ioa.tw](https://www.ioa.tw/)
+
+- API文件：[works.ioa.tw/weather/api/doc](https://works.ioa.tw/weather/api/doc/index.html)
+
 
 
 
