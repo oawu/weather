@@ -4,10 +4,12 @@
 ---
 
 <br />
-## 聲明
-* 本作品授權採用 姓名標示-非商業性 2.0 台灣 (CC BY-NC 2.0 TW) 授權，詳見 [creativecommons.org](https://creativecommons.org/licenses/by-nc/2.0/tw/) 
 
-* 網頁內容資料主要參考[中央氣象局網站](http://www.cwb.gov.tw/)所公佈之內容建置，其內容預報僅供參考，更多詳細氣像概況可至中央氣象局查詢，一切天氣資訊以氣象局為準喔！
+## 聲明
+
+- 本作品授權採用 姓名標示-非商業性 2.0 台灣 (CC BY-NC 2.0 TW) 授權，詳見 [creativecommons.org](https://creativecommons.org/licenses/by-nc/2.0/tw/) 
+
+- 網頁內容資料主要參考[中央氣象局網站](http://www.cwb.gov.tw/)所公佈之內容建置，其內容預報僅供參考，更多詳細氣像概況可至中央氣象局查詢，一切天氣資訊以氣象局為準喔！
 
 <br />
 
