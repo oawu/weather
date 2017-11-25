@@ -4,42 +4,67 @@
 ---
 
 <br />
+
 ## 聲明
-* 本作品授權採用 姓名標示-非商業性 2.0 台灣 (CC BY-NC 2.0 TW) 授權，詳見 [https://creativecommons.org/licenses/by-nc/2.0/tw/](https://creativecommons.org/licenses/by-nc/2.0/tw/) 
-* 網頁內容資料主要參考[中央氣象局網站](http://www.cwb.gov.tw/)所公佈之內容建置，其內容預報僅供參考，更多詳細氣像概況可至中央氣象局查詢，一切天氣資訊以氣象局為準喔！
+
+- 本作品授權採用 姓名標示-非商業性 2.0 台灣 (CC BY-NC 2.0 TW) 授權，詳見 [creativecommons.org](https://creativecommons.org/licenses/by-nc/2.0/tw/) 
+
+- 網頁內容資料主要參考[中央氣象局網站](http://www.cwb.gov.tw/)所公佈之內容建置，其內容預報僅供參考，更多詳細氣像概況可至中央氣象局查詢，一切天氣資訊以氣象局為準喔！
 
 <br />
+
 ## 作品分享
-* GitHub：[https://github.com/comdan66/weather/](https://github.com/comdan66/weather/)
-* Demo：[https://works.ioa.tw/weather/index.html](https://works.ioa.tw/weather/index.html)
-* 更多作品：[https://www.ioa.tw/](https://www.ioa.tw/)
-* API 文件：[https://works.ioa.tw/weather/api/doc/index.html](https://works.ioa.tw/weather/api/doc/index.html)
 
+- GitHub： [comdan66](https://github.com/comdan66/weather/)
 
+- Demo：   [works.ioa.tw/weather](https://works.ioa.tw/weather/index.html)
+
+- 更多作品：[ioa.tw](https://www.ioa.tw/)
+
+- API文件：[works.ioa.tw/weather/api/doc](https://works.ioa.tw/weather/api/doc/index.html)
 
 
 <br />
+
 ## 重點整理
 * 藉由 [Google Maps JavaScript API v3](https://developers.google.com/maps/documentation/javascript/) 的地圖服務，以及中央氣象局網站的天氣預報所實作的天氣地圖！
+
 * 基本上是利用 Google Maps API 的 [Maps](https://developers.google.com/maps/documentation/javascript/tutorial) 以及 [Marker](https://developers.google.com/maps/documentation/javascript/markers) 設計！
+
 * 附加使用 [MarkerWithLabel](http://google-maps-utility-library-v3.googlecode.com/svn/tags/markerwithlabel/1.1.8/docs/examples.html) 在地圖上顯示各區域的天氣圖示，以加強 Google Maps 上的圖像表現。
+
 * 參考[中央氣象局手機版本網頁](http://www.cwb.gov.tw/m/)所提供的資料建置。
+
 * 全網站使用[響應式網站設計(RWD)](http://www.ibest.tw/page01.php)，所以手機也可以正常瀏覽。
+
 * 搭配 [LocalStorage](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage) 實作[追蹤天氣](http://works.ioa.tw/weather/index.html)、紀錄瀏覽、[記錄上次地圖位置](http:/works.ioa.tw/weather/maps.html).. 等功能。
+
 * 網站內容使用 [navigator.geolocation](https://developer.mozilla.org/zh-TW/docs/Using_geolocation) 物件取得前端 GPS 位置，新版 Chrome 必須是 Https 下才可使用。
+
 * [搜尋功能](http://works.ioa.tw/weather/index.html)則使用 [Google Maps Geocoding API](https://developers.google.com/maps/documentation/geocoding/intro) 將住址搜尋更加準確化。
+
 * 使用 [Static Maps API](https://developers.google.com/maps/documentation/staticmaps/intro) 以及 [Street View Image API](https://developers.google.com/maps/documentation/streetview/intro) 所提供的服務，擷取地點的地圖、街景截圖。
+
 * 感謝 [宙思設計](http://www.zeusdesign.com.tw/) 提供的可愛天氣小圖示，感謝 [Monkeyy78](https://www.flickr.com/photos/lifegoseon) 提供景點照片。
+
 * 前端開發工具主要使用 [Gulp](http://gulpjs.com/)、[Compass](http://compass-style.org/) 加強開發效率，並使用 [JavaScript](http://compass-style.org/)、[jQuery](https://jquery.com/) 實作前端功能效果。
+
 * 專案整體主要框架使用 [OAF2E](https://github.com/comdan66/oaf2e) [v3.3](https://github.com/comdan66/oaf2e/tree/version/3.3)。
+
 * 後端語言為 [php](http://php.net/)，關鍵程式碼在 `/cmd/put.php`，GitHub 位置在[這裡](http://php.net/)。
+
 * 系統使用 [Amazon S3](https://aws.amazon.com/tw/s3/) 服務，利用 php 執行完更新後，在將相關網頁檔案部署至 S3 服務。
+
 * JavaScript uglify 使用 [jsmin-php](https://github.com/rgrove/jsmin-php/)，css、HTML minify 則是使用 [preg_replace](http://php.net/manual/en/function.preg-replace.php) 函式。
+
 * 天氣概況一併整理成公開 [json](https://zh.wikipedia.org/wiki/JSON) 格式的 [API](http://works.ioa.tw/weather/api/doc/index.html) 分享，並且使用 [apiDoc](http://apidocjs.com/) 說明使用方式。
+
 * 加入部分的 [schema](https://schema.org/)、[Google AMP](https://www.ampproject.org/docs/get_started/about-amp.html)、[JSON-LD](http://json-ld.org/) 的結構，並且加強 [SEO](https://zh.wikipedia.org/zh-tw/%E6%90%9C%E5%B0%8B%E5%BC%95%E6%93%8E%E6%9C%80%E4%BD%B3%E5%8C%96) 的優化。
+
 * 使用 [維基百科(wikipedia)](https://zh.wikipedia.org/wiki/%E7%BB%B4%E5%9F%BA%E7%99%BE%E7%A7%91) 的 [API](https://www.mediawiki.org/wiki/API:Main_page) 將各個鄉鎮地方的簡介、歷史資訊與鄉鎮內頁合併，讓整體網站功能更加多元，在瀏覽全台各地時，可以更加的對各個地方有所認識！。
 
 <br />
+
 ## 實作說明
 
 天氣地圖 Weather Maps 其實約莫在去年這時候第一、二版完成，然後一直放在 Amazon EC2 讓它獨立的運作，直到這幾週才有空再將他修改一下，這次修改不僅對版型做翻新，也對系統面做修改！
