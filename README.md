@@ -51,7 +51,7 @@
 
 * 專案整體主要框架使用 [OAF2E](https://github.com/comdan66/oaf2e) [v3.3](https://github.com/comdan66/oaf2e/tree/version/3.3)。
 
-* 後端語言為 [php](http://php.net/)，關鍵程式碼在 `/cmd/put.php`，GitHub 位置在[這裡](http://php.net/)。
+* 後端語言為 [php](http://php.net/)，關鍵程式碼在 `/cmd/put.php`，GitHub 位置在[這裡](https://github.com/comdan66/weather/blob/master/cmd/put.php)。
 
 * 系統使用 [Amazon S3](https://aws.amazon.com/tw/s3/) 服務，利用 php 執行完更新後，在將相關網頁檔案部署至 S3 服務。
 
