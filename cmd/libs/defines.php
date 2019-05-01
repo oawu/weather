@@ -35,7 +35,7 @@ define ('PATH_IMG_TOWNS', PATH_IMG . 'towns' . DIRECTORY_SEPARATOR);
 
 define ('PATH_TEMPLATE', PATH . 'template' . DIRECTORY_SEPARATOR);
 
-define ('NAME', ($temps = array_filter (explode (DIRECTORY_SEPARATOR, PATH))) ? end ($temps) : '');
+define ('NAME', 'weather');
 
 define ('OA', '吳政賢');
 define ('OA_URL', 'http://www.ioa.tw/');
