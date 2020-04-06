@@ -5,6 +5,17 @@
 
 <br />
 
+## 注意！
+
+* 感謝各位在這四年來的支持天氣地圖 Weather Maps
+* 因為[中央氣象局](https://www.cwb.gov.tw/V8/C/)的**網頁結構改變**與**更新**，所以造成資料不正確或無法取得最新即時的資訊。
+* 也因 [OA Wu](https://www.ioa.tw/) 近年來空閒時間也不多，故最後決定不再繼續維護此服務。
+* 因此，或造成各位使用 OA 的 API 服務的夥伴困擾，還請各位見諒，日後期待有機會再推出更加完善的 API 給大家使用。
+* 之後各位有關於天氣資訊亦可以參考[氣象開放資料平臺](https://opendata.cwb.gov.tw/index)上提供的資訊。
+* 最後再次感謝各位的喜歡與使用，期待再次提供服務給各位使用！
+
+<br />
+
 ## 聲明
 
 - 本作品授權採用 姓名標示-非商業性 2.0 台灣 (CC BY-NC 2.0 TW) 授權，詳見 [creativecommons.org](https://creativecommons.org/licenses/by-nc/2.0/tw/) 
